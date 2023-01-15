@@ -59,7 +59,7 @@ function PluginGui:newPluginGui(widgetGui)
 		"Text", -- title text of the multi choice
 		"" -- default value
 	)
-	textInput:SetMaxGraphemes(4096)
+	textInput:SetMaxGraphemes(8192)
 	textInput:GetFrame().Parent = textCollapse:GetContentsFrame()
 
 	local transparencyTextSlider = LabeledSlider.new( -- Size Slider
@@ -116,6 +116,9 @@ function PluginGui:newPluginGui(widgetGui)
 		Color, -- choices array
 		11 -- the starting index of the selection (in this case choice 1)
 	)
+	if settings().Studio.Theme == settings().Studio:GetAvailableThemes()[2] then
+		fontTextChoice:SetSelectedIndex(1)
+	end
 	colorTextChoice:GetFrame().Parent = textCollapse:GetContentsFrame()
 
 	local boldCheckbox = LabeledCheckbox.new(
@@ -140,9 +143,6 @@ function PluginGui:newPluginGui(widgetGui)
 		FontFace, -- choices array
 		32 -- the starting index of the selection (in this case choice 1)
 	)
-	if settings().Studio.Theme == settings().Studio:GetAvailableThemes()[2] then
-		fontTextChoice:SetSelectedIndex(2)
-	end
 	fontTextChoice:GetFrame().Parent = textCollapse:GetContentsFrame()
 
 	local strokeCollapse = CollapsibleTitledSection.new( -- Fonts collapse
