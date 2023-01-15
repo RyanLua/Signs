@@ -117,7 +117,7 @@ function PluginGui:newPluginGui(widgetGui)
 		11 -- the starting index of the selection (in this case choice 1)
 	)
 	if settings().Studio.Theme == settings().Studio:GetAvailableThemes()[2] then
-		fontTextChoice:SetSelectedIndex(1)
+		colorTextChoice:SetSelectedIndex(1)
 	end
 	colorTextChoice:GetFrame().Parent = textCollapse:GetContentsFrame()
 
