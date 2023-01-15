@@ -17,13 +17,13 @@ pluginToolbar:SetPlugin(plugin)
 local toolbar = pluginToolbar:CreateToolbar("Text Tools")
 
 -- Add a toolbar button
-local button = toolbar:CreateButton("Signs", "Hide/show the Signs Widget.", "rbxassetid://12168352133", "Signs")
+local button = toolbar:CreateButton("SignsInternal", "Hide/show the Signs Widget.", "rbxassetid://12168352133", "Signs Internal")
 button.ClickableWhenViewportHidden = true
 
 -- Create new widget GUI and name it
 local widget = plugin:CreateDockWidgetPluginGui("Signs", widgetInfo)
-widget.Title = "Signs"
-widget.Name = "Signs"
+widget.Title = "Signs Internal"
+widget.Name = "SignsInternal"
 
 -- Set CreateButton.Icon to match Studio theme
 local function setIcon()
