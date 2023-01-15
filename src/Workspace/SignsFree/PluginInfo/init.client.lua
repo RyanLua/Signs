@@ -28,7 +28,7 @@ widget.Name = "SignsFree"
 -- Set CreateButton.Icon to match Studio theme
 local function setIcon()
 	if settings().Studio.Theme == settings().Studio:GetAvailableThemes()[1] then -- Light theme
-		button.Icon = "rbxassetid://11959767978"
+		button.Icon = "rbxassetid://12060349104"
 	elseif settings().Studio.Theme == settings().Studio:GetAvailableThemes()[2] then -- Dark theme
 		button.Icon = "rbxassetid://12047486680"
 	else

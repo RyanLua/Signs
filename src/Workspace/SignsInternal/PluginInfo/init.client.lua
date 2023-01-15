@@ -17,7 +17,7 @@ pluginToolbar:SetPlugin(plugin)
 local toolbar = pluginToolbar:CreateToolbar("Text Tools")
 
 -- Add a toolbar button
-local button = toolbar:CreateButton("Signs", "Hide/show the Signs Widget.", "rbxassetid://12060887019", "Signs")
+local button = toolbar:CreateButton("Signs", "Hide/show the Signs Widget.", "rbxassetid://12168352133", "Signs")
 button.ClickableWhenViewportHidden = true
 
 -- Create new widget GUI and name it
@@ -28,11 +28,11 @@ widget.Name = "Signs"
 -- Set CreateButton.Icon to match Studio theme
 local function setIcon()
 	if settings().Studio.Theme == settings().Studio:GetAvailableThemes()[1] then -- Light theme
-		button.Icon = "rbxassetid://12060897756"
+		button.Icon = "rbxassetid://12168355722"
 	elseif settings().Studio.Theme == settings().Studio:GetAvailableThemes()[2] then -- Dark theme
-		button.Icon = "rbxassetid://12060890851"
+		button.Icon = "rbxassetid://12168354157"
 	else
-		button.Icon = "rbxassetid://12060887019"
+		button.Icon = "rbxassetid://12168352133"
 		warn("Failed to get Studio Theme. Button Icon may have low visibility.")
 	end
 end
