@@ -186,7 +186,7 @@ function PluginGui:newPluginGui(widgetGui)
 		"thicknessStrokeSlider", -- name suffix of gui object
 		"Thickness", -- title text of the multi choice
 		11, -- how many intervals to split the slider into
-		11 -- the starting value of the slider
+		2 -- the starting value of the slider
 	)
 	thicknessStrokeSlider:GetFrame().Parent = strokeCollapse:GetContentsFrame()
 
