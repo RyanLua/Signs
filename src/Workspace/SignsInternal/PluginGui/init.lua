@@ -111,11 +111,11 @@ function PluginGui:newPluginGui(widgetGui)
 	)
 	wrappedCheckbox:GetFrame().Parent = textCollapse:GetContentsFrame()
 
-	local colorTextChoice = LabeledMultiChoice.new( -- Another hacky way to display color.
+	local colorTextChoice = LabeledMultiChoice.new(
 		"colorSelection", -- name suffix of gui object
 		"Text Color", -- title text of the multi choice
 		Color, -- choices array
-		11 -- the starting index of the selection (in this case choice 1)
+		11 -- the starting index of the selection
 	)
 	if settings().Studio.Theme == settings().Studio:GetAvailableThemes()[2] then
 		colorTextChoice:SetSelectedIndex(1)
@@ -142,7 +142,7 @@ function PluginGui:newPluginGui(widgetGui)
 		"fontTextChoice", -- name suffix of gui object
 		"Font Face", -- title text of the multi choice
 		FontFace, -- choices array
-		32 -- the starting index of the selection (in this case choice 1)
+		32 -- the starting index of the selection
 	)
 	fontTextChoice:GetFrame().Parent = textCollapse:GetContentsFrame()
 
@@ -155,29 +155,29 @@ function PluginGui:newPluginGui(widgetGui)
 	)
 	listFrame:AddChild(strokeCollapse:GetSectionFrame()) -- add child to expanding VerticallyScalingListFrame
 
-	local colorStrokeChoice = LabeledMultiChoice.new( -- Another hacky way to display color.
+	local colorStrokeChoice = LabeledMultiChoice.new(
 		"colorStrokeChoice", -- name suffix of gui object
 		"Color", -- title text of the multi choice
 		Color, -- choices array
-		11 -- the starting index of the selection (in this case choice 1)
+		11 -- the starting index of the selection
 	)
 	colorStrokeChoice:GetFrame().Parent = strokeCollapse:GetContentsFrame()
 
 	local joinStrokeChoice = LabeledMultiChoice.new(
-		"colorStrokeChoice", -- name suffix of gui object
-		"Color", -- title text of the multi choice
+		"joinStrokeChoice", -- name suffix of gui object
+		"Line Join Mode", -- title text of the multi choice
 		LineJoinMode, -- choices array
-		1 -- the starting index of the selection (in this case choice 1)
+		1 -- the starting index of the selection
 	)
 	joinStrokeChoice:GetFrame().Parent = strokeCollapse:GetContentsFrame()
 
-	local thicknessStrokeChoice = LabeledMultiChoice.new( -- Another hacky way to display color.
-		"thicknessStrokeChoice", -- name suffix of gui object
-		"Color", -- title text of the multi choice
-		Color, -- choices array
-		11 -- the starting index of the selection (in this case choice 1)
+	local thicknessStrokeSlider = LabeledSlider.new( -- Size Slider
+		"thicknessStrokeSlider", -- name suffix of gui object
+		"Thickness", -- title text of the multi choice
+		11, -- how many intervals to split the slider into
+		11 -- the starting value of the slider
 	)
-	thicknessStrokeChoice:GetFrame().Parent = strokeCollapse:GetContentsFrame()
+	thicknessStrokeSlider:GetFrame().Parent = strokeCollapse:GetContentsFrame()
 
 	local transparencyStrokeSlider = LabeledSlider.new( -- Size Slider
 		"transparencyStrokeSlider", -- name suffix of gui object
@@ -204,11 +204,11 @@ function PluginGui:newPluginGui(widgetGui)
 	)
 	transparencyBackgroundSlider:GetFrame().Parent = backgroundCollapse:GetContentsFrame()
 
-	local colorBackgroundChoice = LabeledMultiChoice.new( -- Another hacky way to display color.
+	local colorBackgroundChoice = LabeledMultiChoice.new(
 		"colorBackgroundSelection", -- name suffix of gui object
 		"Background Color", -- title text of the multi choice
 		Color, -- choices array
-		1 -- the starting index of the selection (in this case choice 1)
+		1 -- the starting index of the selection
 	)
 	colorBackgroundChoice:GetFrame().Parent = backgroundCollapse:GetContentsFrame()
 
@@ -320,8 +320,8 @@ function PluginGui:newPluginGui(widgetGui)
 		CustomTextLabel:UpdateStrokeJoin(join)
 	end)
 
-	thicknessStrokeChoice:SetValueChangedFunction(function(newValue)
-		CustomTextLabel:UpdateStrokeThickness(newValue)
+	thicknessStrokeSlider:SetValueChangedFunction(function(newValue)
+		CustomTextLabel:UpdateStrokeThickness((newValue - 1) / 10)
 	end)
 
 	transparencyStrokeSlider:SetValueChangedFunction(function(newValue)
