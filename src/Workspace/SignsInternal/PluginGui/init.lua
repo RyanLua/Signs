@@ -18,6 +18,7 @@ local VerticallyScalingListFrame = require(targetFolder.VerticallyScalingListFra
 local Color = require(script.Color)
 local FontFace = require(script.FontFace)
 local GuiObjectPart = require(script.GuiObjectPart)
+local LineJoinMode = require(script.LineJoinMode)
 
 local PluginGui = {}
 
@@ -154,6 +155,30 @@ function PluginGui:newPluginGui(widgetGui)
 	)
 	listFrame:AddChild(strokeCollapse:GetSectionFrame()) -- add child to expanding VerticallyScalingListFrame
 
+	local colorStrokeChoice = LabeledMultiChoice.new( -- Another hacky way to display color.
+		"colorStrokeChoice", -- name suffix of gui object
+		"Color", -- title text of the multi choice
+		Color, -- choices array
+		11 -- the starting index of the selection (in this case choice 1)
+	)
+	colorStrokeChoice:GetFrame().Parent = strokeCollapse:GetContentsFrame()
+
+	local joinStrokeChoice = LabeledMultiChoice.new(
+		"colorStrokeChoice", -- name suffix of gui object
+		"Color", -- title text of the multi choice
+		LineJoinMode, -- choices array
+		1 -- the starting index of the selection (in this case choice 1)
+	)
+	joinStrokeChoice:GetFrame().Parent = strokeCollapse:GetContentsFrame()
+
+	local thicknessStrokeChoice = LabeledMultiChoice.new( -- Another hacky way to display color.
+		"thicknessStrokeChoice", -- name suffix of gui object
+		"Color", -- title text of the multi choice
+		Color, -- choices array
+		11 -- the starting index of the selection (in this case choice 1)
+	)
+	thicknessStrokeChoice:GetFrame().Parent = strokeCollapse:GetContentsFrame()
+
 	local transparencyStrokeSlider = LabeledSlider.new( -- Size Slider
 		"transparencyStrokeSlider", -- name suffix of gui object
 		"Transparency", -- title text of the multi choice
@@ -161,14 +186,6 @@ function PluginGui:newPluginGui(widgetGui)
 		11 -- the starting value of the slider
 	)
 	transparencyStrokeSlider:GetFrame().Parent = strokeCollapse:GetContentsFrame()
-
-	local colorStrokeChoice = LabeledMultiChoice.new( -- Another hacky way to display color.
-		"colorStrokeSelection", -- name suffix of gui object
-		"Stroke Color", -- title text of the multi choice
-		Color, -- choices array
-		11 -- the starting index of the selection (in this case choice 1)
-	)
-	colorStrokeChoice:GetFrame().Parent = strokeCollapse:GetContentsFrame()
 
 	local backgroundCollapse = CollapsibleTitledSection.new( -- Fonts collapse
 		"backgroundCollapse", -- name suffix of the gui object
@@ -293,13 +310,22 @@ function PluginGui:newPluginGui(widgetGui)
 		CustomTextLabel:UpdateFontFace(font)
 	end)
 
-	transparencyStrokeSlider:SetValueChangedFunction(function(newValue)
-		CustomTextLabel:UpdateTextStrokeTransparency((newValue - 1) / 10)
-	end)
-
 	colorStrokeChoice:SetValueChangedFunction(function(newIndex)
 		local color = Color[newIndex].Color
-		CustomTextLabel:UpdateTextStrokeColor3(color)
+		CustomTextLabel:UpdateStrokeColor(color)
+	end)
+
+	joinStrokeChoice:SetValueChangedFunction(function(newIndex)
+		local join = LineJoinMode[newIndex].LineJoinMode
+		CustomTextLabel:UpdateStrokeJoin(join)
+	end)
+
+	thicknessStrokeChoice:SetValueChangedFunction(function(newValue)
+		CustomTextLabel:UpdateStrokeThickness(newValue)
+	end)
+
+	transparencyStrokeSlider:SetValueChangedFunction(function(newValue)
+		CustomTextLabel:UpdateStrokeTransparency((newValue - 1) / 10)
 	end)
 
 	transparencyBackgroundSlider:SetValueChangedFunction(function(newValue)
