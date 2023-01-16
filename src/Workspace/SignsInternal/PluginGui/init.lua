@@ -117,7 +117,7 @@ function PluginGui:newPluginGui(widgetGui)
 		Color, -- choices array
 		11 -- the starting index of the selection
 	)
-	if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() == true then
+	if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
 		colorTextChoice:SetSelectedIndex(1)
 	end
 	colorTextChoice:GetFrame().Parent = textCollapse:GetContentsFrame()

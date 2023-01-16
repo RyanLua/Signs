@@ -19,7 +19,7 @@ function CustomTextLabelClass.new(nameSuffix, height)
 	local label = Instance.new('TextLabel')
 	label.Text = "Preview"
 	label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() == true then
+	if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
 		label.TextColor3 = Color3.fromRGB(255, 255, 255)
 	end
 	label.BackgroundTransparency = 1
@@ -32,7 +32,7 @@ function CustomTextLabelClass.new(nameSuffix, height)
 	local stroke = Instance.new("UIStroke")
 	stroke.Enabled = false
 	stroke.Color = Color3.fromRGB(255, 255, 255)
-	if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() == true then
+	if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
 		stroke.Color = Color3.fromRGB(0, 0, 0)
 	end
 	stroke.Parent = label

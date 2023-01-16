@@ -84,9 +84,6 @@ function CustomTextButtonClass:_updateButtonVisual()
 	end
 end
 
--- Backwards compatibility (should be removed in the future)
--- CustomTextButtonClass.getButton = CustomTextButtonClass.GetButton
-
 function CustomTextButtonClass:GetButton()
 	return self._button
 end

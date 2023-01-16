@@ -31,7 +31,9 @@ local kMinCheckImageSize = UDim2.new(0, kMinCheckImageWidth, 0, kMinCheckImageWi
 
 local kEnabledCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_checked_light.png"
 local kDisabledCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_indeterminate_light.png"
-local kCheckboxFrameImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_hover_light.png"
+local kHoverCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_hover_light.png"
+local kCheckboxFrameImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_light.png"
+
 LabeledCheckboxClass = {}
 LabeledCheckboxClass.__index = LabeledCheckboxClass
 
@@ -83,6 +85,10 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
 	self._frame = frame
 	self._button = button
 	self._label = label
+
+	self._clicked = false
+	self._hovered = false
+
 	self._checkImage = checkImage
 	self._fullBackgroundButton = fullBackgroundButton
 	self._useDisabledOverride = false
@@ -94,6 +100,21 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
 
 	self:_SetupMouseClickHandling()
 
+	-- local function updateImages()
+		-- if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then 
+			-- kEnabledCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_checked_dark.png"
+			-- kDisabledCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_indeterminate_dark.png"
+			-- kHoverCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_hover_dark.png"
+			-- kCheckboxFrameImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_dark.png"
+			-- 
+			-- LabeledCheckboxClass:_updateCheckboxVisual()
+		-- else
+			-- LabeledCheckboxClass:_updateCheckboxVisual()
+		-- end
+	-- end
+	-- settings().Studio.ThemeChanged:Connect(updateImages)
+	-- updateImages()
+
 	local function updateFontColors()
 		self:UpdateFontColors()
 	end
@@ -103,7 +124,6 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
 	return self
 end
 
-
 function LabeledCheckboxClass:_MaybeToggleState()
 	if not self._disabled then
 		self:SetValue(not self._value)
@@ -112,12 +132,40 @@ end
 
 function LabeledCheckboxClass:_SetupMouseClickHandling()
 	self._button.MouseButton1Down:Connect(function()
+		self._clicked = true
 		self:_MaybeToggleState()
 	end)
 
+	self._fullBackgroundButton.InputBegan:Connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseMovement) then
+			self._hovered = true
+			self:_updateCheckboxVisual()
+		end
+	end)
+
+	self._fullBackgroundButton.InputEnded:Connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseMovement) then
+			self._hovered = false
+			self._clicked = false
+			self:_updateCheckboxVisual()
+		end
+	end)
+
 	self._fullBackgroundButton.MouseButton1Down:Connect(function()
+		self._clicked = true
+		self:_updateCheckboxVisual()
 		self:_MaybeToggleState()
 	end)
+end
+
+function LabeledCheckboxClass:_updateCheckboxVisual()
+	if (self._clicked) then 
+		self._button.Image = kCheckboxFrameImage
+	elseif (self._hovered) then 
+		self._button.Image = kHoverCheckImage
+	else
+		self._button.Image = kCheckboxFrameImage
+	end
 end
 
 function LabeledCheckboxClass:_HandleUpdatedValue()
