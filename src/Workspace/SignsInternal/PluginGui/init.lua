@@ -117,7 +117,7 @@ function PluginGui:newPluginGui(widgetGui)
 		Color, -- choices array
 		11 -- the starting index of the selection
 	)
-	if settings().Studio.Theme == settings().Studio:GetAvailableThemes()[2] then
+	if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() == true then
 		colorTextChoice:SetSelectedIndex(1)
 	end
 	colorTextChoice:GetFrame().Parent = textCollapse:GetContentsFrame()
@@ -161,7 +161,7 @@ function PluginGui:newPluginGui(widgetGui)
 		false, -- initial value
 		false -- initially disabled?
 	)
-	strokeCheckbox:GetFrame().Parent = textCollapse:GetContentsFrame()
+	strokeCheckbox:GetFrame().Parent = strokeCollapse:GetContentsFrame()
 
 	local colorStrokeChoice = LabeledMultiChoice.new(
 		"colorStrokeChoice", -- name suffix of gui object
@@ -169,6 +169,9 @@ function PluginGui:newPluginGui(widgetGui)
 		Color, -- choices array
 		11 -- the starting index of the selection
 	)
+	if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() == true then
+		colorStrokeChoice:SetSelectedIndex(1)
+	end
 	colorStrokeChoice:GetFrame().Parent = strokeCollapse:GetContentsFrame()
 
 	local joinStrokeChoice = LabeledMultiChoice.new(
