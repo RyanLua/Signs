@@ -104,6 +104,10 @@ function CustomTextLabelClass.new(nameSuffix, height)
 	-- 	label.TextStrokeColor3 = newValue
 	-- end
 
+	function CustomTextLabelClass:UpdateStroke(newValue: boolean)
+		stroke.Enabled = newValue
+	end
+
 	function CustomTextLabelClass:UpdateStrokeTransparency(newValue: number)
 		stroke.Transparency = newValue
 	end

@@ -1,13 +1,16 @@
 local choices = {
 
 	{Id = "1",
-		LineJoinMode = Enum.LineJoinMode.Round,
+		Mode = Enum.LineJoinMode.Round,
+		Text = "Round",
 	},
 	{Id = "2",
-		LineJoinMode = Enum.LineJoinMode.Bevel,
+		Mode = Enum.LineJoinMode.Bevel,
+		Text = "Bevel",
 	},
 	{Id = "3",
-		LineJoinMode = Enum.LineJoinMode.Miter,
+		Mode = Enum.LineJoinMode.Miter,
+		Text = "Miter",
 	},
 
 }

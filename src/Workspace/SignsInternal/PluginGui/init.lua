@@ -148,12 +148,20 @@ function PluginGui:newPluginGui(widgetGui)
 
 	local strokeCollapse = CollapsibleTitledSection.new( -- Fonts collapse
 		"strokeCollapse", -- name suffix of the gui object
-		"Text Stroke", -- the text displayed beside the collapsible arrow
+		"Stroke", -- the text displayed beside the collapsible arrow
 		true, -- have the content frame auto-update its size?
 		true, -- minimizable?
 		true -- minimized by default?
 	)
 	listFrame:AddChild(strokeCollapse:GetSectionFrame()) -- add child to expanding VerticallyScalingListFrame
+
+	local strokeCheckbox = LabeledCheckbox.new(
+		"strokeCheckbox", -- name suffix of gui object
+		"Stroke", -- text beside the checkbox
+		false, -- initial value
+		false -- initially disabled?
+	)
+	strokeCheckbox:GetFrame().Parent = textCollapse:GetContentsFrame()
 
 	local colorStrokeChoice = LabeledMultiChoice.new(
 		"colorStrokeChoice", -- name suffix of gui object
@@ -183,7 +191,7 @@ function PluginGui:newPluginGui(widgetGui)
 		"transparencyStrokeSlider", -- name suffix of gui object
 		"Transparency", -- title text of the multi choice
 		11, -- how many intervals to split the slider into
-		11 -- the starting value of the slider
+		1 -- the starting value of the slider
 	)
 	transparencyStrokeSlider:GetFrame().Parent = strokeCollapse:GetContentsFrame()
 
@@ -300,6 +308,7 @@ function PluginGui:newPluginGui(widgetGui)
 	italicCheckbox:SetValueChangedFunction(function(newValue)
 		CustomTextLabel:UpdateFontFaceItalic(newValue)
 	end)
+
 	colorTextChoice:SetValueChangedFunction(function(newIndex)
 		local color = Color[newIndex].Color
 		CustomTextLabel:UpdateTextColor3(color)
@@ -310,18 +319,22 @@ function PluginGui:newPluginGui(widgetGui)
 		CustomTextLabel:UpdateFontFace(font)
 	end)
 
+	strokeCheckbox:SetValueChangedFunction(function(newValue)
+		CustomTextLabel:UpdateStroke(newValue)
+	end)
+
 	colorStrokeChoice:SetValueChangedFunction(function(newIndex)
 		local color = Color[newIndex].Color
 		CustomTextLabel:UpdateStrokeColor(color)
 	end)
 
 	joinStrokeChoice:SetValueChangedFunction(function(newIndex)
-		local join = LineJoinMode[newIndex].LineJoinMode
+		local join = LineJoinMode[newIndex].Mode
 		CustomTextLabel:UpdateStrokeJoin(join)
 	end)
 
 	thicknessStrokeSlider:SetValueChangedFunction(function(newValue)
-		CustomTextLabel:UpdateStrokeThickness((newValue - 1) / 10)
+		CustomTextLabel:UpdateStrokeThickness((newValue - 1))
 	end)
 
 	transparencyStrokeSlider:SetValueChangedFunction(function(newValue)
