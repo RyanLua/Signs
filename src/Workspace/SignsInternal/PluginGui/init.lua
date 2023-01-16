@@ -148,7 +148,7 @@ function PluginGui:newPluginGui(widgetGui)
 
 	local strokeCollapse = CollapsibleTitledSection.new( -- Fonts collapse
 		"strokeCollapse", -- name suffix of the gui object
-		"Stroke", -- the text displayed beside the collapsible arrow
+		"Enabled", -- the text displayed beside the collapsible arrow
 		true, -- have the content frame auto-update its size?
 		true, -- minimizable?
 		true -- minimized by default?
