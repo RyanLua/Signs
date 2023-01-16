@@ -170,7 +170,7 @@ function PluginGui:newPluginGui(widgetGui)
 		11 -- the starting index of the selection
 	)
 	if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() == true then
-		colorStrokeChoice:SetSelectedIndex(1)
+		colorStrokeChoice:SetSelectedIndex(11)
 	end
 	colorStrokeChoice:GetFrame().Parent = strokeCollapse:GetContentsFrame()
 

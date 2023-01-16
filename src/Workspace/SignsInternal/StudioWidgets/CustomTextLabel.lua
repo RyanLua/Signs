@@ -30,6 +30,7 @@ function CustomTextLabelClass.new(nameSuffix, height)
 	label.Parent = frame
 
 	local stroke = Instance.new("UIStroke")
+	stroke.Enabled = false
 	stroke.Color = Color3.fromRGB(255, 255, 255)
 	if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() == true then
 		stroke.Color = Color3.fromRGB(0, 0, 0)
