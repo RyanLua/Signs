@@ -148,7 +148,7 @@ function PluginGui:newPluginGui(widgetGui)
 
 	local strokeCollapse = CollapsibleTitledSection.new( -- Fonts collapse
 		"strokeCollapse", -- name suffix of the gui object
-		"Enabled", -- the text displayed beside the collapsible arrow
+		"Stroke", -- the text displayed beside the collapsible arrow
 		true, -- have the content frame auto-update its size?
 		true, -- minimizable?
 		true -- minimized by default?
@@ -157,7 +157,7 @@ function PluginGui:newPluginGui(widgetGui)
 
 	local strokeCheckbox = LabeledCheckbox.new(
 		"strokeCheckbox", -- name suffix of gui object
-		"Stroke", -- text beside the checkbox
+		"Enabled", -- text beside the checkbox
 		false, -- initial value
 		false -- initially disabled?
 	)
