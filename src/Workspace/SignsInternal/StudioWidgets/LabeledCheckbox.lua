@@ -23,7 +23,7 @@ local kMinLabelPos = UDim2.new(0, kMinButtonWidth + kMinMargin, 0, kMinHeight/2)
 local kMinButtonSize = UDim2.new(0, kMinButtonWidth, 0, kMinButtonWidth)
 local kMinButtonPos = UDim2.new(0, 0, 0, kMinHeight/2)
 
-local kCheckImageWidth = 12
+local kCheckImageWidth = kMinMargin
 local kMinCheckImageWidth = kCheckImageWidth
 
 local kCheckImageSize = UDim2.new(0, kCheckImageWidth, 0, kCheckImageWidth)
@@ -100,20 +100,25 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
 
 	self:_SetupMouseClickHandling()
 
-	-- local function updateImages()
-		-- if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then 
-			-- kEnabledCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_checked_dark.png"
-			-- kDisabledCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_indeterminate_dark.png"
-			-- kHoverCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_hover_dark.png"
-			-- kCheckboxFrameImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_dark.png"
-			-- 
-			-- LabeledCheckboxClass:_updateCheckboxVisual()
-		-- else
-			-- LabeledCheckboxClass:_updateCheckboxVisual()
-		-- end
-	-- end
-	-- settings().Studio.ThemeChanged:Connect(updateImages)
-	-- updateImages()
+	local function updateImages()
+		if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then 
+			if self._button.Image == kCheckboxFrameImage then
+				kEnabledCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_checked_dark.png"
+				kDisabledCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_indeterminate_dark.png"
+				kHoverCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_hover_dark.png"
+				kCheckboxFrameImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_dark.png"
+			end
+			self:_updateCheckboxVisual()
+		else
+			kEnabledCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_checked_light.png"
+			kDisabledCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_indeterminate_light.png"
+			kHoverCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_hover_light.png"
+			kCheckboxFrameImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_light.png"
+			self:_updateCheckboxVisual()
+		end
+	end
+	settings().Studio.ThemeChanged:Connect(updateImages)
+	updateImages()
 
 	local function updateFontColors()
 		self:UpdateFontColors()

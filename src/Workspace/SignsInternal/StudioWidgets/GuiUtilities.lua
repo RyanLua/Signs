@@ -12,8 +12,8 @@ module.kStandardVMargin = 7
 module.kStandardHMargin = 16
 
 module.kCheckboxMinLabelWidth = 52
-module.kCheckboxMinMargin = 12
-module.kCheckboxWidth = 12
+module.kCheckboxMinMargin = 16 -- Default: 12
+module.kCheckboxWidth = 16 -- Default: 12
 
 module.kRadioButtonsHPadding = 54
 
