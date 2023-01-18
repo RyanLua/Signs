@@ -19,10 +19,8 @@ function CustomTextLabelClass.new(nameSuffix, height)
 	local label = Instance.new('TextLabel')
 	label.Text = "Preview"
 	label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	if settings().Studio.Theme == settings().Studio:GetAvailableThemes()[2] then
+	if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
 		label.TextColor3 = Color3.fromRGB(255, 255, 255)
-	else
-		label.TextColor3 = Color3.fromRGB(0, 0, 0)
 	end
 	label.BackgroundTransparency = 1
 	label.Size = UDim2.new(1, 0, 1, 0)
@@ -30,6 +28,14 @@ function CustomTextLabelClass.new(nameSuffix, height)
 	label.TextSize = 15
 	label.TextWrapped = true
 	label.Parent = frame
+
+	local stroke = Instance.new("UIStroke")
+	stroke.Enabled = false
+	stroke.Color = Color3.fromRGB(255, 255, 255)
+	if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
+		stroke.Color = Color3.fromRGB(0, 0, 0)
+	end
+	stroke.Parent = label
 
 	function CustomTextLabelClass:UpdateText(newValue: string)
 		label.Text = newValue
@@ -95,12 +101,32 @@ function CustomTextLabelClass.new(nameSuffix, height)
 		label.FontFace = newValue
 	end
 
-	function CustomTextLabelClass:UpdateTextStrokeTransparency(newValue: number)
-		label.TextStrokeTransparency = newValue
+	-- function CustomTextLabelClass:UpdateTextStrokeTransparency(newValue: number)
+	-- 	label.TextStrokeTransparency = newValue
+	-- end
+
+	-- function CustomTextLabelClass:UpdateTextStrokeColor3(newValue: Color3)
+	-- 	label.TextStrokeColor3 = newValue
+	-- end
+
+	function CustomTextLabelClass:UpdateStroke(newValue: boolean)
+		stroke.Enabled = newValue
 	end
 
-	function CustomTextLabelClass:UpdateTextStrokeColor3(newValue: Color3)
-		label.TextStrokeColor3 = newValue
+	function CustomTextLabelClass:UpdateStrokeTransparency(newValue: number)
+		stroke.Transparency = newValue
+	end
+
+	function CustomTextLabelClass:UpdateStrokeColor(newValue: Color3)
+		stroke.Color = newValue
+	end
+
+	function CustomTextLabelClass:UpdateStrokeJoin(newValue: Enum.LineJoinMode)
+		stroke.LineJoinMode = newValue
+	end
+
+	function CustomTextLabelClass:UpdateStrokeThickness(newValue: number)
+		stroke.Thickness = newValue
 	end
 
 	function CustomTextLabelClass:UpdateBackgroundTransparency(newValue: number)

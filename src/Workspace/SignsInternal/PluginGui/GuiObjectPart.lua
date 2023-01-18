@@ -12,7 +12,7 @@ local Selection = game:GetService("Selection")
 GuiObjectPart = {}
 GuiObjectPart.__index = GuiObjectPart
 
-function GuiObjectPart.new(label: GuiObject, lightInfluence: number, alwaysOnTop: boolean, autoLocalize: boolean)
+function GuiObjectPart.new(label: GuiObject, lightInfluence: number?, alwaysOnTop: boolean?, autoLocalize: boolean?)
 	local self = {}
 	setmetatable(self, GuiObjectPart)
 
@@ -24,7 +24,7 @@ function GuiObjectPart.new(label: GuiObject, lightInfluence: number, alwaysOnTop
 	part.Parent = workspace
 	part.Transparency = 1
 	part.Size = Vector3.new(4, 4, 0)
-	part.Position = (camera.CFrame + camera.CFrame.LookVector * 15).Position
+	part.Position = (camera.CFrame + camera.CFrame.LookVector * 10).Position
 	local yCameraRotation = camera.CFrame.Rotation.Y
 	local yRotation = math.floor(yCameraRotation/90 + 0.5) * 90
 	part.Rotation = Vector3.new(0, yRotation, 0)
