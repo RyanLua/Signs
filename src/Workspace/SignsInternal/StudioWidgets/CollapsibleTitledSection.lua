@@ -117,9 +117,9 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 
 	local titleBar = Instance.new('ImageButton')
 	if self._minimizable == true then
-		titleBar.AutoButtonColor = true -- TODO: Set this to false when you implement a better solution.
+		titleBar.AutoButtonColor = true --  TODO: Set this to false when you implement a better solution.
 	else
-		titleBar.AutoButtonColor = false -- TODO: Set this to false when you implement a better solution.
+		titleBar.AutoButtonColor = false --  TODO: Set this to false when you implement a better solution.
 	end
 	titleBar.Name = 'TitleBarVisual'
 	titleBar.BorderSizePixel = 0
@@ -132,8 +132,8 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 	local titleLabel = Instance.new('TextLabel')
 	titleLabel.Name = 'TitleLabel'
 	titleLabel.BackgroundTransparency = 1
-	titleLabel.Font = Enum.Font.SourceSansBold                --todo: input spec font
-	titleLabel.TextSize = 15                                  --todo: input spec font size
+	titleLabel.Font = Enum.Font.SourceSansBold                -- TODO: input spec font
+	titleLabel.TextSize = 15                                  -- TODO: input spec font size
 	titleLabel.TextXAlignment = Enum.TextXAlignment.Left
 	titleLabel.Text = titleText
 	titleLabel.Position = UDim2.new(0, titleTextOffset, 0, 0)
@@ -143,7 +143,7 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 
 	self._minimizeButton = Instance.new('ImageButton')
 	self._minimizeButton.Name = 'MinimizeSectionButton'
-	self._minimizeButton.Image = kRightButtonAsset              --todo: input arrow image from spec
+	self._minimizeButton.Image = kRightButtonAsset              -- TODO: input arrow image from spec
 	self._minimizeButton.Size = UDim2.new(0, kArrowSize, 0, kArrowSize)
 	self._minimizeButton.AnchorPoint = Vector2.new(0.5, 0.5)
 	self._minimizeButton.Position = UDim2.new(0, self._titleBarHeight*.5,

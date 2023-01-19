@@ -65,7 +65,7 @@ function CustomTextButtonClass.new(buttonName, labelText)
 			self._clicked = false
 			self:_updateButtonVisual()
 		end
-	end)    
+	end)
 
 	button.MouseButton1Down:Connect(function()
 		self._clicked = true
@@ -77,7 +77,6 @@ function CustomTextButtonClass.new(buttonName, labelText)
 		self:_updateButtonVisual()
 	end)
 	
-	settings().Studio.ThemeChanged:Connect(self:_updateButtonVisual())
 	self:_updateButtonVisual()
 
 	return self

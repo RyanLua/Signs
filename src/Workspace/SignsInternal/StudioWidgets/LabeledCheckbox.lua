@@ -34,6 +34,11 @@ local kDisabledCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_ind
 local kHoverCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_hover_light.png"
 local kCheckboxFrameImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_light.png"
 
+local kEnabledCheckImageDark = "rbxasset://textures/DeveloperFramework/checkbox_checked_dark.png"
+local kDisabledCheckImageDark = "rbxasset://textures/DeveloperFramework/checkbox_indeterminate_dark.png"
+local kHoverCheckImageDark = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_hover_dark.png"
+local kCheckboxFrameImageDark = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_dark.png"
+
 LabeledCheckboxClass = {}
 LabeledCheckboxClass.__index = LabeledCheckboxClass
 
@@ -101,20 +106,10 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
 	self:_SetupMouseClickHandling()
 
 	local function updateImages()
-		if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then 
-			if self._button.Image == kCheckboxFrameImage then
-				kEnabledCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_checked_dark.png"
-				kDisabledCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_indeterminate_dark.png"
-				kHoverCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_hover_dark.png"
-				kCheckboxFrameImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_dark.png"
-			end
-			self:_updateCheckboxVisual()
+		if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
+			self._button.Image = kCheckboxFrameImageDark
 		else
-			kEnabledCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_checked_light.png"
-			kDisabledCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_indeterminate_light.png"
-			kHoverCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_hover_light.png"
-			kCheckboxFrameImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_light.png"
-			self:_updateCheckboxVisual()
+			self._button.Image = kCheckboxFrameImage
 		end
 	end
 	settings().Studio.ThemeChanged:Connect(updateImages)
@@ -163,14 +158,15 @@ function LabeledCheckboxClass:_SetupMouseClickHandling()
 	end)
 end
 
+-- Too buggy with other GuiObjects to be used.
 function LabeledCheckboxClass:_updateCheckboxVisual()
-	if (self._clicked) then 
-		self._button.Image = kCheckboxFrameImage
-	elseif (self._hovered) then 
-		self._button.Image = kHoverCheckImage
-	else
-		self._button.Image = kCheckboxFrameImage
-	end
+	-- if (self._clicked) then 
+	-- 	self._button.Image = kCheckboxFrameImage
+	-- elseif (self._hovered) then 
+	-- 	self._button.Image = kHoverCheckImage
+	-- else
+	-- 	self._button.Image = kCheckboxFrameImage
+	-- end
 end
 
 function LabeledCheckboxClass:_HandleUpdatedValue()
@@ -241,9 +237,17 @@ function LabeledCheckboxClass:SetDisabled(newDisabled)
 		end
 
 		if (newDisabled) then 
-			self._checkImage.Image = kDisabledCheckImage
+			if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
+				self._checkImage.Image = kDisabledCheckImageDark
+			else
+				self._checkImage.Image = kDisabledCheckImage
+			end
 		else
-			self._checkImage.Image = kEnabledCheckImage
+			if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
+				self._checkImage.Image = kEnabledCheckImageDark
+			else
+				self._checkImage.Image = kEnabledCheckImage
+			end
 		end
 
 		self:UpdateFontColors()

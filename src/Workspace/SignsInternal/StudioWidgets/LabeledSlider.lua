@@ -10,9 +10,13 @@ rbxGuiLibrary = require(script.Parent.RbxGui)
 
 local kSliderWidth = 100
 
-local kSliderThumbImage = "rbxasset://textures/RoactStudioWidgets/slider_caret.png"
-local kPreThumbImage = "rbxasset://textures/RoactStudioWidgets/slider_bar_dark.png"
+local kSliderThumbImage = "rbxasset://textures/RoactStudioWidgets/slider_handle_light.png"
+local kPreThumbImage = "rbxasset://textures/RoactStudioWidgets/slider_bar_light.png"
 local kPostThumbImage = "rbxasset://textures/RoactStudioWidgets/slider_bar_background_light.png"
+
+local kSliderThumbImageDark = "rbxasset://textures/RoactStudioWidgets/slider_handle_dark.png"
+local kPreThumbImageDark = "rbxasset://textures/RoactStudioWidgets/slider_bar_dark.png"
+local kPostThumbImageDark = "rbxasset://textures/RoactStudioWidgets/slider_bar_background_dark.png"
 
 local kThumbSize = 13
 
@@ -102,7 +106,21 @@ function LabeledSliderClass.new(nameSuffix, labelText, sliderIntervals, defaultV
 	slider.Size = UDim2.new(0, kSliderWidth, 1, 0)
 	slider.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, 0, GuiUtilities.kStandardPropertyHeight/2)
 	slider.Parent = frame
-	
+		
+	local function updateImages()
+		if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
+			self._thumb.Image = kSliderThumbImageDark
+			self._preThumbImage.Image = kPreThumbImageDark
+			self._postThumbImage.Image = kPostThumbImageDark
+		else
+			self._thumb.Image = kSliderThumbImage
+			self._preThumbImage.Image = kPreThumbImage
+			self._postThumbImage.Image = kPostThumbImage
+		end
+	end
+	settings().Studio.ThemeChanged:Connect(updateImages)
+	updateImages()
+
 	return self
 end
 
