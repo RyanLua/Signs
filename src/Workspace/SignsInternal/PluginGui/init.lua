@@ -43,7 +43,7 @@ function PluginGui:newPluginGui(widgetGui)
 		"Insert" -- the text displayed on the button
 	)
 	local buttonObject = insertButton:GetButton()
-	buttonObject.Size = UDim2.new(1, -5, 0, 50)
+	buttonObject.Size = UDim2.new(1, -10, 0, 50)
 	buttonObject.Parent = scrollFrame:GetContentsFrame()
 
 	local textCollapse = CollapsibleTitledSection.new( -- Text collapse
