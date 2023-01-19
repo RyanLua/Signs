@@ -13,7 +13,7 @@ module.kStandardHMargin = 16
 
 module.kCheckboxMinLabelWidth = 52
 module.kCheckboxMinMargin = 16 -- Default: 12
-module.kCheckboxWidth = 16 -- Default: 12
+module.kCheckboxWidth = module.kCheckboxMinMargin -- Default: 12
 
 module.kRadioButtonsHPadding = 54
 
@@ -33,14 +33,14 @@ module.kButtonVerticalFudge = -5
 
 module.kBottomButtonsWidth = 100
 
-module.kDisabledTextColor = Color3.new(.4, .4, .4)                   --todo: input spec disabled text color
-module.kStandardButtonTextColor = Color3.new(0, 0, 0)                --todo: input spec disabled text color
-module.kPressedButtonTextColor = Color3.new(1, 1, 1)                 --todo: input spec disabled text color
+module.kDisabledTextColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.ButtonText, Enum.StudioStyleGuideModifier.Disabled)
+module.kStandardButtonTextColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.ButtonText, Enum.StudioStyleGuideModifier.Default)
 
-module.kButtonStandardBackgroundColor = Color3.new(1, 1, 1)          --todo: sync with spec
-module.kButtonStandardBorderColor = Color3.new(.4,.4,.4)             --todo: sync with spec
-module.kButtonDisabledBackgroundColor = Color3.new(.7,.7,.7)         --todo: sync with spec
-module.kButtonDisabledBorderColor = Color3.new(.6,.6,.6)             --todo: sync with spec
+module.kButtonStandardBorderColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.ButtonBorder, Enum.StudioStyleGuideModifier.Default)
+module.kButtonStandardBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Default)
+module.kButtonPressedBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Pressed)
+module.kButtonHoverBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Hover)
+module.kButtonDisabledBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Disabled)
 
 module.kButtonBackgroundTransparency = 0.5
 module.kButtonBackgroundIntenseTransparency = 0.4
