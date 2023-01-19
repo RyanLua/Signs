@@ -8,6 +8,7 @@
 GuiUtilities = require(script.Parent.GuiUtilities)
 
 local kTextInputWidth = 100
+local kTextInputHeight = 18
 local kTextBoxInternalPadding = 4
 
 LabeledTextInputClass = {}
@@ -29,6 +30,7 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 	local defaultValue = defaultValue or ""
 
 	local frame = GuiUtilities.MakeStandardFixedHeightFrame('TextInput ' .. nameSuffix)
+	frame.AutomaticSize = Enum.AutomaticSize.Y
 	self._frame = frame
 
 	local label = GuiUtilities.MakeStandardPropertyLabel(labelText)
@@ -40,10 +42,10 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 	-- Dumb hack to add padding to text box,
 	local textBoxWrapperFrame = Instance.new("Frame")
 	textBoxWrapperFrame.Name = "Wrapper"
-	textBoxWrapperFrame.Size = UDim2.new(0, kTextInputWidth, 0.6, 0)
-	textBoxWrapperFrame.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, .5, 0)
-	textBoxWrapperFrame.AnchorPoint = Vector2.new(0, .5)
-	textBoxWrapperFrame.AutomaticSize = Enum.AutomaticSize.X
+	textBoxWrapperFrame.Size = UDim2.new(0, kTextInputWidth, 0, kTextInputHeight)
+	textBoxWrapperFrame.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, 0, 6)
+	textBoxWrapperFrame.AnchorPoint = Vector2.new(0, 0)
+	textBoxWrapperFrame.AutomaticSize = Enum.AutomaticSize.Y
 	textBoxWrapperFrame.Parent = frame
 	GuiUtilities.syncGuiElementInputFieldColor(textBoxWrapperFrame)
 	GuiUtilities.syncGuiElementBorderColor(textBoxWrapperFrame)
@@ -52,14 +54,17 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 	textBox.Parent = textBoxWrapperFrame
 	textBox.Name = "TextBox"
 	textBox.ClearTextOnFocus = false
+	textBox.MultiLine = true
 	textBox.Text = defaultValue
 	textBox.Font = Enum.Font.SourceSans
 	textBox.TextSize = 15
+	textBox.TextWrapped = true
 	textBox.BackgroundTransparency = 1
 	textBox.TextXAlignment = Enum.TextXAlignment.Left
+	textBox.TextYAlignment = Enum.TextYAlignment.Center
 	textBox.Size = UDim2.new(1, -kTextBoxInternalPadding, 1, GuiUtilities.kTextVerticalFudge)
 	textBox.Position = UDim2.new(0, kTextBoxInternalPadding, 0, 0)
-	textBox.AutomaticSize = Enum.AutomaticSize.X
+	textBox.AutomaticSize = Enum.AutomaticSize.Y
 	textBox.ClipsDescendants = true
 
 	GuiUtilities.syncGuiElementFontColor(textBox)
