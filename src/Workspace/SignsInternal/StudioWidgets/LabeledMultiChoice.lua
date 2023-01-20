@@ -26,6 +26,8 @@ function LabeledMultiChoiceClass.new(nameSuffix, labelText, choices, initChoiceI
 	local self = {}
 	setmetatable(self, LabeledMultiChoiceClass)
 
+	
+
 	self._buttonObjsByIndex = {}
 
 	if (not initChoiceIndex ) then 

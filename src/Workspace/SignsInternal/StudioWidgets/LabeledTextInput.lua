@@ -8,8 +8,8 @@
 GuiUtilities = require(script.Parent.GuiUtilities)
 
 local kTextInputWidth = 100
-local kTextInputHeight = 18
-local kTextBoxInternalPadding = 4
+local kTextInputHeight = 22
+local kTextBoxInternalPadding = 3
 
 LabeledTextInputClass = {}
 LabeledTextInputClass.__index = LabeledTextInputClass
@@ -40,9 +40,9 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 	self._value = defaultValue
 
 	local textBoxBorder = Instance.new("ImageLabel")
-	textBoxBorder.Name = "Border"
+	textBoxBorder.Name = "TextBox"
 	textBoxBorder.Size = UDim2.new(0, kTextInputWidth, 0, kTextInputHeight)
-	textBoxBorder.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, 0, 6)
+	textBoxBorder.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, 0, kTextBoxInternalPadding)
 	textBoxBorder.AnchorPoint = Vector2.new(0, 0)
 	textBoxBorder.BackgroundTransparency = 1
 	textBoxBorder.Image = "rbxasset://textures/StudioToolbox/RoundedBorder.png"
@@ -51,15 +51,16 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 	textBoxBorder.ImageColor3 = GuiUtilities.kStandardBorderColor
 	textBoxBorder.AutomaticSize = Enum.AutomaticSize.Y
 	textBoxBorder.Parent = frame
+	textBoxBorder.ZIndex = 2
 	GuiUtilities.syncGuiImageBorderColor(textBoxBorder)
 
 	-- Dumb hack to add padding to text box,
 	local textBoxWrapperFrame = Instance.new("Frame")
-	textBoxWrapperFrame.Name = "Wrapper"
-	textBoxWrapperFrame.Size = UDim2.new(0, kTextInputWidth - 2, 0, kTextInputHeight - 2)
+	textBoxWrapperFrame.Name = "TextBoxFrame"
+	textBoxWrapperFrame.Size = UDim2.new(1, 0, 0, kTextInputHeight)
 	textBoxWrapperFrame.BorderSizePixel = 0
-	textBoxWrapperFrame.AnchorPoint = Vector2.new(0.5, 0)
-	textBoxWrapperFrame.Position = UDim2.new(0.5, 0, 0, 1)
+	textBoxWrapperFrame.AnchorPoint = Vector2.new(0, 0)
+	textBoxWrapperFrame.Position = UDim2.new(0, 0, 0, 1)
 	textBoxWrapperFrame.AutomaticSize = Enum.AutomaticSize.Y
 	textBoxWrapperFrame.Parent = textBoxBorder
 	GuiUtilities.syncGuiElementInputFieldColor(textBoxWrapperFrame)
@@ -71,17 +72,16 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 	textBox.MultiLine = true
 	textBox.Text = ""
 	textBox.PlaceholderText = defaultValue
-	textBox.Font = Enum.Font.SourceSans
-	textBox.TextSize = 15
+	textBox.Font = GuiUtilities.kStandardFontFace
+	textBox.TextSize = GuiUtilities.kStandardFontSize
 	textBox.TextWrapped = true
 	textBox.BackgroundTransparency = 1
 	textBox.TextXAlignment = Enum.TextXAlignment.Left
 	textBox.TextYAlignment = Enum.TextYAlignment.Center
-	textBox.Size = UDim2.new(1, -kTextBoxInternalPadding, 1, GuiUtilities.kTextVerticalFudge)
-	textBox.Position = UDim2.new(0, kTextBoxInternalPadding, 0, 0)
+	textBox.Size = UDim2.new(1, -kTextBoxInternalPadding, 0, GuiUtilities.kTextVerticalFudge)
+	textBox.Position = UDim2.new(0, kTextBoxInternalPadding, 0, kTextBoxInternalPadding)
 	textBox.AutomaticSize = Enum.AutomaticSize.Y
 	textBox.ClipsDescendants = true
-
 	GuiUtilities.syncGuiElementFontColor(textBox)
 	
 	textBox:GetPropertyChangedSignal("Text"):Connect(function()

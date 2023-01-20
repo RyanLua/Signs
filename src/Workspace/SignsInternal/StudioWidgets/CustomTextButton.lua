@@ -43,8 +43,8 @@ function CustomTextButtonClass.new(buttonName, labelText)
 	label.Text = labelText
 	label.BackgroundTransparency = 1
 	label.Size = UDim2.new(1, 0, 1, 0) -- 1, 0, 1, GuiUtilities.kButtonVerticalFudge
-	label.Font = Enum.Font.SourceSans
-	label.TextSize = 15
+	label.Font = GuiUtilities.kStandardFontFace
+	label.TextSize = GuiUtilities.kStandardFontSize
 	label.Parent = button
 	GuiUtilities.syncGuiElementFontColor(label)
 

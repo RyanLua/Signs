@@ -50,7 +50,7 @@ function ImageButtonWithTextClass.new(name,
 	textLabel.Size = textSize
 	textLabel.Position = textPos
 	textLabel.TextScaled = true
-	textLabel.Font = Enum.Font.SourceSans
+	textLabel.Font = GuiUtilities.kStandardFontFace
 	textLabel.Parent = button
 
 	GuiUtilities.syncGuiElementFontColor(textLabel)
@@ -58,7 +58,7 @@ function ImageButtonWithTextClass.new(name,
 	local uiTextSizeConstraint = Instance.new("UITextSizeConstraint")
 	-- Spec asks for fontsize of 12 pixels, but in Roblox the text font sizes look smaller than the mock
 	--Note: For this font the Roblox text size is 25.7% larger than the design spec. 
-	uiTextSizeConstraint.MaxTextSize = 15		                                          
+	uiTextSizeConstraint.MaxTextSize = GuiUtilities.kStandardFontSize		                                          
 	uiTextSizeConstraint.Parent = textLabel
 
 	self._button = button

@@ -116,11 +116,6 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 	local titleTextOffset = self._titleBarHeight
 
 	local titleBar = Instance.new('ImageButton')
-	if self._minimizable == true then
-		titleBar.AutoButtonColor = false --  TODO: Set this to false when you implement a better solution.
-	else
-		titleBar.AutoButtonColor = false
-	end
 	titleBar.Name = 'TitleBarVisual'
 	titleBar.Position = UDim2.new(0, 0, 0, 0)
 	titleBar.Size = UDim2.new(1, 0, 0, self._titleBarHeight)
@@ -132,8 +127,8 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 	local titleLabel = Instance.new('TextLabel')
 	titleLabel.Name = 'TitleLabel'
 	titleLabel.BackgroundTransparency = 1
-	titleLabel.Font = Enum.Font.SourceSansBold                -- TODO: input spec font
-	titleLabel.TextSize = 15                                  -- TODO: input spec font size
+	titleLabel.Font = GuiUtilities.kStandardFontFaceBold
+	titleLabel.TextSize = GuiUtilities.kStandardFontSize
 	titleLabel.TextXAlignment = Enum.TextXAlignment.Left
 	titleLabel.Text = titleText
 	titleLabel.Position = UDim2.new(0, titleTextOffset, 0, 0)
@@ -160,12 +155,6 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 	settings().Studio.ThemeChanged:Connect(_UpdateMinimizeButtonTheme)
 	_UpdateMinimizeButtonTheme()
 
-	-- self._minimizeButton.MouseButton1Down:Connect(function()
-	-- 	self:_ToggleCollapsedState()
-	-- end)
-	-- self:_UpdateMinimizeButton()
-	-- self._minimizeButton.Parent = titleBar
-
 	titleBar.InputBegan:Connect(function(input)
 		if (input.UserInputType == Enum.UserInputType.MouseMovement) then
 			self._hovered = true
@@ -185,7 +174,7 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 		self._clicked = true
 		self:_updateButtonVisual()
 
-		if self._minimizable == true then -- if check was added in to fix bug. idk why this was left unfixed.
+		if self._minimizable == true then
 			self:_ToggleCollapsedState()
 		end
 	end)

@@ -6,6 +6,8 @@ module.kInlineTitleBarHeight = 24
 module.kStandardContentAreaWidth = 180
 
 module.kStandardFontSize = 15
+module.kStandardFontFace = Enum.Font.SourceSans
+module.kStandardFontFaceBold = Enum.Font.SourceSansBold
 
 module.kStandardPropertyHeight = 30
 module.kSubSectionLabelHeight = 30
@@ -238,8 +240,8 @@ function module.MakeStandardPropertyLabel(text, opt_ignoreThemeUpdates)
 	label.RichText = true
 	label.Name = 'Label'
 	label.BackgroundTransparency = 1
-	label.Font = Enum.Font.SourceSans                    -- TODO: input spec font
-	label.TextSize = 15                                  -- TODO: input spec font size
+	label.Font = module.kStandardFontFace
+	label.TextSize = module.kStandardFontSize
 	label.TextXAlignment = Enum.TextXAlignment.Left
 	label.Text = text
 	label.AnchorPoint = Vector2.new(0, 0.5)
