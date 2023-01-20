@@ -58,7 +58,7 @@ function PluginGui:newPluginGui(widgetGui)
 	local textInput = LabeledTextInput.new( -- Asks user for text
 		"textInput", -- name suffix of gui object
 		"Text", -- title text of the multi choice
-		"" -- default value
+		"Text here" -- default value
 	)
 	textInput:SetMaxGraphemes(8192)
 	textInput:GetFrame().Parent = textCollapse:GetContentsFrame()

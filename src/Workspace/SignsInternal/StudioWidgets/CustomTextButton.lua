@@ -27,14 +27,17 @@ function CustomTextButtonClass.new(buttonName, labelText)
 	button.ScaleType = Enum.ScaleType.Slice
 	button.SliceCenter = Rect.new(3, 3, 13, 13)
 	button.AutoButtonColor = false
+	GuiUtilities.syncGuiButtonColor(button)
 
 	local border = Instance.new('ImageLabel')
 	border.Size = UDim2.new(1, 0, 1, 0)
+	border.Name = "Border"
 	border.BackgroundTransparency = 1
 	border.ScaleType = Enum.ScaleType.Slice
 	border.SliceCenter = Rect.new(3, 3, 13, 13)
 	border.Image = kButtonBorder
 	border.Parent = button
+	GuiUtilities.syncGuiImageBorderColor(border)
 
 	local label = Instance.new('TextLabel')
 	label.Text = labelText
@@ -43,6 +46,7 @@ function CustomTextButtonClass.new(buttonName, labelText)
 	label.Font = Enum.Font.SourceSans
 	label.TextSize = 15
 	label.Parent = button
+	GuiUtilities.syncGuiElementFontColor(label)
 
 	self._label = label
 	self._border = border
@@ -57,7 +61,6 @@ function CustomTextButtonClass.new(buttonName, labelText)
 			self:_updateButtonVisual()
 		end
 	end)
-
 
 	button.InputEnded:Connect(function(input)
 		if (input.UserInputType == Enum.UserInputType.MouseMovement) then
@@ -76,23 +79,21 @@ function CustomTextButtonClass.new(buttonName, labelText)
 		self._clicked = false
 		self:_updateButtonVisual()
 	end)
-	
-	self:_updateButtonVisual()
 
 	return self
 end
 
 function CustomTextButtonClass:_updateButtonVisual()
-	self._border.ImageColor3 = GuiUtilities.kButtonStandardBorderColor
-	if (self._clicked) then 
-		self._button.ImageColor3 = GuiUtilities.kButtonPressedBackgroundColor
-		self._label.TextColor3 = GuiUtilities.kStandardButtonTextColor
-	elseif (self._hovered) then 
-		self._button.ImageColor3 = GuiUtilities.kButtonHoverBackgroundColor
-		self._label.TextColor3 = GuiUtilities.kStandardButtonTextColor
+	local kButtonStandardBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Default)
+	local kButtonPressedBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Pressed)
+	local kButtonHoverBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Hover)
+	
+	if self._clicked then
+		self._button.ImageColor3 = kButtonPressedBackgroundColor
+	elseif self._hovered then 
+		self._button.ImageColor3 = kButtonHoverBackgroundColor
 	else
-		self._button.ImageColor3 = GuiUtilities.kButtonStandardBackgroundColor
-		self._label.TextColor3 = GuiUtilities.kStandardButtonTextColor
+		self._button.ImageColor3 = kButtonStandardBackgroundColor
 	end
 end
 
@@ -101,4 +102,3 @@ function CustomTextButtonClass:GetButton()
 end
 
 return CustomTextButtonClass
-

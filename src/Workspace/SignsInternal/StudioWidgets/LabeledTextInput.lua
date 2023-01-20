@@ -39,23 +39,38 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 
 	self._value = defaultValue
 
+	local textBoxBorder = Instance.new("ImageLabel")
+	textBoxBorder.Name = "Border"
+	textBoxBorder.Size = UDim2.new(0, kTextInputWidth, 0, kTextInputHeight)
+	textBoxBorder.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, 0, 6)
+	textBoxBorder.AnchorPoint = Vector2.new(0, 0)
+	textBoxBorder.BackgroundTransparency = 1
+	textBoxBorder.Image = "rbxasset://textures/StudioToolbox/RoundedBorder.png"
+	textBoxBorder.ScaleType = Enum.ScaleType.Slice
+	textBoxBorder.SliceCenter = Rect.new(3, 3, 13, 13)
+	textBoxBorder.ImageColor3 = GuiUtilities.kStandardBorderColor
+	textBoxBorder.AutomaticSize = Enum.AutomaticSize.Y
+	textBoxBorder.Parent = frame
+	GuiUtilities.syncGuiImageBorderColor(textBoxBorder)
+
 	-- Dumb hack to add padding to text box,
 	local textBoxWrapperFrame = Instance.new("Frame")
 	textBoxWrapperFrame.Name = "Wrapper"
-	textBoxWrapperFrame.Size = UDim2.new(0, kTextInputWidth, 0, kTextInputHeight)
-	textBoxWrapperFrame.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, 0, 6)
-	textBoxWrapperFrame.AnchorPoint = Vector2.new(0, 0)
+	textBoxWrapperFrame.Size = UDim2.new(0, kTextInputWidth - 2, 0, kTextInputHeight - 2)
+	textBoxWrapperFrame.BorderSizePixel = 0
+	textBoxWrapperFrame.AnchorPoint = Vector2.new(0.5, 0)
+	textBoxWrapperFrame.Position = UDim2.new(0.5, 0, 0, 1)
 	textBoxWrapperFrame.AutomaticSize = Enum.AutomaticSize.Y
-	textBoxWrapperFrame.Parent = frame
+	textBoxWrapperFrame.Parent = textBoxBorder
 	GuiUtilities.syncGuiElementInputFieldColor(textBoxWrapperFrame)
-	GuiUtilities.syncGuiElementBorderColor(textBoxWrapperFrame)
 
 	local textBox = Instance.new("TextBox")
 	textBox.Parent = textBoxWrapperFrame
 	textBox.Name = "TextBox"
 	textBox.ClearTextOnFocus = false
 	textBox.MultiLine = true
-	textBox.Text = defaultValue
+	textBox.Text = ""
+	textBox.PlaceholderText = defaultValue
 	textBox.Font = Enum.Font.SourceSans
 	textBox.TextSize = 15
 	textBox.TextWrapped = true

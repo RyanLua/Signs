@@ -72,14 +72,12 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
 	button.BackgroundTransparency = 1
 	button.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, .5, 0)
 	button.Parent = fullBackgroundButton
-	button.Image = kCheckboxFrameImage
 	button.BorderSizePixel = 0
 	button.AutoButtonColor = false
 	
 	local checkImage = Instance.new("ImageLabel")
 	checkImage.Name = "CheckImage"
 	checkImage.Parent = button
-	checkImage.Image = kEnabledCheckImage
 	checkImage.Visible = false
 	checkImage.Size = kCheckImageSize
 	checkImage.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -108,8 +106,18 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
 	local function updateImages()
 		if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
 			self._button.Image = kCheckboxFrameImageDark
+			if self._checkImage.Image == kDisabledCheckImage then
+				self._checkImage.Image = kDisabledCheckImageDark
+			else
+				self._checkImage.Image = kEnabledCheckImageDark
+			end
 		else
 			self._button.Image = kCheckboxFrameImage
+			if self._checkImage.Image == kDisabledCheckImageDark then
+				self._checkImage.Image = kDisabledCheckImage
+			else
+				self._checkImage.Image = kEnabledCheckImage
+			end
 		end
 	end
 	settings().Studio.ThemeChanged:Connect(updateImages)
@@ -187,7 +195,7 @@ function LabeledCheckboxClass:UseSmallSize()
 	self._label.Position = kMinLabelPos
 	self._label.TextXAlignment = Enum.TextXAlignment.Left
 
-	self._button.Size = kMinButtonSize    
+	self._button.Size = kMinButtonSize
 	self._button.Position = kMinButtonPos
 
 	self._checkImage.Size = kMinCheckImageSize

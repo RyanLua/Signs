@@ -19,8 +19,9 @@ function VerticalScrollingFrame.new(suffix)
 	section.BorderSizePixel = 0
 	section.Size = UDim2.new(1, 0, 1, 0)
 	section.Position = UDim2.new(0, 0, 0, 0)
-	section.BackgroundTransparency = 1
+	section.BackgroundTransparency = 0
 	section.Name = "VerticalScrollFrame" .. suffix
+	GuiUtilities.syncGuiElementBackgroundColor(section)
 	
 	local scrollBackground = Instance.new("Frame")
 	scrollBackground.Name = "ScrollbarBackground"

@@ -117,16 +117,16 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 
 	local titleBar = Instance.new('ImageButton')
 	if self._minimizable == true then
-		titleBar.AutoButtonColor = true --  TODO: Set this to false when you implement a better solution.
-	else
 		titleBar.AutoButtonColor = false --  TODO: Set this to false when you implement a better solution.
+	else
+		titleBar.AutoButtonColor = false
 	end
 	titleBar.Name = 'TitleBarVisual'
-	titleBar.BorderSizePixel = 0
 	titleBar.Position = UDim2.new(0, 0, 0, 0)
 	titleBar.Size = UDim2.new(1, 0, 0, self._titleBarHeight)
 	titleBar.Parent = self._frame
 	titleBar.LayoutOrder = 1
+	GuiUtilities.syncGuiElementBorderColor(titleBar)
 	GuiUtilities.syncGuiElementTitleColor(titleBar)
 
 	local titleLabel = Instance.new('TextLabel')
@@ -150,37 +150,63 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 		 0, self._titleBarHeight*.5)
 	self._minimizeButton.BackgroundTransparency = 1
 	self._minimizeButton.Visible = self._minimizable -- only show when minimizable
+	self._minimizeButton.Parent = titleBar
+
+	self._titleBar = titleBar
 
 	local function _UpdateMinimizeButtonTheme()
-		if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() == false then
-			self._minimizeButton.ImageColor3 = Color3.fromRGB(0, 0, 0)
-		else
-			self._minimizeButton.ImageColor3 = Color3.fromRGB(237, 237, 237)
-		end
+		self._minimizeButton.ImageColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText)
 	end
 	settings().Studio.ThemeChanged:Connect(_UpdateMinimizeButtonTheme)
 	_UpdateMinimizeButtonTheme()
 
-	self._minimizeButton.MouseButton1Down:Connect(function()
-		self:_ToggleCollapsedState()
+	-- self._minimizeButton.MouseButton1Down:Connect(function()
+	-- 	self:_ToggleCollapsedState()
+	-- end)
+	-- self:_UpdateMinimizeButton()
+	-- self._minimizeButton.Parent = titleBar
+
+	titleBar.InputBegan:Connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseMovement) then
+			self._hovered = true
+			self:_updateButtonVisual()
+		end
 	end)
-	self:_UpdateMinimizeButton()
-	self._minimizeButton.Parent = titleBar
 
-	self._latestClickTime = 0
+	titleBar.InputEnded:Connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseMovement) then
+			self._hovered = false
+			self._clicked = false
+			self:_updateButtonVisual()
+		end
+	end)
+
 	titleBar.MouseButton1Down:Connect(function()
-		-- commented out the code so it takes 1 click to open titlebar now instead of 2
+		self._clicked = true
+		self:_updateButtonVisual()
 
-		--local now = tick()	
-		--if (now - self._latestClickTime < kDoubleClickTimeSec) then 
 		if self._minimizable == true then -- if check was added in to fix bug. idk why this was left unfixed.
 			self:_ToggleCollapsedState()
 		end
-		--	self._latestClickTime = 0
-		--else
-		--	self._latestClickTime = now
-		--end
 	end)
+
+	titleBar.MouseButton1Up:Connect(function()
+		self._clicked = false
+		self:_updateButtonVisual()
+	end)
+end
+
+function CollapsibleTitledSectionClass:_updateButtonVisual()
+	local kTitlebarStandardBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Titlebar, Enum.StudioStyleGuideModifier.Default)
+	local kTitlebarHoverBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Hover)
+	
+	if (self._clicked) then 
+		self._titleBar.BackgroundColor3 = kTitlebarHoverBackgroundColor
+	elseif (self._hovered) then 
+		self._titleBar.BackgroundColor3 = kTitlebarHoverBackgroundColor
+	else
+		self._titleBar.BackgroundColor3 = kTitlebarStandardBackgroundColor
+	end
 end
 
 return CollapsibleTitledSectionClass

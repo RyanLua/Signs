@@ -10,6 +10,8 @@ module.kStandardFontSize = 15
 module.kStandardPropertyHeight = 30
 module.kSubSectionLabelHeight = 30
 
+module.kStandardBorderColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Border, Enum.StudioStyleGuideModifier.Default)
+
 module.kStandardVMargin = 7
 module.kStandardHMargin = 16
 
@@ -30,7 +32,7 @@ module.kBottomButtonsFrameHeight = 50
 module.kBottomButtonsHeight = 28
 
 module.kShapeButtonSize = 32
-module.kTextVerticalFudge = -3
+module.kTextVerticalFudge = 0
 module.kButtonVerticalFudge = -5
 
 module.kBottomButtonsWidth = 100
@@ -122,6 +124,22 @@ end
 function module.syncGuiElementScrollColor(guiElement)
 	local function setColors()
 		guiElement.ScrollBarImageColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.ScrollBar)
+	end
+	settings().Studio.ThemeChanged:Connect(setColors)
+	setColors()
+end
+
+function module.syncGuiImageBorderColor(guiElement)
+	local function setColors()
+		guiElement.ImageColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Border, Enum.StudioStyleGuideModifier.Default)
+	end
+	settings().Studio.ThemeChanged:Connect(setColors)
+	setColors()
+end
+
+function module.syncGuiButtonColor(guiElement)
+	local function setColors()
+		guiElement.ImageColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Default)
 	end
 	settings().Studio.ThemeChanged:Connect(setColors)
 	setColors()
