@@ -17,7 +17,7 @@ function CustomTextLabelClass.new(nameSuffix, height)
 	local frame = GuiUtilities.MakeFixedHeightFrame('TextLabel ' .. nameSuffix, height)
 	frame.BorderSizePixel = 1
 	frame.Size = UDim2.new(1, 0, 0, height)
-	GuiUtilities.syncGuiElementBorderColor(frame)
+	GuiUtilities.syncGuiElementShadowColor(frame)
 
 	local label = Instance.new('TextLabel')
 	label.Text = "Preview"
