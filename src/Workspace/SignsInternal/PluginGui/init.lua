@@ -19,8 +19,8 @@ local Color = require(script.Color)
 local FontFace = require(script.FontFace)
 local GuiObjectPart = require(script.GuiObjectPart)
 local LineJoinMode = require(script.LineJoinMode)
-local HorizontalAlignment = require(script.HorizontalAlignment)
-local VerticalAlignment = require(script.VerticalAlignment)
+local TextXAlignment = require(script.TextXAlignment)
+local TextYAlignment = require(script.TextYAlignment)
 
 local PluginGui = {}
 
@@ -156,6 +156,22 @@ function PluginGui:newPluginGui(widgetGui)
 		true -- minimized by default?
 	)
 	listFrame:AddChild(alignmentCollapse:GetSectionFrame()) -- add child to expanding VerticallyScalingListFrame
+
+	local yChoice = LabeledMultiChoice.new(
+		"yChoice", -- name suffix of gui object
+		"Horizontal Alignment", -- title text of the multi choice
+		TextYAlignment, -- choices array
+		2 -- the starting index of the selection
+	)
+	yChoice:GetFrame().Parent = alignmentCollapse:GetContentsFrame()
+
+	local xChoice = LabeledMultiChoice.new(
+		"xChoice", -- name suffix of gui object
+		"Vertical Alignment", -- title text of the multi choice
+		TextXAlignment, -- choices array
+		2 -- the starting index of the selection
+	)
+	xChoice:GetFrame().Parent = alignmentCollapse:GetContentsFrame()
 
 	local strokeCollapse = CollapsibleTitledSection.new( -- Fonts collapse
 		"strokeCollapse", -- name suffix of the gui object
@@ -325,13 +341,23 @@ function PluginGui:newPluginGui(widgetGui)
 	end)
 
 	colorTextChoice:SetValueChangedFunction(function(newIndex)
-		local color = Color[newIndex].Color
-		CustomTextLabel:UpdateTextColor3(color)
+		local newValue = Color[newIndex].Color
+		CustomTextLabel:UpdateTextColor3(newValue)
 	end)
 
 	fontTextChoice:SetValueChangedFunction(function(newIndex)
-		local font = FontFace[newIndex].Font
-		CustomTextLabel:UpdateFontFace(font)
+		local newValue = FontFace[newIndex].Font
+		CustomTextLabel:UpdateFontFace(newValue)
+	end)
+
+	yChoice:SetValueChangedFunction(function(newIndex)
+		local newValue = TextYAlignment[newIndex].Mode
+		CustomTextLabel:UpdateVerticalAlignment(newValue)
+	end)
+
+	xChoice:SetValueChangedFunction(function(newIndex)
+		local newValue = TextXAlignment[newIndex].Mode
+		CustomTextLabel:UpdateHorizontalAlignment(newValue)
 	end)
 
 	strokeCheckbox:SetValueChangedFunction(function(newValue)
@@ -339,13 +365,13 @@ function PluginGui:newPluginGui(widgetGui)
 	end)
 
 	colorStrokeChoice:SetValueChangedFunction(function(newIndex)
-		local color = Color[newIndex].Color
-		CustomTextLabel:UpdateStrokeColor(color)
+		local newValue = Color[newIndex].Color
+		CustomTextLabel:UpdateStrokeColor(newValue)
 	end)
 
 	joinStrokeChoice:SetValueChangedFunction(function(newIndex)
-		local join = LineJoinMode[newIndex].Mode
-		CustomTextLabel:UpdateStrokeJoin(join)
+		local newValue = LineJoinMode[newIndex].Mode
+		CustomTextLabel:UpdateStrokeJoin(newValue)
 	end)
 
 	thicknessStrokeSlider:SetValueChangedFunction(function(newValue)
@@ -361,8 +387,8 @@ function PluginGui:newPluginGui(widgetGui)
 	end)
 
 	colorBackgroundChoice:SetValueChangedFunction(function(newIndex)
-		local color = Color[newIndex].Color
-		CustomTextLabel:UpdateBackgroundColor3(color)
+		local newValue = Color[newIndex].Color
+		CustomTextLabel:UpdateBackgroundColor3(newValue)
 	end)
 end
 

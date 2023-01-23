@@ -104,6 +104,14 @@ function CustomTextLabelClass.new(nameSuffix, height)
 		label.FontFace = newValue
 	end
 
+	function CustomTextLabelClass:UpdateVerticalAlignment(newValue: Enum.VerticalAlignment)
+		label.TextYAlignment = newValue
+	end
+
+	function CustomTextLabelClass:UpdateHorizontalAlignment(newValue: Enum.HorizontalAlignment)
+		label.TextXAlignment = newValue
+	end
+
 	-- function CustomTextLabelClass:UpdateTextStrokeTransparency(newValue: number)
 	-- 	label.TextStrokeTransparency = newValue
 	-- end
@@ -143,15 +151,15 @@ function CustomTextLabelClass.new(nameSuffix, height)
 	self._frame = frame
 	self._label = label
 
-	function CustomTextLabelClass:GetLabel()
-		return label
-	end
-
-	function CustomTextLabelClass:GetFrame()
-		return frame
-	end
-
 	return self
+end
+
+function CustomTextLabelClass:GetLabel()
+	return self._label
+end
+
+function CustomTextLabelClass:GetFrame()
+	return self._frame
 end
 
 return CustomTextLabelClass
