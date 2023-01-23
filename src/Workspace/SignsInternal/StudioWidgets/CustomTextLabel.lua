@@ -27,8 +27,8 @@ function CustomTextLabelClass.new(nameSuffix, height)
 	end
 	label.BackgroundTransparency = 1
 	label.Size = UDim2.new(1, 0, 1, 0)
-	label.Font = GuiUtilities.kStandardFontFace
-	label.TextSize = GuiUtilities.kStandardFontSize
+	label.Font = GuiUtilities.kDefaultFontFace
+	label.TextSize = GuiUtilities.kDefaultFontSize
 	label.TextWrapped = true
 	label.Parent = frame
 

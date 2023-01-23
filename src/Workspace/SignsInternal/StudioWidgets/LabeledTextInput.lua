@@ -29,11 +29,11 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 
 	local defaultValue = defaultValue or ""
 
-	local frame = GuiUtilities.MakeStandardFixedHeightFrame('TextInput ' .. nameSuffix)
+	local frame = GuiUtilities.MakeDefaultFixedHeightFrame('TextInput ' .. nameSuffix)
 	frame.AutomaticSize = Enum.AutomaticSize.Y
 	self._frame = frame
 
-	local label = GuiUtilities.MakeStandardPropertyLabel(labelText)
+	local label = GuiUtilities.MakeDefaultPropertyLabel(labelText)
 	label.Parent = frame
 	self._label = label
 
@@ -42,13 +42,13 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 	local textBoxBorder = Instance.new("ImageLabel")
 	textBoxBorder.Name = "TextBox"
 	textBoxBorder.Size = UDim2.new(0, kTextInputWidth, 0, kTextInputHeight)
-	textBoxBorder.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, 0, kTextBoxInternalPadding)
+	textBoxBorder.Position = UDim2.new(0, GuiUtilities.DefaultLineElementLeftMargin, 0, kTextBoxInternalPadding)
 	textBoxBorder.AnchorPoint = Vector2.new(0, 0)
 	textBoxBorder.BackgroundTransparency = 1
 	textBoxBorder.Image = "rbxasset://textures/StudioToolbox/RoundedBorder.png"
 	textBoxBorder.ScaleType = Enum.ScaleType.Slice
 	textBoxBorder.SliceCenter = Rect.new(3, 3, 13, 13)
-	textBoxBorder.ImageColor3 = GuiUtilities.kStandardBorderColor
+	textBoxBorder.ImageColor3 = GuiUtilities.kDefaultBorderColor
 	textBoxBorder.AutomaticSize = Enum.AutomaticSize.Y
 	textBoxBorder.Parent = frame
 	textBoxBorder.ZIndex = 2
@@ -72,8 +72,8 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 	textBox.MultiLine = true
 	textBox.Text = ""
 	textBox.PlaceholderText = defaultValue
-	textBox.Font = GuiUtilities.kStandardFontFace
-	textBox.TextSize = GuiUtilities.kStandardFontSize
+	textBox.Font = GuiUtilities.kDefaultFontFace
+	textBox.TextSize = GuiUtilities.kDefaultFontSize
 	textBox.TextWrapped = true
 	textBox.BackgroundTransparency = 1
 	textBox.TextXAlignment = Enum.TextXAlignment.Left

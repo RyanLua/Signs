@@ -3,19 +3,19 @@ local module = {}
 module.kTitleBarHeight = 27
 module.kInlineTitleBarHeight = 24
 
-module.kStandardContentAreaWidth = 180
+module.kDefaultContentAreaWidth = 180
 
-module.kStandardFontSize = 15
-module.kStandardFontFace = Enum.Font.SourceSans
-module.kStandardFontFaceBold = Enum.Font.SourceSansBold
+module.kDefaultFontSize = 15
+module.kDefaultFontFace = Enum.Font.SourceSans
+module.kDefaultFontFaceBold = Enum.Font.SourceSansBold
 
-module.kStandardPropertyHeight = 30
+module.kDefaultPropertyHeight = 30
 module.kSubSectionLabelHeight = 30
 
-module.kStandardBorderColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Border, Enum.StudioStyleGuideModifier.Default)
+module.kDefaultBorderColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Border, Enum.StudioStyleGuideModifier.Default)
 
-module.kStandardVMargin = 7
-module.kStandardHMargin = 16
+module.kDefaultVMargin = 7
+module.kDefaultHMargin = 16
 
 module.kCheckboxMinLabelWidth = 52
 module.kCheckboxMinMargin = 16 -- Default: 12
@@ -23,10 +23,10 @@ module.kCheckboxWidth = module.kCheckboxMinMargin -- Default: 12
 
 module.kRadioButtonsHPadding = 54
 
-module.StandardLineLabelLeftMargin = module.kTitleBarHeight
-module.StandardLineElementLeftMargin = (module.StandardLineLabelLeftMargin + module.kCheckboxMinLabelWidth
+module.DefaultLineLabelLeftMargin = module.kTitleBarHeight
+module.DefaultLineElementLeftMargin = (module.DefaultLineLabelLeftMargin + module.kCheckboxMinLabelWidth
 + module.kCheckboxMinMargin + module.kCheckboxWidth + module.kRadioButtonsHPadding)
-module.StandardLineLabelWidth = (module.StandardLineElementLeftMargin - module.StandardLineLabelLeftMargin - 10 )
+module.DefaultLineLabelWidth = (module.DefaultLineElementLeftMargin - module.DefaultLineLabelLeftMargin - 10 )
 
 module.kDropDownHeight = 55
 
@@ -40,10 +40,10 @@ module.kButtonVerticalFudge = -5
 module.kBottomButtonsWidth = 100
 
 module.kDisabledTextColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.ButtonText, Enum.StudioStyleGuideModifier.Disabled)
-module.kStandardButtonTextColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.ButtonText, Enum.StudioStyleGuideModifier.Default)
+module.kDefaultButtonTextColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.ButtonText, Enum.StudioStyleGuideModifier.Default)
 
-module.kButtonStandardBorderColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.ButtonBorder, Enum.StudioStyleGuideModifier.Default)
-module.kButtonStandardBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Default)
+module.kButtonDefaultBorderColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.ButtonBorder, Enum.StudioStyleGuideModifier.Default)
+module.kButtonDefaultBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Default)
 module.kButtonPressedBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Pressed)
 module.kButtonHoverBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Hover)
 module.kButtonDisabledBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Disabled)
@@ -170,8 +170,8 @@ end
 
 -- A frame that is one standard-sized line, containing some standard-sized widget (label, edit box, dropdown, 
 -- checkbox)
-function module.MakeStandardFixedHeightFrame(name)
-	return module.MakeFixedHeightFrame(name, module.kStandardPropertyHeight)
+function module.MakeDefaultFixedHeightFrame(name)
+	return module.MakeFixedHeightFrame(name, module.kDefaultPropertyHeight)
 end
 
 function module.AdjustHeightDynamicallyToLayout(frame, uiLayout, optPadding)
@@ -223,7 +223,7 @@ local function MakeSectionInternal(parentGui, name, title, contentHeight)
 		titleBar.Text = title
 		titleBar.Parent = titleBarFrame
 		titleBar.BackgroundTransparency = 1
-		titleBar.Position = UDim2.new(0, module.kStandardHMargin, 0, 0)
+		titleBar.Position = UDim2.new(0, module.kDefaultHMargin, 0, 0)
 
 		module.syncGuiElementFontColor(titleBar)
 	
@@ -235,18 +235,18 @@ local function MakeSectionInternal(parentGui, name, title, contentHeight)
 	return frame
 end
 
-function module.MakeStandardPropertyLabel(text, opt_ignoreThemeUpdates)
+function module.MakeDefaultPropertyLabel(text, opt_ignoreThemeUpdates)
 	local label = Instance.new('TextLabel')
 	label.RichText = true
 	label.Name = 'Label'
 	label.BackgroundTransparency = 1
-	label.Font = module.kStandardFontFace
-	label.TextSize = module.kStandardFontSize
+	label.Font = module.kDefaultFontFace
+	label.TextSize = module.kDefaultFontSize
 	label.TextXAlignment = Enum.TextXAlignment.Left
 	label.Text = text
 	label.AnchorPoint = Vector2.new(0, 0.5)
-	label.Position = UDim2.new(0, module.StandardLineLabelLeftMargin, 0.5, module.kTextVerticalFudge)
-	label.Size = UDim2.new(0, module.StandardLineLabelWidth, 1, 0)
+	label.Position = UDim2.new(0, module.DefaultLineLabelLeftMargin, 0.5, module.kTextVerticalFudge)
+	label.Size = UDim2.new(0, module.DefaultLineLabelWidth, 1, 0)
 
 	if (not opt_ignoreThemeUpdates) then 			
 		module.syncGuiElementFontColor(label)
@@ -259,7 +259,7 @@ function module.MakeFrameWithSubSectionLabel(name, text)
 	local row = module.MakeFixedHeightFrame(name, module.kSubSectionLabelHeight)
 	row.BackgroundTransparency = 1
 		
-	local label = module.MakeStandardPropertyLabel(text)
+	local label = module.MakeDefaultPropertyLabel(text)
 	label.BackgroundTransparency = 1
 	label.Parent = row
 

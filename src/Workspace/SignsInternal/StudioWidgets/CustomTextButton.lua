@@ -43,8 +43,8 @@ function CustomTextButtonClass.new(buttonName, labelText)
 	label.Text = labelText
 	label.BackgroundTransparency = 1
 	label.Size = UDim2.new(1, 0, 1, 0) -- 1, 0, 1, GuiUtilities.kButtonVerticalFudge
-	label.Font = GuiUtilities.kStandardFontFace
-	label.TextSize = GuiUtilities.kStandardFontSize
+	label.Font = GuiUtilities.kDefaultFontFace
+	label.TextSize = GuiUtilities.kDefaultFontSize
 	label.Parent = button
 	GuiUtilities.syncGuiElementFontColor(label)
 
@@ -84,7 +84,7 @@ function CustomTextButtonClass.new(buttonName, labelText)
 end
 
 function CustomTextButtonClass:_updateButtonVisual()
-	local kButtonStandardBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Default)
+	local kButtonDefaultBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Default)
 	local kButtonPressedBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Pressed)
 	local kButtonHoverBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Hover)
 	
@@ -93,7 +93,7 @@ function CustomTextButtonClass:_updateButtonVisual()
 	elseif self._hovered then 
 		self._button.ImageColor3 = kButtonHoverBackgroundColor
 	else
-		self._button.ImageColor3 = kButtonStandardBackgroundColor
+		self._button.ImageColor3 = kButtonDefaultBackgroundColor
 	end
 end
 

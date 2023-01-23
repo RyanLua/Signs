@@ -88,8 +88,8 @@ function LabeledMultiChoiceClass:_MakeRadioButtons(choices)
 	frame.BackgroundTransparency = 1
 
 	local padding = Instance.new("UIPadding")
-	padding.PaddingLeft = UDim.new(0, GuiUtilities.StandardLineLabelLeftMargin)
-	padding.PaddingRight = UDim.new(0, GuiUtilities.StandardLineLabelLeftMargin)
+	padding.PaddingLeft = UDim.new(0, GuiUtilities.DefaultLineLabelLeftMargin)
+	padding.PaddingRight = UDim.new(0, GuiUtilities.DefaultLineLabelLeftMargin)
 	padding.Parent = frame
 	
 	-- Make a grid to put checkboxes in.
@@ -98,7 +98,7 @@ function LabeledMultiChoiceClass:_MakeRadioButtons(choices)
 	uiGridLayout.CellPadding = UDim2.new(0, 
 		kRadioButtonsHPadding,
 		0,
-		GuiUtilities.kStandardVMargin)
+		GuiUtilities.kDefaultVMargin)
 	uiGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
 	uiGridLayout.VerticalAlignment = Enum.VerticalAlignment.Top
 	uiGridLayout.Parent = frame

@@ -1,10 +1,6 @@
 ----------------------------------------
 --
--- LabeledCheckbox.lua
---
--- Creates a frame containing a label and a checkbox.
---
--- TODO: Overhaul this to support new checkboxes along with GuiUtilities support.
+-- LabeledSelection.lua
 --
 ----------------------------------------
 GuiUtilities = require(script.Parent.GuiUtilities)
@@ -39,15 +35,15 @@ local kDisabledCheckImageDark = "rbxasset://textures/DeveloperFramework/checkbox
 local kHoverCheckImageDark = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_hover_dark.png"
 local kCheckboxFrameImageDark = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_dark.png"
 
-LabeledCheckboxClass = {}
-LabeledCheckboxClass.__index = LabeledCheckboxClass
+LabeledButtonClass = {}
+LabeledButtonClass.__index = LabeledButtonClass
 
-LabeledCheckboxClass.kMinFrameSize = UDim2.new(0, kMinLabelWidth + kMinMargin + kMinButtonWidth, 0, kMinHeight)
+LabeledButtonClass.kMinFrameSize = UDim2.new(0, kMinLabelWidth + kMinMargin + kMinButtonWidth, 0, kMinHeight)
 
 
-function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled)
+function LabeledButtonClass.new(nameSuffix, labelText, initValue, initDisabled)
 	local self = {}
-	setmetatable(self, LabeledCheckboxClass)
+	setmetatable(self, LabeledButtonClass)
 
 	local initValue = not not initValue
 	local initDisabled = not not initDisabled
@@ -132,13 +128,13 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
 	return self
 end
 
-function LabeledCheckboxClass:_MaybeToggleState()
+function LabeledButtonClass:_MaybeToggleState()
 	if not self._disabled then
 		self:SetValue(not self._value)
 	end
 end
 
-function LabeledCheckboxClass:_SetupMouseClickHandling()
+function LabeledButtonClass:_SetupMouseClickHandling()
 	self._button.MouseButton1Down:Connect(function()
 		self._clicked = true
 		self:_MaybeToggleState()
@@ -167,7 +163,7 @@ function LabeledCheckboxClass:_SetupMouseClickHandling()
 end
 
 -- Too buggy with other GuiObjects to be used.
-function LabeledCheckboxClass:_updateCheckboxVisual()
+function LabeledButtonClass:_updateCheckboxVisual()
 	-- if (self._clicked) then 
 	-- 	self._button.Image = kCheckboxFrameImage
 	-- elseif (self._hovered) then 
@@ -177,7 +173,7 @@ function LabeledCheckboxClass:_updateCheckboxVisual()
 	-- end
 end
 
-function LabeledCheckboxClass:_HandleUpdatedValue()
+function LabeledButtonClass:_HandleUpdatedValue()
 	self._checkImage.Visible = self:GetValue()
 
 	if (self._valueChangedFunction) then 
@@ -189,7 +185,7 @@ end
 -- All the bits are smaller.
 -- Fixed width instead of flood-fill.
 -- Box comes first, then label.
-function LabeledCheckboxClass:UseSmallSize()
+function LabeledButtonClass:UseSmallSize()
 	self._label.TextSize = kMinTextSize
 	self._label.Size = kMinLabelSize
 	self._label.Position = kMinLabelPos
@@ -200,15 +196,15 @@ function LabeledCheckboxClass:UseSmallSize()
 
 	self._checkImage.Size = kMinCheckImageSize
 
-	self._frame.Size = LabeledCheckboxClass.kMinFrameSize
+	self._frame.Size = LabeledButtonClass.kMinFrameSize
 	self._frame.BackgroundTransparency = 1
 end
 
-function LabeledCheckboxClass:GetFrame()
+function LabeledButtonClass:GetFrame()
 	return self._frame
 end
 
-function LabeledCheckboxClass:GetValue()
+function LabeledButtonClass:GetValue()
 	-- If button is disabled, and we should be using a disabled override, 
 	-- use the disabled override.
 	if (self._disabled and self._useDisabledOverride) then 
@@ -218,19 +214,19 @@ function LabeledCheckboxClass:GetValue()
 	end
 end
 
-function LabeledCheckboxClass:GetLabel()
+function LabeledButtonClass:GetLabel()
 	return self._label
 end
 
-function LabeledCheckboxClass:GetButton()
+function LabeledButtonClass:GetButton()
 	return self._button
 end
 
-function LabeledCheckboxClass:SetValueChangedFunction(vcFunction) 
+function LabeledButtonClass:SetValueChangedFunction(vcFunction) 
 	self._valueChangedFunction = vcFunction
 end
 
-function LabeledCheckboxClass:SetDisabled(newDisabled)
+function LabeledButtonClass:SetDisabled(newDisabled)
 	local newDisabled = not not newDisabled
 
 	local originalValue = self:GetValue()
@@ -272,7 +268,7 @@ function LabeledCheckboxClass:SetDisabled(newDisabled)
 	end
 end
 
-function LabeledCheckboxClass:UpdateFontColors()
+function LabeledButtonClass:UpdateFontColors()
 	if self._disabled then 
 		self._label.TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.DimmedText)
 	else
@@ -280,7 +276,7 @@ function LabeledCheckboxClass:UpdateFontColors()
 	end
 end
 
-function LabeledCheckboxClass:DisableWithOverrideValue(overrideValue)
+function LabeledButtonClass:DisableWithOverrideValue(overrideValue)
 	-- Disable this checkbox.  While disabled, force value to override
 	-- value.
 	local oldValue = self:GetValue()
@@ -293,11 +289,11 @@ function LabeledCheckboxClass:DisableWithOverrideValue(overrideValue)
 	end		
 end
 
-function LabeledCheckboxClass:GetDisabled()
+function LabeledButtonClass:GetDisabled()
 	return self._disabled
 end
 
-function LabeledCheckboxClass:SetValue(newValue)
+function LabeledButtonClass:SetValue(newValue)
 	local newValue = not not newValue
 	
 	if newValue ~= self._value then
@@ -307,4 +303,4 @@ function LabeledCheckboxClass:SetValue(newValue)
 	end
 end
 
-return LabeledCheckboxClass
+return LabeledButtonClass

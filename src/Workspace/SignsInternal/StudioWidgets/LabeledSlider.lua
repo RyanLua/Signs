@@ -34,10 +34,10 @@ function LabeledSliderClass.new(nameSuffix, labelText, sliderIntervals, defaultV
 	local sliderIntervals = sliderIntervals or 100
 	local defaultValue = defaultValue or 1
 
-	local frame = GuiUtilities.MakeStandardFixedHeightFrame('Slider' .. nameSuffix)
+	local frame = GuiUtilities.MakeDefaultFixedHeightFrame('Slider' .. nameSuffix)
 	self._frame = frame
 
-	local label = GuiUtilities.MakeStandardPropertyLabel(labelText)
+	local label = GuiUtilities.MakeDefaultPropertyLabel(labelText)
 	label.Parent = frame
 	self._label = label
 
@@ -104,7 +104,7 @@ function LabeledSliderClass.new(nameSuffix, labelText, sliderIntervals, defaultV
 	self:SetValue(defaultValue)
 	slider.AnchorPoint = Vector2.new(0, 0.5)
 	slider.Size = UDim2.new(0, kSliderWidth, 1, 0)
-	slider.Position = UDim2.new(0, GuiUtilities.StandardLineElementLeftMargin, 0, GuiUtilities.kStandardPropertyHeight/2)
+	slider.Position = UDim2.new(0, GuiUtilities.DefaultLineElementLeftMargin, 0, GuiUtilities.kDefaultPropertyHeight/2)
 	slider.Parent = frame
 		
 	local function updateImages()

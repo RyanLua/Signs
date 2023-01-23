@@ -6,7 +6,7 @@
 --
 ----------------------------------------
 GuiUtilities = require(script.Parent.GuiUtilities)
-LabeledCheckbox = require(script.Parent.LabeledCheckbox)
+LabeledCheckbox = require(script.Parent.LabeledButton)
 
 local kButtonImage = "rbxasset://textures/RoactStudioWidgets/slider_caret.png"
 local kBulletImage = "rbxasset://textures/RoactStudioWidgets/button_radiobutton_chosen.png"

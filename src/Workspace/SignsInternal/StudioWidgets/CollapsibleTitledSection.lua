@@ -25,7 +25,6 @@ local kRightButtonAsset = "rbxasset://textures/DeveloperFramework/button_arrow_r
 local kDownButtonAsset = "rbxasset://textures/DeveloperFramework/button_arrow_down.png"
 
 local kArrowSize = 7
-local kDoubleClickTimeSec = 0.5
 
 CollapsibleTitledSectionClass = {}
 CollapsibleTitledSectionClass.__index = CollapsibleTitledSectionClass
@@ -117,18 +116,20 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 
 	local titleBar = Instance.new('ImageButton')
 	titleBar.Name = 'TitleBarVisual'
+	titleBar.AutoButtonColor = false
 	titleBar.Position = UDim2.new(0, 0, 0, 0)
 	titleBar.Size = UDim2.new(1, 0, 0, self._titleBarHeight)
 	titleBar.Parent = self._frame
 	titleBar.LayoutOrder = 1
+
 	GuiUtilities.syncGuiElementBorderColor(titleBar)
 	GuiUtilities.syncGuiElementTitleColor(titleBar)
 
 	local titleLabel = Instance.new('TextLabel')
 	titleLabel.Name = 'TitleLabel'
 	titleLabel.BackgroundTransparency = 1
-	titleLabel.Font = GuiUtilities.kStandardFontFaceBold
-	titleLabel.TextSize = GuiUtilities.kStandardFontSize
+	titleLabel.Font = GuiUtilities.kDefaultFontFaceBold
+	titleLabel.TextSize = GuiUtilities.kDefaultFontSize
 	titleLabel.TextXAlignment = Enum.TextXAlignment.Left
 	titleLabel.Text = titleText
 	titleLabel.Position = UDim2.new(0, titleTextOffset, 0, 0)
@@ -186,15 +187,16 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 end
 
 function CollapsibleTitledSectionClass:_updateButtonVisual()
-	local kTitlebarStandardBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Titlebar, Enum.StudioStyleGuideModifier.Default)
+	local kTitlebarDefaultBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Titlebar, Enum.StudioStyleGuideModifier.Default)
 	local kTitlebarHoverBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Hover)
-	
+	local kTitlebarPressedBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Pressed)
+
 	if (self._clicked) then 
-		self._titleBar.BackgroundColor3 = kTitlebarHoverBackgroundColor
+		self._titleBar.BackgroundColor3 = kTitlebarPressedBackgroundColor
 	elseif (self._hovered) then 
 		self._titleBar.BackgroundColor3 = kTitlebarHoverBackgroundColor
 	else
-		self._titleBar.BackgroundColor3 = kTitlebarStandardBackgroundColor
+		self._titleBar.BackgroundColor3 = kTitlebarDefaultBackgroundColor
 	end
 end
 
