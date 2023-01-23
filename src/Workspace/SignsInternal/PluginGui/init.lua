@@ -19,6 +19,8 @@ local Color = require(script.Color)
 local FontFace = require(script.FontFace)
 local GuiObjectPart = require(script.GuiObjectPart)
 local LineJoinMode = require(script.LineJoinMode)
+local HorizontalAlignment = require(script.HorizontalAlignment)
+local VerticalAlignment = require(script.VerticalAlignment)
 
 local PluginGui = {}
 
@@ -146,6 +148,15 @@ function PluginGui:newPluginGui(widgetGui)
 	)
 	fontTextChoice:GetFrame().Parent = textCollapse:GetContentsFrame()
 
+	local alignmentCollapse = CollapsibleTitledSection.new( -- Fonts collapse
+		"alignmentCollapse", -- name suffix of the gui object
+		"Alignment", -- the text displayed beside the collapsible arrow
+		true, -- have the content frame auto-update its size?
+		true, -- minimizable?
+		true -- minimized by default?
+	)
+	listFrame:AddChild(alignmentCollapse:GetSectionFrame()) -- add child to expanding VerticallyScalingListFrame
+
 	local strokeCollapse = CollapsibleTitledSection.new( -- Fonts collapse
 		"strokeCollapse", -- name suffix of the gui object
 		"Stroke", -- the text displayed beside the collapsible arrow
@@ -163,25 +174,6 @@ function PluginGui:newPluginGui(widgetGui)
 	)
 	strokeCheckbox:GetFrame().Parent = strokeCollapse:GetContentsFrame()
 
-	local colorStrokeChoice = LabeledMultiChoice.new(
-		"colorStrokeChoice", -- name suffix of gui object
-		"Color", -- title text of the multi choice
-		Color, -- choices array
-		11 -- the starting index of the selection
-	)
-	if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() == true then
-		colorStrokeChoice:SetSelectedIndex(11)
-	end
-	colorStrokeChoice:GetFrame().Parent = strokeCollapse:GetContentsFrame()
-
-	local joinStrokeChoice = LabeledMultiChoice.new(
-		"joinStrokeChoice", -- name suffix of gui object
-		"Line Join Mode", -- title text of the multi choice
-		LineJoinMode, -- choices array
-		1 -- the starting index of the selection
-	)
-	joinStrokeChoice:GetFrame().Parent = strokeCollapse:GetContentsFrame()
-
 	local thicknessStrokeSlider = LabeledSlider.new( -- Size Slider
 		"thicknessStrokeSlider", -- name suffix of gui object
 		"Thickness", -- title text of the multi choice
@@ -197,6 +189,26 @@ function PluginGui:newPluginGui(widgetGui)
 		1 -- the starting value of the slider
 	)
 	transparencyStrokeSlider:GetFrame().Parent = strokeCollapse:GetContentsFrame()
+
+	local joinStrokeChoice = LabeledMultiChoice.new(
+		"joinStrokeChoice", -- name suffix of gui object
+		"Line Join Mode", -- title text of the multi choice
+		LineJoinMode, -- choices array
+		1 -- the starting index of the selection
+	)
+	joinStrokeChoice:GetFrame().Parent = strokeCollapse:GetContentsFrame()
+
+	local colorStrokeChoice = LabeledMultiChoice.new(
+		"colorStrokeChoice", -- name suffix of gui object
+		"Color", -- title text of the multi choice
+		Color, -- choices array
+		11 -- the starting index of the selection
+	)
+	if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() == true then
+		colorStrokeChoice:SetSelectedIndex(11)
+	end
+	colorStrokeChoice:GetFrame().Parent = strokeCollapse:GetContentsFrame()
+
 
 	local backgroundCollapse = CollapsibleTitledSection.new( -- Fonts collapse
 		"backgroundCollapse", -- name suffix of the gui object

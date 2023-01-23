@@ -64,7 +64,7 @@ end
 
 function module.syncGuiElementTitleColor(guiElement)
 	local function setColors()
-		guiElement.BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Titlebar)
+		guiElement.BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.CategoryItem)
 	end
 	settings().Studio.ThemeChanged:Connect(setColors)
 	setColors()
@@ -110,6 +110,14 @@ end
 function module.syncGuiElementBorderColor(guiElement)
 	local function setColors()
 		guiElement.BorderColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Border)
+	end
+	settings().Studio.ThemeChanged:Connect(setColors)
+	setColors()
+end
+
+function module.syncGuiElementShadowColor(guiElement)
+	local function setColors()
+		guiElement.BorderColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Mid)
 	end
 	settings().Studio.ThemeChanged:Connect(setColors)
 	setColors()
