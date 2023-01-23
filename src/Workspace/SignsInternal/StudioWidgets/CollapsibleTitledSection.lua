@@ -122,7 +122,7 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 	titleBar.Parent = self._frame
 	titleBar.LayoutOrder = 1
 
-	GuiUtilities.syncGuiElementBorderColor(titleBar)
+	GuiUtilities.syncGuiElementShadowColor(titleBar)
 	GuiUtilities.syncGuiElementTitleColor(titleBar)
 
 	local titleLabel = Instance.new('TextLabel')
@@ -187,7 +187,7 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 end
 
 function CollapsibleTitledSectionClass:_updateButtonVisual()
-	local kTitlebarDefaultBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Titlebar, Enum.StudioStyleGuideModifier.Default)
+	local kTitlebarDefaultBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.CategoryItem, Enum.StudioStyleGuideModifier.Default)
 	local kTitlebarHoverBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Hover)
 	local kTitlebarPressedBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Pressed)
 
