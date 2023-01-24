@@ -192,7 +192,7 @@ function CollapsibleTitledSectionClass:_updateButtonVisual()
 	local kTitlebarPressedBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Pressed)
 
 	if (self._clicked) then 
-		self._titleBar.BackgroundColor3 = kTitlebarPressedBackgroundColor
+		self._titleBar.BackgroundColor3 = kTitlebarHoverBackgroundColor
 	elseif (self._hovered) then 
 		self._titleBar.BackgroundColor3 = kTitlebarHoverBackgroundColor
 	else
