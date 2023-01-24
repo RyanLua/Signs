@@ -13,33 +13,10 @@ local kMinLabelWidth = GuiUtilities.kCheckboxMinLabelWidth
 local kMinMargin = GuiUtilities.kCheckboxMinMargin
 local kMinButtonWidth = kCheckboxWidth;
 
-local kMinLabelSize = UDim2.new(0, kMinLabelWidth, 0, kMinHeight)
-local kMinLabelPos = UDim2.new(0, kMinButtonWidth + kMinMargin, 0, kMinHeight/2)
-
-local kMinButtonSize = UDim2.new(0, kMinButtonWidth, 0, kMinButtonWidth)
-local kMinButtonPos = UDim2.new(0, 0, 0, kMinHeight/2)
-
-local kCheckImageWidth = kMinMargin
-local kMinCheckImageWidth = kCheckImageWidth
-
-local kCheckImageSize = UDim2.new(0, kCheckImageWidth, 0, kCheckImageWidth)
-local kMinCheckImageSize = UDim2.new(0, kMinCheckImageWidth, 0, kMinCheckImageWidth)
-
-local kEnabledCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_checked_light.png"
-local kDisabledCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_indeterminate_light.png"
-local kHoverCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_hover_light.png"
-local kCheckboxFrameImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_light.png"
-
-local kEnabledCheckImageDark = "rbxasset://textures/DeveloperFramework/checkbox_checked_dark.png"
-local kDisabledCheckImageDark = "rbxasset://textures/DeveloperFramework/checkbox_indeterminate_dark.png"
-local kHoverCheckImageDark = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_hover_dark.png"
-local kCheckboxFrameImageDark = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_dark.png"
-
 LabeledButtonClass = {}
 LabeledButtonClass.__index = LabeledButtonClass
 
 LabeledButtonClass.kMinFrameSize = UDim2.new(0, kMinLabelWidth + kMinMargin + kMinButtonWidth, 0, kMinHeight)
-
 
 function LabeledButtonClass.new(nameSuffix, labelText, initValue, initDisabled)
 	local self = {}
@@ -49,47 +26,39 @@ function LabeledButtonClass.new(nameSuffix, labelText, initValue, initDisabled)
 	local initDisabled = not not initDisabled
 
 	local frame = GuiUtilities.MakeDefaultFixedHeightFrame("CBF" .. nameSuffix)
+	frame.Size = UDim2.new(1, 0, GuiUtilities.kDefaultPropertyHeight, 0)
 
 	local fullBackgroundButton = Instance.new("TextButton")
 	fullBackgroundButton.Name = "FullBackground"
 	fullBackgroundButton.Parent = frame
-	fullBackgroundButton.BackgroundTransparency = 1
-	fullBackgroundButton.Size = UDim2.new(1, 0, 1, 0)
+	fullBackgroundButton.BorderSizePixel = 0
+	fullBackgroundButton.BackgroundTransparency = 0
+	fullBackgroundButton.Size = UDim2.new(0, GuiUtilities.DefaultLineLabelWidth, 1, 0)
 	fullBackgroundButton.Position = UDim2.new(0, 0, 0, 0)
 	fullBackgroundButton.Text = ""
+	fullBackgroundButton.AutoButtonColor = false
 
-	local label = GuiUtilities.MakeDefaultPropertyLabel(labelText, true)
+	local label = Instance.new("TextButton")
+	label.Text = labelText
+	label.RichText = true
+	label.Name = 'Label'
+	label.Font = GuiUtilities.kDefaultFontFace
+	label.TextSize = GuiUtilities.kDefaultFontSize
+	label.BackgroundTransparency = 1
+	label.TextXAlignment = Enum.TextXAlignment.Center
+	label.AnchorPoint = Vector2.new(0.5, 0.5)
+	label.AutoButtonColor = false
+	label.Position = UDim2.new(0.5, 0, 0.5, GuiUtilities.kTextVerticalFudge)
+	label.Size = UDim2.new(1, 0, 1, 0)
 	label.Parent = fullBackgroundButton
 
-	local button = Instance.new('ImageButton')
-	button.Name = 'Button'
-	button.Size = UDim2.new(0, kCheckboxWidth, 0, kCheckboxWidth)
-	button.AnchorPoint = Vector2.new(0, .5)
-	button.BackgroundTransparency = 1
-	button.Position = UDim2.new(0, GuiUtilities.DefaultLineElementLeftMargin, .5, 0)
-	button.Parent = fullBackgroundButton
-	button.BorderSizePixel = 0
-	button.AutoButtonColor = false
-	
-	local checkImage = Instance.new("ImageLabel")
-	checkImage.Name = "CheckImage"
-	checkImage.Parent = button
-	checkImage.Visible = false
-	checkImage.Size = kCheckImageSize
-	checkImage.AnchorPoint = Vector2.new(0.5, 0.5)
-	checkImage.Position = UDim2.new(0.5, 0, 0.5, 0)
-	checkImage.BackgroundTransparency = 1
-	checkImage.BorderSizePixel = 0
-
 	self._frame = frame
-	self._button = button
 	self._label = label
 
 	self._clicked = false
 	self._hovered = false
 
-	self._checkImage = checkImage
-	self._fullBackgroundButton = fullBackgroundButton
+	self._button = fullBackgroundButton
 	self._useDisabledOverride = false
 	self._disabledOverride = false
 	self:SetDisabled(initDisabled)
@@ -98,26 +67,6 @@ function LabeledButtonClass.new(nameSuffix, labelText, initValue, initDisabled)
 	self:SetValue(initValue)
 
 	self:_SetupMouseClickHandling()
-
-	local function updateImages()
-		if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
-			self._button.Image = kCheckboxFrameImageDark
-			if self._checkImage.Image == kDisabledCheckImage then
-				self._checkImage.Image = kDisabledCheckImageDark
-			else
-				self._checkImage.Image = kEnabledCheckImageDark
-			end
-		else
-			self._button.Image = kCheckboxFrameImage
-			if self._checkImage.Image == kDisabledCheckImageDark then
-				self._checkImage.Image = kDisabledCheckImage
-			else
-				self._checkImage.Image = kEnabledCheckImage
-			end
-		end
-	end
-	settings().Studio.ThemeChanged:Connect(updateImages)
-	updateImages()
 
 	local function updateFontColors()
 		self:UpdateFontColors()
@@ -132,22 +81,18 @@ function LabeledButtonClass:_MaybeToggleState()
 	if not self._disabled then
 		self:SetValue(not self._value)
 	end
+	
 end
 
 function LabeledButtonClass:_SetupMouseClickHandling()
-	self._button.MouseButton1Down:Connect(function()
-		self._clicked = true
-		self:_MaybeToggleState()
-	end)
-
-	self._fullBackgroundButton.InputBegan:Connect(function(input)
+	self._label.InputBegan:Connect(function(input)
 		if (input.UserInputType == Enum.UserInputType.MouseMovement) then
 			self._hovered = true
 			self:_updateCheckboxVisual()
 		end
 	end)
 
-	self._fullBackgroundButton.InputEnded:Connect(function(input)
+	self._label.InputEnded:Connect(function(input)
 		if (input.UserInputType == Enum.UserInputType.MouseMovement) then
 			self._hovered = false
 			self._clicked = false
@@ -155,49 +100,50 @@ function LabeledButtonClass:_SetupMouseClickHandling()
 		end
 	end)
 
-	self._fullBackgroundButton.MouseButton1Down:Connect(function()
+	self._label.MouseButton1Down:Connect(function()
 		self._clicked = true
 		self:_updateCheckboxVisual()
 		self:_MaybeToggleState()
 	end)
 end
 
--- Too buggy with other GuiObjects to be used.
-function LabeledButtonClass:_updateCheckboxVisual()
-	-- if (self._clicked) then 
-	-- 	self._button.Image = kCheckboxFrameImage
-	-- elseif (self._hovered) then 
-	-- 	self._button.Image = kHoverCheckImage
-	-- else
-	-- 	self._button.Image = kCheckboxFrameImage
-	-- end
-end
-
 function LabeledButtonClass:_HandleUpdatedValue()
-	self._checkImage.Visible = self:GetValue()
+	self._button.Visible = self:GetValue()
 
 	if (self._valueChangedFunction) then 
 		self._valueChangedFunction(self:GetValue())
 	end
 end
 
--- Small checkboxes are a different entity.
--- All the bits are smaller.
--- Fixed width instead of flood-fill.
--- Box comes first, then label.
-function LabeledButtonClass:UseSmallSize()
-	self._label.TextSize = kMinTextSize
-	self._label.Size = kMinLabelSize
-	self._label.Position = kMinLabelPos
-	self._label.TextXAlignment = Enum.TextXAlignment.Left
+-- Too buggy with other GuiObjects to be used.
+function LabeledButtonClass:_updateCheckboxVisual()
+	local kButtonDefaultBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Default)
+	local kButtonHoverBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Hover)
+	local kButtonPressedBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Pressed)
 
-	self._button.Size = kMinButtonSize
-	self._button.Position = kMinButtonPos
+	if (self._value) then
+		self._button.BackgroundColor3 = kButtonPressedBackgroundColor
+	elseif (self._clicked) then 
+		self._button.BackgroundColor3 = kButtonPressedBackgroundColor
+	elseif (self._hovered) then 
+		self._button.BackgroundColor3 = kButtonHoverBackgroundColor
+	else
+		self._button.BackgroundColor3 = kButtonDefaultBackgroundColor
+	end
+end
 
-	self._checkImage.Size = kMinCheckImageSize
+function LabeledButtonClass:_HandleUpdatedValue()
+	if (self:GetValue())then
+		kButtonBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Pressed)
+		self._button.BackgroundColor3 = kButtonBackgroundColor
+	else
+		kButtonBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Default)
+		self._button.BackgroundColor3 = kButtonBackgroundColor
+	end
 
-	self._frame.Size = LabeledButtonClass.kMinFrameSize
-	self._frame.BackgroundTransparency = 1
+	if (self._valueChangedFunction) then 
+		self._valueChangedFunction(self:GetValue())
+	end
 end
 
 function LabeledButtonClass:GetFrame()
@@ -238,20 +184,6 @@ function LabeledButtonClass:SetDisabled(newDisabled)
 		-- the override any more.  Forget it.
 		if (not self._disabled) then 
 			self._useDisabledOverride = false
-		end
-
-		if (newDisabled) then 
-			if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
-				self._checkImage.Image = kDisabledCheckImageDark
-			else
-				self._checkImage.Image = kDisabledCheckImage
-			end
-		else
-			if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
-				self._checkImage.Image = kEnabledCheckImageDark
-			else
-				self._checkImage.Image = kEnabledCheckImage
-			end
 		end
 
 		self:UpdateFontColors()
