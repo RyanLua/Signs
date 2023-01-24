@@ -112,6 +112,31 @@ function PluginGui:newPluginGui(widgetGui)
 		false -- initially disabled?
 	)
 	wrappedCheckbox:GetFrame().Parent = textCollapse:GetContentsFrame()
+	
+	local fontCollapse = CollapsibleTitledSection.new( -- Fonts collapse
+		"fontCollapse", -- name suffix of the gui object
+		"Font", -- the text displayed beside the collapsible arrow
+		true, -- have the content frame auto-update its size?
+		true, -- minimizable?
+		true -- minimized by default?
+	)
+	listFrame:AddChild(fontCollapse:GetSectionFrame()) -- add child to expanding VerticallyScalingListFrame
+
+	local boldCheckbox = LabeledCheckbox.new(
+		"boldCheckbox", -- name suffix of gui object
+		"Bold", -- text beside the checkbox
+		false, -- initial value
+		false -- initially disabled?
+	)
+	boldCheckbox:GetFrame().Parent = fontCollapse:GetContentsFrame()
+
+	local italicCheckbox = LabeledCheckbox.new(
+		"italicCheckbox", -- name suffix of gui object
+		"Italic", -- text beside the checkbox
+		false, -- initial value
+		false -- initially disabled?
+	)
+	italicCheckbox:GetFrame().Parent = fontCollapse:GetContentsFrame()
 
 	local colorTextChoice = LabeledMultiChoice.new(
 		"colorSelection", -- name suffix of gui object
@@ -122,23 +147,7 @@ function PluginGui:newPluginGui(widgetGui)
 	if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
 		colorTextChoice:SetSelectedIndex(1)
 	end
-	colorTextChoice:GetFrame().Parent = textCollapse:GetContentsFrame()
-
-	local boldCheckbox = LabeledCheckbox.new(
-		"boldCheckbox", -- name suffix of gui object
-		"Bold", -- text beside the checkbox
-		false, -- initial value
-		false -- initially disabled?
-	)
-	boldCheckbox:GetFrame().Parent = textCollapse:GetContentsFrame()
-
-	local italicCheckbox = LabeledCheckbox.new(
-		"italicCheckbox", -- name suffix of gui object
-		"Italic", -- text beside the checkbox
-		false, -- initial value
-		false -- initially disabled?
-	)
-	italicCheckbox:GetFrame().Parent = textCollapse:GetContentsFrame()
+	colorTextChoice:GetFrame().Parent = fontCollapse:GetContentsFrame()
 
 	local fontTextChoice = LabeledMultiChoice.new( -- Basically in beta thingy for fonts. New system prob done by another PluginGui soon. This will suffice.
 		"fontTextChoice", -- name suffix of gui object
@@ -146,7 +155,7 @@ function PluginGui:newPluginGui(widgetGui)
 		FontFace, -- choices array
 		32 -- the starting index of the selection
 	)
-	fontTextChoice:GetFrame().Parent = textCollapse:GetContentsFrame()
+	fontTextChoice:GetFrame().Parent = fontCollapse:GetContentsFrame()
 
 	local alignmentCollapse = CollapsibleTitledSection.new( -- Fonts collapse
 		"alignmentCollapse", -- name suffix of the gui object
