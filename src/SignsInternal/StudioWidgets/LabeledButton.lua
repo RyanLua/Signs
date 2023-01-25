@@ -127,6 +127,10 @@ end
 
 -- Too buggy with other GuiObjects to be used.
 function LabeledButtonClass:_updateCheckboxVisual()
+	local kButtonDefaultBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.FilterButtonDefault, Enum.StudioStyleGuideModifier.Default)
+	local kButtonHoverBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.FilterButtonHover, Enum.StudioStyleGuideModifier.Hover)
+	local kButtonPressedBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.FilterButtonChecked, Enum.StudioStyleGuideModifier.Pressed)
+
 	if (self._value) then
 		self._button.BackgroundColor3 = kButtonPressedBackgroundColor
 	elseif (self._clicked) then 

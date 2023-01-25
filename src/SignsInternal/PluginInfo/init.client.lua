@@ -22,7 +22,7 @@ button.ClickableWhenViewportHidden = true
 
 -- Create new widget GUI and name it
 local widget = plugin:CreateDockWidgetPluginGui("Signs", widgetInfo)
-widget.Title = "Signs Internal"
+widget.Title = "Signs Internal 2.0.48.0"
 widget.Name = "SignsInternal"
 
 -- Set CreateButton.Icon to match Studio theme

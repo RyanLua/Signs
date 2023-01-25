@@ -86,20 +86,21 @@ end
 function LabeledMultiChoiceClass:_MakeRadioButtons(choices)
 	local frame = GuiUtilities.MakeFrame("RadioButtons")
 	frame.BackgroundTransparency = 1
+	frame.Size = UDim2.new(1, -GuiUtilities.DefaultLineLabelLeftMargin * 2, 1, 0)
 
-	local padding = Instance.new("UIPadding")
-	padding.PaddingLeft = UDim.new(0, GuiUtilities.DefaultLineLabelLeftMargin)
-	padding.PaddingRight = UDim.new(0, GuiUtilities.DefaultLineLabelLeftMargin)
-	padding.Parent = frame
+	-- local padding = Instance.new("UIPadding")
+	-- padding.PaddingLeft = UDim.new(0, GuiUtilities.DefaultLineLabelLeftMargin)
+	-- padding.PaddingRight = UDim.new(0, GuiUtilities.DefaultLineLabelLeftMargin)
+	-- padding.Parent = frame
 	
 	-- Make a grid to put checkboxes in.
 	local uiGridLayout = Instance.new("UIGridLayout")
-	uiGridLayout.CellSize = LabeledCheckbox.kMinFrameSize
+	uiGridLayout.CellSize = UDim2.new(0, GuiUtilities.DefaultLineLabelWidth, 0, GuiUtilities.kTitleBarHeight)
 	uiGridLayout.CellPadding = UDim2.new(0, 
-		kRadioButtonsHPadding,
 		0,
-		GuiUtilities.kDefaultVMargin)
-	uiGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
+		0,
+		0)
+	uiGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 	uiGridLayout.VerticalAlignment = Enum.VerticalAlignment.Top
 	uiGridLayout.Parent = frame
 	uiGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
