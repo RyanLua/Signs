@@ -13,6 +13,10 @@ local kMinLabelWidth = GuiUtilities.kCheckboxMinLabelWidth
 local kMinMargin = GuiUtilities.kCheckboxMinMargin
 local kMinButtonWidth = kCheckboxWidth;
 
+local kButtonDefaultBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.FilterButtonDefault, Enum.StudioStyleGuideModifier.Default)
+local kButtonHoverBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.FilterButtonHover, Enum.StudioStyleGuideModifier.Hover)
+local kButtonPressedBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.FilterButtonChecked, Enum.StudioStyleGuideModifier.Pressed)
+
 LabeledButtonClass = {}
 LabeledButtonClass.__index = LabeledButtonClass
 
@@ -33,7 +37,7 @@ function LabeledButtonClass.new(nameSuffix, labelText, initValue, initDisabled)
 	fullBackgroundButton.Parent = frame
 	fullBackgroundButton.BorderSizePixel = 0
 	fullBackgroundButton.BackgroundTransparency = 0
-	fullBackgroundButton.Size = UDim2.new(0, GuiUtilities.DefaultLineLabelWidth, 1, 0)
+	fullBackgroundButton.Size = UDim2.new(1, 0, 1, 0)
 	fullBackgroundButton.Position = UDim2.new(0, 0, 0, 0)
 	fullBackgroundButton.Text = ""
 	fullBackgroundButton.AutoButtonColor = false
@@ -73,6 +77,12 @@ function LabeledButtonClass.new(nameSuffix, labelText, initValue, initDisabled)
 	end
 	settings().Studio.ThemeChanged:Connect(updateFontColors)
 	updateFontColors()
+
+	local function updateButtonColors()
+		self:_updateCheckboxVisual()
+	end
+	settings().Studio.ThemeChanged:Connect(updateButtonColors)
+	updateButtonColors()
 
 	return self
 end
@@ -117,10 +127,6 @@ end
 
 -- Too buggy with other GuiObjects to be used.
 function LabeledButtonClass:_updateCheckboxVisual()
-	local kButtonDefaultBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Default)
-	local kButtonHoverBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Hover)
-	local kButtonPressedBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Pressed)
-
 	if (self._value) then
 		self._button.BackgroundColor3 = kButtonPressedBackgroundColor
 	elseif (self._clicked) then 
@@ -134,11 +140,9 @@ end
 
 function LabeledButtonClass:_HandleUpdatedValue()
 	if (self:GetValue())then
-		kButtonBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Pressed)
-		self._button.BackgroundColor3 = kButtonBackgroundColor
+		self._button.BackgroundColor3 = kButtonPressedBackgroundColor
 	else
-		kButtonBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Default)
-		self._button.BackgroundColor3 = kButtonBackgroundColor
+		self._button.BackgroundColor3 = kButtonDefaultBackgroundColor
 	end
 
 	if (self._valueChangedFunction) then 
