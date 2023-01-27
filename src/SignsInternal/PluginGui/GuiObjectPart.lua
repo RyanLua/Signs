@@ -12,7 +12,7 @@ local Selection = game:GetService("Selection")
 GuiObjectPart = {}
 GuiObjectPart.__index = GuiObjectPart
 
-function GuiObjectPart.new(label: GuiObject, lightInfluence: number?, alwaysOnTop: boolean?, autoLocalize: boolean?)
+function GuiObjectPart.new(label: GuiObject, autoLocalize: boolean?, lightInfluence: number?, alwaysOnTop: boolean?)
 	local self = {}
 	setmetatable(self, GuiObjectPart)
 

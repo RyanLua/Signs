@@ -18,6 +18,9 @@ local VerticallyScalingListFrame = require(targetFolder.VerticallyScalingListFra
 local Color = require(script.Color)
 local FontFace = require(script.FontFace)
 local GuiObjectPart = require(script.GuiObjectPart)
+local LineJoinMode = require(script.LineJoinMode)
+local TextXAlignment = require(script.TextXAlignment)
+local TextYAlignment = require(script.TextYAlignment)
 
 local PluginGui = {}
 
@@ -42,14 +45,14 @@ function PluginGui:newPluginGui(widgetGui)
 		"Insert" -- the text displayed on the button
 	)
 	local buttonObject = insertButton:GetButton()
-	buttonObject.Size = UDim2.new(1, -5, 0, 50)
+	buttonObject.Size = UDim2.new(1, -10, 0, 50)
 	buttonObject.Parent = scrollFrame:GetContentsFrame()
 
 	local textCollapse = CollapsibleTitledSection.new( -- Text collapse
 		"textCollapse", -- name suffix of the gui object
 		"Text", -- the text displayed beside the collapsible arrow
 		true, -- have the content frame auto-update its size?
-		false, -- minimizable?
+		true, -- minimizable?
 		false -- minimized by default?
 	)
 	listFrame:AddChild(textCollapse:GetSectionFrame()) -- add child to expanding VerticallyScalingListFrame
@@ -57,9 +60,9 @@ function PluginGui:newPluginGui(widgetGui)
 	local textInput = LabeledTextInput.new( -- Asks user for text
 		"textInput", -- name suffix of gui object
 		"Text", -- title text of the multi choice
-		"" -- default value
+		"Text here" -- default value
 	)
-	textInput:SetMaxGraphemes(4096)
+	textInput:SetMaxGraphemes(1024)
 	textInput:GetFrame().Parent = textCollapse:GetContentsFrame()
 
 	local transparencyTextSlider = LabeledSlider.new( -- Size Slider
@@ -109,17 +112,15 @@ function PluginGui:newPluginGui(widgetGui)
 		false -- initially disabled?
 	)
 	wrappedCheckbox:GetFrame().Parent = textCollapse:GetContentsFrame()
-
-	local colorTextChoice = LabeledMultiChoice.new( -- Another hacky way to display color.
-		"colorSelection", -- name suffix of gui object
-		"Text Color", -- title text of the multi choice
-		Color, -- choices array
-		11 -- the starting index of the selection (in this case choice 1)
+	
+	local fontCollapse = CollapsibleTitledSection.new( -- Fonts collapse
+		"fontCollapse", -- name suffix of the gui object
+		"Font", -- the text displayed beside the collapsible arrow
+		true, -- have the content frame auto-update its size?
+		true, -- minimizable?
+		true -- minimized by default?
 	)
-	if settings().Studio.Theme == settings().Studio:GetAvailableThemes()[2] then
-		colorTextChoice:SetSelectedIndex(1)
-	end
-	colorTextChoice:GetFrame().Parent = textCollapse:GetContentsFrame()
+	listFrame:AddChild(fontCollapse:GetSectionFrame()) -- add child to expanding VerticallyScalingListFrame
 
 	local boldCheckbox = LabeledCheckbox.new(
 		"boldCheckbox", -- name suffix of gui object
@@ -127,7 +128,7 @@ function PluginGui:newPluginGui(widgetGui)
 		false, -- initial value
 		false -- initially disabled?
 	)
-	boldCheckbox:GetFrame().Parent = textCollapse:GetContentsFrame()
+	boldCheckbox:GetFrame().Parent = fontCollapse:GetContentsFrame()
 
 	local italicCheckbox = LabeledCheckbox.new(
 		"italicCheckbox", -- name suffix of gui object
@@ -135,15 +136,104 @@ function PluginGui:newPluginGui(widgetGui)
 		false, -- initial value
 		false -- initially disabled?
 	)
-	italicCheckbox:GetFrame().Parent = textCollapse:GetContentsFrame()
+	italicCheckbox:GetFrame().Parent = fontCollapse:GetContentsFrame()
+
+	local colorTextChoice = LabeledMultiChoice.new(
+		"colorSelection", -- name suffix of gui object
+		"Text Color", -- title text of the multi choice
+		Color, -- choices array
+		11 -- the starting index of the selection
+	)
+	if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
+		colorTextChoice:SetSelectedIndex(1)
+	end
+	colorTextChoice:GetFrame().Parent = fontCollapse:GetContentsFrame()
 
 	local fontTextChoice = LabeledMultiChoice.new( -- Basically in beta thingy for fonts. New system prob done by another PluginGui soon. This will suffice.
 		"fontTextChoice", -- name suffix of gui object
 		"Font Face", -- title text of the multi choice
 		FontFace, -- choices array
-		32 -- the starting index of the selection (in this case choice 1)
+		32 -- the starting index of the selection
 	)
-	fontTextChoice:GetFrame().Parent = textCollapse:GetContentsFrame()
+	fontTextChoice:GetFrame().Parent = fontCollapse:GetContentsFrame()
+
+	local strokeCollapse = CollapsibleTitledSection.new( -- Fonts collapse
+		"strokeCollapse", -- name suffix of the gui object
+		"Stroke", -- the text displayed beside the collapsible arrow
+		true, -- have the content frame auto-update its size?
+		true, -- minimizable?
+		true -- minimized by default?
+	)
+	listFrame:AddChild(strokeCollapse:GetSectionFrame()) -- add child to expanding VerticallyScalingListFrame
+
+	local strokeCheckbox = LabeledCheckbox.new(
+		"strokeCheckbox", -- name suffix of gui object
+		"Enabled", -- text beside the checkbox
+		false, -- initial value
+		false -- initially disabled?
+	)
+	strokeCheckbox:GetFrame().Parent = strokeCollapse:GetContentsFrame()
+
+	local transparencyStrokeSlider = LabeledSlider.new( -- Size Slider
+		"transparencyStrokeSlider", -- name suffix of gui object
+		"Transparency", -- title text of the multi choice
+		11, -- how many intervals to split the slider into
+		1 -- the starting value of the slider
+	)
+	transparencyStrokeSlider:GetFrame().Parent = strokeCollapse:GetContentsFrame()
+
+	local colorStrokeChoice = LabeledMultiChoice.new(
+		"colorStrokeChoice", -- name suffix of gui object
+		"Color", -- title text of the multi choice
+		Color, -- choices array
+		11 -- the starting index of the selection
+	)
+	if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() == true then
+		colorStrokeChoice:SetSelectedIndex(11)
+	end
+	colorStrokeChoice:GetFrame().Parent = strokeCollapse:GetContentsFrame()
+
+	-- local backgroundCollapse = CollapsibleTitledSection.new( -- Fonts collapse
+	-- 	"backgroundCollapse", -- name suffix of the gui object
+	-- 	"Background", -- the text displayed beside the collapsible arrow
+	-- 	true, -- have the content frame auto-update its size?
+	-- 	true, -- minimizable?
+	-- 	true -- minimized by default?
+	-- )
+	-- listFrame:AddChild(backgroundCollapse:GetSectionFrame()) -- add child to expanding VerticallyScalingListFrame
+
+	-- local transparencyBackgroundSlider = LabeledSlider.new( -- Size Slider
+	-- 	"transparencyBackgroundSlider", -- name suffix of gui object
+	-- 	"Transparency", -- title text of the multi choice
+	-- 	11, -- how many intervals to split the slider into
+	-- 	11 -- the starting value of the slider
+	-- )
+	-- transparencyBackgroundSlider:GetFrame().Parent = backgroundCollapse:GetContentsFrame()
+
+	-- local colorBackgroundChoice = LabeledMultiChoice.new(
+	-- 	"colorBackgroundSelection", -- name suffix of gui object
+	-- 	"Background Color", -- title text of the multi choice
+	-- 	Color, -- choices array
+	-- 	1 -- the starting index of the selection
+	-- )
+	-- colorBackgroundChoice:GetFrame().Parent = backgroundCollapse:GetContentsFrame()
+
+	local surfaceCollapse = CollapsibleTitledSection.new( -- Fonts collapse
+		"surfaceCollapse", -- name suffix of the gui object
+		"Other", -- the text displayed beside the collapsible arrow
+		true, -- have the content frame auto-update its size?
+		true, -- minimizable?
+		true -- minimized by default?
+	)
+	listFrame:AddChild(surfaceCollapse:GetSectionFrame()) -- add child to expanding VerticallyScalingListFrame
+
+	local localizeCheckbox = LabeledCheckbox.new(
+		"localizeCheckbox", -- name suffix of gui object
+		"Auto Localize", -- text beside the checkbox
+		true, -- initial value
+		false -- initially disabled?
+	)
+	localizeCheckbox:GetFrame().Parent = surfaceCollapse:GetContentsFrame()
 
 	--listFrame:AddBottomPadding() -- add padding to VerticallyScalingListFrame
 
@@ -154,7 +244,8 @@ function PluginGui:newPluginGui(widgetGui)
 
 	insertButton:GetButton().MouseButton1Click:Connect(function()
 		local label = CustomTextLabel:GetLabel()
-		GuiObjectPart.new(label)
+		local localize = localizeCheckbox:GetValue()
+		GuiObjectPart.new(label, localize)
 	end)
 
 	textInput:SetValueChangedFunction(function(newValue)
@@ -196,15 +287,38 @@ function PluginGui:newPluginGui(widgetGui)
 	italicCheckbox:SetValueChangedFunction(function(newValue)
 		CustomTextLabel:UpdateFontFaceItalic(newValue)
 	end)
+
 	colorTextChoice:SetValueChangedFunction(function(newIndex)
-		local color = Color[newIndex].Color
-		CustomTextLabel:UpdateTextColor3(color)
+		local newValue = Color[newIndex].Color
+		CustomTextLabel:UpdateTextColor3(newValue)
 	end)
 
 	fontTextChoice:SetValueChangedFunction(function(newIndex)
-		local font = FontFace[newIndex].Font
-		CustomTextLabel:UpdateFontFace(font)
+		local newValue = FontFace[newIndex].Font
+		CustomTextLabel:UpdateFontFace(newValue)
 	end)
+
+	strokeCheckbox:SetValueChangedFunction(function(newValue)
+		CustomTextLabel:UpdateStroke(newValue)
+	end)
+
+	colorStrokeChoice:SetValueChangedFunction(function(newIndex)
+		local newValue = Color[newIndex].Color
+		CustomTextLabel:UpdateStrokeColor(newValue)
+	end)
+
+	transparencyStrokeSlider:SetValueChangedFunction(function(newValue)
+		CustomTextLabel:UpdateStrokeTransparency((newValue - 1) / 10)
+	end)
+
+	-- transparencyBackgroundSlider:SetValueChangedFunction(function(newValue)
+	-- 	CustomTextLabel:UpdateBackgroundTransparency((newValue - 1) / 10)
+	-- end)
+
+	-- colorBackgroundChoice:SetValueChangedFunction(function(newIndex)
+	-- 	local newValue = Color[newIndex].Color
+	-- 	CustomTextLabel:UpdateBackgroundColor3(newValue)
+	-- end)
 end
 
 function PluginGui:destoryPluginGui(widgetGui)

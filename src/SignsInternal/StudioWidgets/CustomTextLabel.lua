@@ -148,18 +148,19 @@ function CustomTextLabelClass.new(nameSuffix, height)
 		label.BackgroundColor3 = newValue
 	end
 
+	function CustomTextLabelClass:GetLabel()
+		return label
+	end
+
+	function CustomTextLabelClass:GetFrame()
+		return frame
+	end
+
 	self._frame = frame
 	self._label = label
 
 	return self
 end
 
-function CustomTextLabelClass:GetLabel()
-	return self._label
-end
-
-function CustomTextLabelClass:GetFrame()
-	return self._frame
-end
 
 return CustomTextLabelClass

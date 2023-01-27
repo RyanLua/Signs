@@ -306,7 +306,7 @@ function PluginGui:newPluginGui(widgetGui)
 		local influence = ((influenceSlider:GetValue() - 1) / 4)
 		local top = topCheckbox:GetValue()
 		local localize = localizeCheckbox:GetValue()
-		GuiObjectPart.new(label, influence, top, localize)
+		GuiObjectPart.new(label, localize, influence, top)
 	end)
 
 	textInput:SetValueChangedFunction(function(newValue)
