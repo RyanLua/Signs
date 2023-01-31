@@ -97,9 +97,9 @@ function LabeledMultiChoiceClass:_MakeRadioButtons(choices)
 	local uiGridLayout = Instance.new("UIGridLayout")
 	uiGridLayout.CellSize = UDim2.new(0, GuiUtilities.DefaultLineLabelWidth, 0, GuiUtilities.kTitleBarHeight)
 	uiGridLayout.CellPadding = UDim2.new(0, 
+		5,
 		0,
-		0,
-		0)
+		5)
 	uiGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 	uiGridLayout.VerticalAlignment = Enum.VerticalAlignment.Top
 	uiGridLayout.Parent = frame
