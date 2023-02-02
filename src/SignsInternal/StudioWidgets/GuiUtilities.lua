@@ -5,7 +5,7 @@ module.kInlineTitleBarHeight = 24
 
 module.kDefaultContentAreaWidth = 180
 
-module.kDefaultFontSize = 15
+module.kDefaultFontSize = 16
 module.kDefaultFontFace = Enum.Font.SourceSans
 module.kDefaultFontFaceBold = Enum.Font.SourceSansBold
 
