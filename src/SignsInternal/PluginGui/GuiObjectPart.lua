@@ -7,12 +7,13 @@
 ----------------------------------------
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
+local CollectionService = game:GetService("CollectionService")
 local Selection = game:GetService("Selection")
 
 GuiObjectPart = {}
 GuiObjectPart.__index = GuiObjectPart
 
-function GuiObjectPart.new(label: GuiObject, lightInfluence: number?, alwaysOnTop: boolean?, autoLocalize: boolean?)
+function GuiObjectPart.new(label: GuiObject, autoLocalize: boolean?, lightInfluence: number?, alwaysOnTop: boolean?)
 	local self = {}
 	setmetatable(self, GuiObjectPart)
 
@@ -28,6 +29,8 @@ function GuiObjectPart.new(label: GuiObject, lightInfluence: number?, alwaysOnTo
 	local yCameraRotation = camera.CFrame.Rotation.Y
 	local yRotation = math.floor(yCameraRotation/90 + 0.5) * 90
 	part.Rotation = Vector3.new(0, yRotation, 0)
+
+	CollectionService:AddTag(part, "_Sign")
 
 	local surfaceGui = Instance.new("SurfaceGui")
 	surfaceGui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
