@@ -1,0 +1,13 @@
+# Roblox Studio lock files
+*.rbxlx.lock
+*.rbxl.lock
+
+# Selene Roblox standard library
+roblox.toml
+
+# Roblox place and model files
+*.rbx*
+temp/
+
+# Include rbxm(x) assets
+!*/**/*.rbx*
