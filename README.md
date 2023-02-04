@@ -1,6 +1,11 @@
-<h1 align="center">Signs - A Roblox Studio Plugin</h1>
+<div align="center">
+    <a href="https://github.com/The-Winner-Games/Signs"><img src="assets/type/SignsText.png" alt="Signs - A Roblox Studio Plugin" height="117"/></a>
+</div>
 
-Signs is an easy-to-use, intuitive text tool plugin for creating signs, text, and labels.
+<div>&nbsp;</div>
+
+<div align="center">Signs is an easy-to-use, intuitive text tool plugin for creating signs, text, and labels.</div>
+
 ## Installation
 Signs is avaliable on the **Creator Marketplace for 100 Robux** or from **GitHub for free**. There is a free version on the Roblox Marketplace also.
 
@@ -22,6 +27,12 @@ To install from **GitHub** first download the lastest `.rbxm` plugin file of Sig
 
 ## Features
 Signs offers many features and some benefits to just a TextLabel. You can edit the UI Stroke which isn't possible with just the Text Stroke property.
+
+<details><summary>Open Sourced</summary>
+<p>
+Signs is open source and free. Change and modify the plugin to meet what you want. Maybe look out for some bugs and fix them and we might even add your code into the offical plugin. Know what you run on your computer.
+</p>
+</details>
 
 <details><summary>Live Preview</summary>
 <p>
@@ -56,7 +67,7 @@ Change the stroke of the font in customize in ways which the text stroke propert
 ## Contributing
 We worked hard to make this open-source plugin, so please contribute at your will. Go ahead and fork this repository and maybe we will merge to our's someday.
 
-If you see an bug or want a feature please open a [issue](https://github.com/The-Winners-Games/Signs/issues). Make sure to check our [Trello board](https://trello.com/b/OVQpLwYq/signs-plugin-roadmap) before you request a feature.
+If you see an bug or want a feature please open a [issue](https://github.com/The-Winner-Games/Signs/issues). Make sure to check our [Trello board](https://trello.com/b/OVQpLwYq/signs-plugin-roadmap) before you request a feature.
 
 ## License
 Signs is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/). See [LICENSE.txt](LICENSE.txt) for details.
