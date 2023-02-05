@@ -49,9 +49,6 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
 	local self = {}
 	setmetatable(self, LabeledCheckboxClass)
 
-	local initValue = not not initValue
-	local initDisabled = not not initDisabled
-
 	local frame = GuiUtilities.MakeDefaultFixedHeightFrame("CBF" .. nameSuffix)
 
 	local fullBackgroundButton = Instance.new("TextButton")
@@ -104,7 +101,7 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
 	self:_SetupMouseClickHandling()
 
 	local function updateImages()
-		if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
+		if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() then
 			self._button.Image = kCheckboxFrameImageDark
 			if self._checkImage.Image == kDisabledCheckImage then
 				self._checkImage.Image = kDisabledCheckImageDark
@@ -145,14 +142,14 @@ function LabeledCheckboxClass:_SetupMouseClickHandling()
 	end)
 
 	self._fullBackgroundButton.InputBegan:Connect(function(input)
-		if (input.UserInputType == Enum.UserInputType.MouseMovement) then
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			self._hovered = true
 			self:_updateCheckboxVisual()
 		end
 	end)
 
 	self._fullBackgroundButton.InputEnded:Connect(function(input)
-		if (input.UserInputType == Enum.UserInputType.MouseMovement) then
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			self._hovered = false
 			self._clicked = false
 			self:_updateCheckboxVisual()
@@ -168,19 +165,25 @@ end
 
 -- Too buggy with other GuiObjects to be used.
 function LabeledCheckboxClass:_updateCheckboxVisual()
-	-- if (self._clicked) then 
-	-- 	self._button.Image = kCheckboxFrameImage
-	-- elseif (self._hovered) then 
-	-- 	self._button.Image = kHoverCheckImage
-	-- else
-	-- 	self._button.Image = kCheckboxFrameImage
-	-- end
+	if self._hovered then 
+		if GuiUtilities.ShouldUseIconsForDarkerBackgrounds() then
+			self._button.Image = kHoverCheckImageDark
+		else
+			self._button.Image = kHoverCheckImage
+		end
+	else
+		if GuiUtilities.ShouldUseIconsForDarkerBackgrounds() then
+			self._button.Image = kCheckboxFrameImageDark
+		else
+			self._button.Image = kCheckboxFrameImage
+		end
+	end
 end
 
 function LabeledCheckboxClass:_HandleUpdatedValue()
 	self._checkImage.Visible = self:GetValue()
 
-	if (self._valueChangedFunction) then 
+	if self._valueChangedFunction then 
 		self._valueChangedFunction(self:GetValue())
 	end
 end
@@ -211,7 +214,7 @@ end
 function LabeledCheckboxClass:GetValue()
 	-- If button is disabled, and we should be using a disabled override, 
 	-- use the disabled override.
-	if (self._disabled and self._useDisabledOverride) then 
+	if self._disabled and self._useDisabledOverride then 
 		return self._disabledOverride
 	else
 		return self._value
@@ -231,8 +234,6 @@ function LabeledCheckboxClass:SetValueChangedFunction(vcFunction)
 end
 
 function LabeledCheckboxClass:SetDisabled(newDisabled)
-	local newDisabled = not not newDisabled
-
 	local originalValue = self:GetValue()
 
 	if newDisabled ~= self._disabled then
@@ -240,18 +241,18 @@ function LabeledCheckboxClass:SetDisabled(newDisabled)
 
 		-- if we are no longer disabled, then we don't need or want 
 		-- the override any more.  Forget it.
-		if (not self._disabled) then 
+		if not self._disabled then 
 			self._useDisabledOverride = false
 		end
 
-		if (newDisabled) then 
-			if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
+		if newDisabled then 
+			if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() then
 				self._checkImage.Image = kDisabledCheckImageDark
 			else
 				self._checkImage.Image = kDisabledCheckImage
 			end
 		else
-			if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
+			if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() then
 				self._checkImage.Image = kEnabledCheckImageDark
 			else
 				self._checkImage.Image = kEnabledCheckImage
@@ -267,7 +268,7 @@ function LabeledCheckboxClass:SetDisabled(newDisabled)
 	end
 
 	local newValue = self:GetValue()
-	if (newValue ~= originalValue) then 
+	if newValue ~= originalValue then 
 		self:_HandleUpdatedValue()
 	end
 end
@@ -288,18 +289,16 @@ function LabeledCheckboxClass:DisableWithOverrideValue(overrideValue)
 	self._disabledOverride = overrideValue
 	self:SetDisabled(true)
 	local newValue = self:GetValue()
-	if (oldValue ~= newValue) then 
+	if oldValue ~= newValue then 
 		self:_HandleUpdatedValue()
-	end		
+	end
 end
 
 function LabeledCheckboxClass:GetDisabled()
 	return self._disabled
 end
 
-function LabeledCheckboxClass:SetValue(newValue)
-	local newValue = not not newValue
-	
+function LabeledCheckboxClass:SetValue(newValue)	
 	if newValue ~= self._value then
 		self._value = newValue
 
