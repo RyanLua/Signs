@@ -28,6 +28,8 @@ module.DefaultLineElementLeftMargin = (module.DefaultLineLabelLeftMargin + modul
 + module.kCheckboxMinMargin + module.kCheckboxWidth + module.kRadioButtonsHPadding)
 module.DefaultLineLabelWidth = (module.DefaultLineElementLeftMargin - module.DefaultLineLabelLeftMargin - 10 )
 
+module.DefaultRightMargin = module.DefaultLineLabelLeftMargin + module.DefaultLineLabelWidth + 15
+
 module.kDropDownHeight = 55
 
 module.kBottomButtonsFrameHeight = 50

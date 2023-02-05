@@ -71,9 +71,9 @@ t.CreateSlider = function(steps,width,position)
 	bar.Name = "Bar"
 	bar.BackgroundColor3 = Color3.new(0,0,0)
 	if type(width) == "number" then
-		bar.Size = UDim2.new(0,width,0,5)
+		bar.Size = UDim2.new(1,0,0,5)
 	else
-		bar.Size = UDim2.new(0,200,0,5)
+		bar.Size = UDim2.new(1,0,0,5)
 	end
 	bar.BorderColor3 = Color3.new(95/255,95/255,95/255)
 	bar.ZIndex = 2

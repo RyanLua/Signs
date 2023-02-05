@@ -41,18 +41,17 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 
 	local textBoxBorder = Instance.new("ImageLabel")
 	textBoxBorder.Name = "TextBox"
-	textBoxBorder.Size = UDim2.new(0, kTextInputWidth, 0, kTextInputHeight)
+	textBoxBorder.Size = UDim2.new(1, -GuiUtilities.DefaultRightMargin, 0, GuiUtilities.kTextInputHeight)
 	textBoxBorder.Position = UDim2.new(0, GuiUtilities.DefaultLineElementLeftMargin, 0, kTextBoxInternalPadding)
 	textBoxBorder.AnchorPoint = Vector2.new(0, 0)
 	textBoxBorder.BackgroundTransparency = 1
-	textBoxBorder.Image = "rbxasset://textures/StudioToolbox/RoundedBorder.png"
+	textBoxBorder.Image = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_dark.png"
 	textBoxBorder.ScaleType = Enum.ScaleType.Slice
 	textBoxBorder.SliceCenter = Rect.new(3, 3, 13, 13)
-	textBoxBorder.ImageColor3 = GuiUtilities.kDefaultBorderColor
+	-- textBoxBorder.ImageColor3 = GuiUtilities.kDefaultBorderColor
 	textBoxBorder.AutomaticSize = Enum.AutomaticSize.Y
 	textBoxBorder.Parent = frame
-	textBoxBorder.ZIndex = 2
-	GuiUtilities.syncGuiImageBorderColor(textBoxBorder)
+	-- GuiUtilities.syncGuiImageBorderColor(textBoxBorder)
 
 	-- Dumb hack to add padding to text box,
 	local textBoxWrapperFrame = Instance.new("Frame")
@@ -62,6 +61,7 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 	textBoxWrapperFrame.AnchorPoint = Vector2.new(0, 0)
 	textBoxWrapperFrame.Position = UDim2.new(0, 0, 0, 1)
 	textBoxWrapperFrame.AutomaticSize = Enum.AutomaticSize.Y
+	textBoxWrapperFrame.BackgroundTransparency = 1
 	textBoxWrapperFrame.Parent = textBoxBorder
 	GuiUtilities.syncGuiElementInputFieldColor(textBoxWrapperFrame)
 
@@ -88,11 +88,11 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 		-- Never let the text be too long.
 		-- Careful here: we want to measure number of graphemes, not characters, 
 		-- in the text, and we want to clamp on graphemes as well.
-		if (utf8.len(self._textBox.Text) > self._MaxGraphemes) then 
+		if utf8.len(self._textBox.Text) > self._MaxGraphemes then 
 			local count = 0
 			for start, stop in utf8.graphemes(self._textBox.Text) do
 				count = count + 1
-				if (count > self._MaxGraphemes) then 
+				if count > self._MaxGraphemes then 
 					-- We have gone one too far.
 					-- clamp just before the beginning of this grapheme.
 					self._textBox.Text = string.sub(self._textBox.Text, 1, start-1)
@@ -106,7 +106,7 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 		end
 
 		self._value = self._textBox.Text
-		if (self._valueChangedFunction) then 
+		if self._valueChangedFunction then 
 			self._valueChangedFunction(self._value)
 		end
 	end)

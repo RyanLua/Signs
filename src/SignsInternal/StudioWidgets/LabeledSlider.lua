@@ -103,7 +103,7 @@ function LabeledSliderClass.new(nameSuffix, labelText, sliderIntervals, defaultV
 	
 	self:SetValue(defaultValue)
 	slider.AnchorPoint = Vector2.new(0, 0.5)
-	slider.Size = UDim2.new(0, kSliderWidth, 1, 0)
+	slider.Size = UDim2.new(1, -GuiUtilities.DefaultRightMargin, 1, 0)
 	slider.Position = UDim2.new(0, GuiUtilities.DefaultLineElementLeftMargin, 0, GuiUtilities.kDefaultPropertyHeight/2)
 	slider.Parent = frame
 		
