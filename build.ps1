@@ -1,0 +1,1 @@
+rojo build --output "$env:localappdata\Roblox\Plugins\SignsInternal.rbxmx"
