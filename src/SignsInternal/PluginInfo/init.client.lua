@@ -3,10 +3,10 @@ local widgetInfo = DockWidgetPluginGuiInfo.new(
 	Enum.InitialDockState.Left,  -- Widget will be initialized in left panel
 	false,	-- Widget will be initially enabled
 	false,	-- Don't override the previous enabled state
-	290,	-- Default width of the floating window
-	500,	-- Default height of the floating window
+	300,	-- Default width of the floating window
+	447,	-- Default height of the floating window
 	280,	-- Minimum width of the floating window
-	375		-- Minimum height of the floating window
+	373		-- Minimum height of the floating window
 )
 
 -- Require plugin toolbar
