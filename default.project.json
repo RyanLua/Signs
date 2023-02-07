@@ -1,6 +1,11 @@
 {
-  "name": "SignsInternal",
+  "name": "SignsPlugin",
   "tree": {
-    "$path": "src"
+    "$className": "DataModel",
+    "Workspace": {
+      "$className": "Workspace",
+      "$ignoreUnknownInstances": true,
+      "$path": "src"
+    }
   }
 }
