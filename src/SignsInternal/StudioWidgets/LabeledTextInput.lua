@@ -7,8 +7,7 @@
 ----------------------------------------
 GuiUtilities = require(script.Parent.GuiUtilities)
 
-local kTextInputWidth = 100
-local kTextInputHeight = 22
+local kTextInputHeight = 16
 local kTextBoxInternalPadding = 3
 
 LabeledTextInputClass = {}
@@ -19,17 +18,17 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 	setmetatable(self, LabeledTextInputClass)
 
 	-- Note: we are using "graphemes" instead of characters.
-	-- In modern text-manipulation-fu, what with internationalization, 
-	-- emojis, etc, it's not enough to count characters, particularly when 
+	-- In modern text-manipulation-fu, what with internationalization,
+	-- emojis, etc, it's not enough to count characters, particularly when
 	-- concerned with "how many <things> am I rendering?".
-	-- We are using the 
+	-- We are using the
 	self._MaxGraphemes = 10
-	
+
 	self._valueChangedFunction = nil
 
 	local defaultValue = defaultValue or ""
 
-	local frame = GuiUtilities.MakeDefaultFixedHeightFrame('TextInput ' .. nameSuffix)
+	local frame = GuiUtilities.MakeDefaultFixedHeightFrame("TextInput " .. nameSuffix)
 	frame.AutomaticSize = Enum.AutomaticSize.Y
 	self._frame = frame
 
@@ -45,13 +44,13 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 	textBoxBorder.Position = UDim2.new(0, GuiUtilities.DefaultLineElementLeftMargin, 0, kTextBoxInternalPadding)
 	textBoxBorder.AnchorPoint = Vector2.new(0, 0)
 	textBoxBorder.BackgroundTransparency = 1
-	textBoxBorder.Image = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_dark.png"
 	textBoxBorder.ScaleType = Enum.ScaleType.Slice
 	textBoxBorder.SliceCenter = Rect.new(3, 3, 13, 13)
 	-- textBoxBorder.ImageColor3 = GuiUtilities.kDefaultBorderColor
 	textBoxBorder.AutomaticSize = Enum.AutomaticSize.Y
 	textBoxBorder.Parent = frame
 	-- GuiUtilities.syncGuiImageBorderColor(textBoxBorder)
+	self._textBoxBorder = textBoxBorder
 
 	-- Dumb hack to add padding to text box,
 	local textBoxWrapperFrame = Instance.new("Frame")
@@ -59,7 +58,7 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 	textBoxWrapperFrame.Size = UDim2.new(1, 0, 0, kTextInputHeight)
 	textBoxWrapperFrame.BorderSizePixel = 0
 	textBoxWrapperFrame.AnchorPoint = Vector2.new(0, 0)
-	textBoxWrapperFrame.Position = UDim2.new(0, 0, 0, 1)
+	textBoxWrapperFrame.Position = UDim2.new(0, 0, 0, 0)
 	textBoxWrapperFrame.AutomaticSize = Enum.AutomaticSize.Y
 	textBoxWrapperFrame.BackgroundTransparency = 1
 	textBoxWrapperFrame.Parent = textBoxBorder
@@ -78,24 +77,26 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 	textBox.BackgroundTransparency = 1
 	textBox.TextXAlignment = Enum.TextXAlignment.Left
 	textBox.TextYAlignment = Enum.TextYAlignment.Center
-	textBox.Size = UDim2.new(1, -kTextBoxInternalPadding, 0, GuiUtilities.kTextVerticalFudge)
+	textBox.AnchorPoint = Vector2.new(0, 0)
+	textBox.Size = UDim2.new(1, 0, 1, 0)
 	textBox.Position = UDim2.new(0, kTextBoxInternalPadding, 0, kTextBoxInternalPadding)
 	textBox.AutomaticSize = Enum.AutomaticSize.Y
 	textBox.ClipsDescendants = true
 	GuiUtilities.syncGuiElementFontColor(textBox)
-	
+	self._textBox = textBox
+
 	textBox:GetPropertyChangedSignal("Text"):Connect(function()
 		-- Never let the text be too long.
-		-- Careful here: we want to measure number of graphemes, not characters, 
+		-- Careful here: we want to measure number of graphemes, not characters,
 		-- in the text, and we want to clamp on graphemes as well.
-		if utf8.len(self._textBox.Text) > self._MaxGraphemes then 
+		if utf8.len(self._textBox.Text) > self._MaxGraphemes then
 			local count = 0
 			for start, stop in utf8.graphemes(self._textBox.Text) do
 				count = count + 1
-				if count > self._MaxGraphemes then 
+				if count > self._MaxGraphemes then
 					-- We have gone one too far.
 					-- clamp just before the beginning of this grapheme.
-					self._textBox.Text = string.sub(self._textBox.Text, 1, start-1)
+					self._textBox.Text = string.sub(self._textBox.Text, 1, start - 1)
 					break
 				end
 			end
@@ -106,14 +107,75 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 		end
 
 		self._value = self._textBox.Text
-		if self._valueChangedFunction then 
+		if self._valueChangedFunction then
 			self._valueChangedFunction(self._value)
 		end
 	end)
-	
-	self._textBox = textBox
+
+	self._selected = false
+
+	local function updateImages()
+		if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() then
+			textBoxBorder.Image = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_dark.png"
+		else
+			textBoxBorder.Image = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_light.png"
+		end
+	end
+	settings().Studio.ThemeChanged:Connect(updateImages)
+	updateImages()
+
+	self:_SetupMouseClickHandling()
+	self:_updateInputVisual()
 
 	return self
+end
+
+function LabeledTextInputClass:_SetupMouseClickHandling()
+	self._textBox.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			self._selected = true
+			self:_updateInputVisual()
+		end
+	end)
+
+	self._textBox.Focused:Connect(function()
+		self._selected = true
+		self:_updateInputVisual()
+	end)
+
+	self._textBox.FocusLost:Connect(function()
+		self._selected = false
+		self:_updateInputVisual()
+	end)
+
+	self._textBox.InputEnded:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			self._selected = false
+			self:_updateInputVisual()
+		end
+	end)
+end
+
+function LabeledTextInputClass:_updateInputVisual()
+	local kTextBoxBorder = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_light.png"
+	local kTextBoxBorderSelected = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_hover_light.png"
+
+	local kTextBoxBorderDark = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_dark.png"
+	local kTextBoxBorderSelectedDark = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_hover_dark.png"
+
+	if self._selected then
+		if GuiUtilities.ShouldUseIconsForDarkerBackgrounds() then
+			self._textBoxBorder.Image = kTextBoxBorderSelectedDark
+		else
+			self._textBoxBorder.Image = kTextBoxBorderSelected
+		end
+	else
+		if GuiUtilities.ShouldUseIconsForDarkerBackgrounds() then
+			self._textBoxBorder.Image = kTextBoxBorderDark
+		else
+			self._textBoxBorder.Image = kTextBoxBorder
+		end
+	end
 end
 
 function LabeledTextInputClass:SetValueChangedFunction(vcf)
