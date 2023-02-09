@@ -23,7 +23,7 @@ Installing from [**GitHub**](https://github.com/about) allows you to access the 
 
 To install from **GitHub** first download the lastest `.rbxm` plugin file of Signs from the below link. Once you have the file, go to `C:\Users\YOUR_WINDOWS_USER\AppData\Local\Roblox\Plugins` and insert `Signs.rbxm` (the one you downloaded) into that folder.
 
-- [**Signs**]()
+- [**Signs**](https://github.com/The-Winner-Games/Signs/releases)
 
 ## Features
 Signs offers many features and some benefits to just a TextLabel. You can edit the UI Stroke which isn't possible with just the Text Stroke property.
