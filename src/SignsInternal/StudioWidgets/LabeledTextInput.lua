@@ -46,26 +46,32 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 	textBoxBorder.BackgroundTransparency = 1
 	textBoxBorder.ScaleType = Enum.ScaleType.Slice
 	textBoxBorder.SliceCenter = Rect.new(3, 3, 13, 13)
+	textBoxBorder.Image = "rbxasset://textures/StudioToolbox/RoundedBorder.png"
 	-- textBoxBorder.ImageColor3 = GuiUtilities.kDefaultBorderColor
 	textBoxBorder.AutomaticSize = Enum.AutomaticSize.Y
+	textBoxBorder.ZIndex = 2
 	textBoxBorder.Parent = frame
-	-- GuiUtilities.syncGuiImageBorderColor(textBoxBorder)
+	GuiUtilities.syncGuiInputFieldBorderColor(textBoxBorder)
 	self._textBoxBorder = textBoxBorder
 
 	-- Dumb hack to add padding to text box,
-	local textBoxWrapperFrame = Instance.new("Frame")
-	textBoxWrapperFrame.Name = "TextBoxFrame"
-	textBoxWrapperFrame.Size = UDim2.new(1, 0, 0, kTextInputHeight)
-	textBoxWrapperFrame.BorderSizePixel = 0
-	textBoxWrapperFrame.AnchorPoint = Vector2.new(0, 0)
-	textBoxWrapperFrame.Position = UDim2.new(0, 0, 0, 0)
-	textBoxWrapperFrame.AutomaticSize = Enum.AutomaticSize.Y
-	textBoxWrapperFrame.BackgroundTransparency = 1
-	textBoxWrapperFrame.Parent = textBoxBorder
-	GuiUtilities.syncGuiElementInputFieldColor(textBoxWrapperFrame)
+	local textBoxBackground = Instance.new("ImageLabel")
+	textBoxBackground.Name = "TextBoxFrame"
+	textBoxBackground.Size = UDim2.new(1, 0, 0, kTextInputHeight)
+	textBoxBackground.BorderSizePixel = 0
+	textBoxBackground.Image = "rbxasset://textures/StudioToolbox/RoundedBackground.png"
+	textBoxBackground.AnchorPoint = Vector2.new(0, 0)
+	textBoxBackground.Position = UDim2.new(0, 0, 0, 0)
+	textBoxBackground.ScaleType = Enum.ScaleType.Slice
+	textBoxBackground.SliceCenter = Rect.new(3, 3, 13, 13)
+	textBoxBackground.AutomaticSize = Enum.AutomaticSize.Y
+	textBoxBackground.BackgroundTransparency = 1
+	textBoxBackground.Parent = textBoxBorder
+	GuiUtilities.syncGuiInputFieldBackgroundColor(textBoxBackground)
+	self._textBoxBackground = textBoxBackground
 
 	local textBox = Instance.new("TextBox")
-	textBox.Parent = textBoxWrapperFrame
+	textBox.Parent = textBoxBackground
 	textBox.Name = "TextBox"
 	textBox.ClearTextOnFocus = false
 	textBox.MultiLine = true
@@ -76,7 +82,7 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 	textBox.TextWrapped = true
 	textBox.BackgroundTransparency = 1
 	textBox.TextXAlignment = Enum.TextXAlignment.Left
-	textBox.TextYAlignment = Enum.TextYAlignment.Center
+	textBox.TextYAlignment = Enum.TextYAlignment.Top
 	textBox.AnchorPoint = Vector2.new(0, 0)
 	textBox.Size = UDim2.new(1, 0, 1, 0)
 	textBox.Position = UDim2.new(0, kTextBoxInternalPadding, 0, kTextBoxInternalPadding)
@@ -114,16 +120,6 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 
 	self._selected = false
 
-	local function updateImages()
-		if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() then
-			textBoxBorder.Image = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_dark.png"
-		else
-			textBoxBorder.Image = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_light.png"
-		end
-	end
-	settings().Studio.ThemeChanged:Connect(updateImages)
-	updateImages()
-
 	self:_SetupMouseClickHandling()
 	self:_updateInputVisual()
 
@@ -157,24 +153,24 @@ function LabeledTextInputClass:_SetupMouseClickHandling()
 end
 
 function LabeledTextInputClass:_updateInputVisual()
-	local kTextBoxBorder = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_light.png"
-	local kTextBoxBorderSelected = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_hover_light.png"
-
-	local kTextBoxBorderDark = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_dark.png"
-	local kTextBoxBorderSelectedDark = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_hover_dark.png"
-
 	if self._selected then
-		if GuiUtilities.ShouldUseIconsForDarkerBackgrounds() then
-			self._textBoxBorder.Image = kTextBoxBorderSelectedDark
-		else
-			self._textBoxBorder.Image = kTextBoxBorderSelected
-		end
+		self._textBoxBorder.ImageColor3 = settings().Studio.Theme:GetColor(
+			Enum.StudioStyleGuideColor.CheckedFieldBackground,
+			Enum.StudioStyleGuideModifier.Selected
+		)
+		self._textBoxBackground.ImageColor3 = settings().Studio.Theme:GetColor(
+			Enum.StudioStyleGuideColor.InputFieldBackground,
+			Enum.StudioStyleGuideModifier.Selected
+		)
 	else
-		if GuiUtilities.ShouldUseIconsForDarkerBackgrounds() then
-			self._textBoxBorder.Image = kTextBoxBorderDark
-		else
-			self._textBoxBorder.Image = kTextBoxBorder
-		end
+		self._textBoxBorder.ImageColor3 = settings().Studio.Theme:GetColor(
+			Enum.StudioStyleGuideColor.InputFieldBorder,
+			Enum.StudioStyleGuideModifier.Default
+		)
+		self._textBoxBackground.ImageColor3 = settings().Studio.Theme:GetColor(
+			Enum.StudioStyleGuideColor.InputFieldBackground,
+			Enum.StudioStyleGuideModifier.Default
+		)
 	end
 end
 
