@@ -4,14 +4,10 @@ local CollapsibleTitledSection = require(targetFolder.CollapsibleTitledSection)
 local CustomTextButton = require(targetFolder.CustomTextButton)
 local CustomTextLabel = require(targetFolder.CustomTextLabel)
 local GuiUtilities = require(targetFolder.GuiUtilities)
---local ImageButtonWithText = require(targetFolder.ImageButtonWithText)
 local LabeledCheckbox = require(targetFolder.LabeledCheckbox)
 local LabeledMultiChoice = require(targetFolder.LabeledMultiChoice)
-local LabeledRadioButton = require(targetFolder.LabeledRadioButton)
 local LabeledSlider = require(targetFolder.LabeledSlider)
 local LabeledTextInput = require(targetFolder.LabeledTextInput)
-local RbxGui = require(targetFolder.RbxGui)
---local StatefulImageButton = require(targetFolder.StatefulImageButton)
 local ScrollingFrame = require(targetFolder.VerticalScrollingFrame)
 local VerticallyScalingListFrame = require(targetFolder.VerticallyScalingListFrame)
 
@@ -25,19 +21,13 @@ local TextYAlignment = require(script.TextYAlignment)
 local PluginGui = {}
 
 function PluginGui:newPluginGui(widgetGui)
-
-	local scrollFrame = ScrollingFrame.new(
-		"scrollFrame"
-	)
+	local scrollFrame = ScrollingFrame.new("scrollFrame")
 
 	local listFrame = VerticallyScalingListFrame.new( -- Scrolling frame
 		"listFrame" -- name suffix of gui object
 	)
 
-	local previewLabel = CustomTextLabel.new(
-		"Preview",
-		150
-	)
+	local previewLabel = CustomTextLabel.new("Preview", 150)
 	previewLabel:GetFrame().Parent = scrollFrame:GetContentsFrame()
 
 	local insertButton = CustomTextButton.new( -- Insert button
@@ -72,6 +62,14 @@ function PluginGui:newPluginGui(widgetGui)
 		1 -- the starting value of the slider
 	)
 	transparencyTextSlider:GetFrame().Parent = textCollapse:GetContentsFrame()
+
+	local rotationTextSlider = LabeledSlider.new( -- Rotation Slider
+		"rotationSlider", -- name suffix of gui object
+		"Text Rotation", -- title text of the multi choice
+		13, -- how many intervals to split the slider into
+		1 -- the starting value of the slider
+	)
+	rotationTextSlider:GetFrame().Parent = textCollapse:GetContentsFrame()
 
 	local sizeTextSlider = LabeledSlider.new( -- Size Slider
 		"sizeSlider", -- name suffix of gui object
@@ -112,7 +110,7 @@ function PluginGui:newPluginGui(widgetGui)
 		false -- initially disabled?
 	)
 	wrappedCheckbox:GetFrame().Parent = textCollapse:GetContentsFrame()
-	
+
 	local fontCollapse = CollapsibleTitledSection.new( -- Fonts collapse
 		"fontCollapse", -- name suffix of the gui object
 		"Font", -- the text displayed beside the collapsible arrow
@@ -144,17 +142,18 @@ function PluginGui:newPluginGui(widgetGui)
 		Color, -- choices array
 		11 -- the starting index of the selection
 	)
-	if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
+	if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() then
 		colorTextChoice:SetSelectedIndex(1)
 	end
 	colorTextChoice:GetFrame().Parent = fontCollapse:GetContentsFrame()
 
-	local fontTextChoice = LabeledMultiChoice.new( -- Basically in beta thingy for fonts. New system prob done by another PluginGui soon. This will suffice.
-		"fontTextChoice", -- name suffix of gui object
-		"Font Face", -- title text of the multi choice
-		FontFace, -- choices array
-		32 -- the starting index of the selection
-	)
+	local fontTextChoice =
+		LabeledMultiChoice.new( -- Basically in beta thingy for fonts. New system prob done by another PluginGui soon. This will suffice.
+			"fontTextChoice", -- name suffix of gui object
+			"Font Face", -- title text of the multi choice
+			FontFace, -- choices array
+			32 -- the starting index of the selection
+		)
 	fontTextChoice:GetFrame().Parent = fontCollapse:GetContentsFrame()
 
 	local alignmentCollapse = CollapsibleTitledSection.new( -- Fonts collapse
@@ -234,7 +233,6 @@ function PluginGui:newPluginGui(widgetGui)
 	end
 	colorStrokeChoice:GetFrame().Parent = strokeCollapse:GetContentsFrame()
 
-
 	local backgroundCollapse = CollapsibleTitledSection.new( -- Fonts collapse
 		"backgroundCollapse", -- name suffix of the gui object
 		"Background", -- the text displayed beside the collapsible arrow
@@ -259,7 +257,6 @@ function PluginGui:newPluginGui(widgetGui)
 		1 -- the starting index of the selection
 	)
 	colorBackgroundChoice:GetFrame().Parent = backgroundCollapse:GetContentsFrame()
-
 
 	local surfaceCollapse = CollapsibleTitledSection.new( -- Fonts collapse
 		"surfaceCollapse", -- name suffix of the gui object
@@ -321,6 +318,10 @@ function PluginGui:newPluginGui(widgetGui)
 		CustomTextLabel:UpdateTextSize((newValue - 1) * 5)
 	end)
 
+	rotationTextSlider:SetValueChangedFunction(function(newValue)
+		CustomTextLabel:UpdateTextRotation((newValue - 1) * 30)
+	end)
+
 	heightTextSlider:SetValueChangedFunction(function(newValue)
 		CustomTextLabel:UpdateLineHeight((newValue - 1) / 2)
 	end)
@@ -335,7 +336,7 @@ function PluginGui:newPluginGui(widgetGui)
 			sizeTextSlider:SetValue(0)
 			wrappedCheckbox:SetDisabled(true)
 			wrappedCheckbox:SetValue(true)
-		else 
+		else
 			sizeTextSlider:SetValue(4)
 			wrappedCheckbox:SetDisabled(false)
 		end
@@ -402,7 +403,7 @@ function PluginGui:newPluginGui(widgetGui)
 end
 
 function PluginGui:destoryPluginGui(widgetGui)
-	for i,v in pairs(widgetGui:GetChildren()) do
+	for i, v in pairs(widgetGui:GetChildren()) do
 		if v:IsA("GuiObject") then
 			v:Destroy()
 		end

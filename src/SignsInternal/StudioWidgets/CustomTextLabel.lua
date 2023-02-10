@@ -14,15 +14,16 @@ function CustomTextLabelClass.new(nameSuffix, height)
 	local self = {}
 	setmetatable(self, CustomTextLabelClass)
 
-	local frame = GuiUtilities.MakeFixedHeightFrame('TextLabel ' .. nameSuffix, height)
+	local frame = GuiUtilities.MakeFixedHeightFrame("TextLabel " .. nameSuffix, height)
 	frame.BorderSizePixel = 1
 	frame.Size = UDim2.new(1, 0, 0, height)
 	GuiUtilities.syncGuiElementShadowColor(frame)
+	self._frame = frame
 
-	local label = Instance.new('TextLabel')
+	local label = Instance.new("TextLabel")
 	label.Text = "Preview"
 	label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
+	if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() then
 		label.TextColor3 = Color3.fromRGB(255, 255, 255)
 	end
 	label.BackgroundTransparency = 1
@@ -31,19 +32,25 @@ function CustomTextLabelClass.new(nameSuffix, height)
 	label.TextSize = GuiUtilities.kDefaultFontSize
 	label.TextWrapped = true
 	label.Parent = frame
+	self._label = label
 
 	local stroke = Instance.new("UIStroke")
 	stroke.Enabled = false
+	stroke.Parent = label
 	stroke.Color = Color3.fromRGB(255, 255, 255)
-	if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
+	if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() then
 		stroke.Color = Color3.fromRGB(0, 0, 0)
 	end
-	stroke.Parent = label
+	self._stroke = stroke
+
+	function CustomTextLabelClass:UpdateTextRotation(newValue: number)
+		label.Rotation = newValue
+	end
 
 	function CustomTextLabelClass:UpdateText(newValue: string)
 		label.Text = newValue
 	end
-	
+
 	function CustomTextLabelClass:UpdateTextTransparency(newValue: number)
 		label.TextTransparency = newValue
 	end
@@ -156,11 +163,7 @@ function CustomTextLabelClass.new(nameSuffix, height)
 		return frame
 	end
 
-	self._frame = frame
-	self._label = label
-
 	return self
 end
-
 
 return CustomTextLabelClass
