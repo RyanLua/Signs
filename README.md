@@ -5,9 +5,9 @@
 <div>&nbsp;</div>
 
 <div align="center">
-    <a href="https://github.com/The-Winner-Games/Signs/releases"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/The-Winner-Games/Signs">
-    <a href="https://create.roblox.com/marketplace/asset/6967799394/Signs"><img alt="GitHub all releases" src="https://img.shields.io/github/downloads/The-Winner-Games/Signs/total">
-    <a href="LICENSE.txt"><img alt="GitHub" src="https://img.shields.io/github/license/The-Winner-Games/Signs">
+    <a href="https://github.com/The-Winner-Games/Signs/releases"><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/The-Winner-Games/Signs"></a>
+    <a href="https://create.roblox.com/marketplace/asset/6967799394/Signs"><img alt="GitHub all releases" src="https://img.shields.io/github/downloads/The-Winner-Games/Signs/total"></a>
+    <a href="LICENSE.txt"><img alt="GitHub" src="https://img.shields.io/github/license/The-Winner-Games/Signs"></a>
 </div>
 
 <hr />
