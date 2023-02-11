@@ -25,7 +25,7 @@ local kSteps = 100
 LabeledSliderClass = {}
 LabeledSliderClass.__index = LabeledSliderClass
 
-function LabeledSliderClass.new(nameSuffix, labelText, sliderIntervals, defaultValue)
+function LabeledSliderClass.new(nameSuffix, labelText, sliderIntervals, defaultValue, wikiLink)
 	local self = {}
 	setmetatable(self, LabeledSliderClass)
 
@@ -34,19 +34,17 @@ function LabeledSliderClass.new(nameSuffix, labelText, sliderIntervals, defaultV
 	local sliderIntervals = sliderIntervals or 100
 	local defaultValue = defaultValue or 1
 
-	local frame = GuiUtilities.MakeDefaultFixedHeightFrame('Slider' .. nameSuffix)
+	local frame = GuiUtilities.MakeDefaultFixedHeightFrame("Slider" .. nameSuffix)
 	self._frame = frame
 
-	local label = GuiUtilities.MakeDefaultPropertyLabel(labelText)
+	local label = GuiUtilities.MakeDefaultPropertyLabel(labelText, false, wikiLink)
 	label.Parent = frame
 	self._label = label
 
 	self._value = defaultValue
 
-	 --steps, width, position
-	local slider, sliderValue = rbxGuiLibrary.CreateSlider(sliderIntervals, 
-		kSteps, 
-		UDim2.new(0, 0, .5, -3))
+	--steps, width, position
+	local slider, sliderValue = rbxGuiLibrary.CreateSlider(sliderIntervals, kSteps, UDim2.new(0, 0, 0.5, -3))
 	self._slider = slider
 	self._sliderValue = sliderValue
 	-- Some tweaks to make slider look nice.
@@ -57,7 +55,7 @@ function LabeledSliderClass.new(nameSuffix, labelText, sliderIntervals, defaultV
 	self._thumb.Image = kSliderThumbImage
 	self._thumb.AnchorPoint = Vector2.new(0, 0.5)
 	self._thumb.Size = UDim2.new(0, kThumbSize, 0, kThumbSize)
-	
+
 	-- Add images on bar.
 	self._preThumbImage = Instance.new("ImageLabel")
 	self._preThumbImage.Name = "PreThumb"
@@ -87,28 +85,28 @@ function LabeledSliderClass.new(nameSuffix, labelText, sliderIntervals, defaultV
 		-- Min value is 1.
 		-- Max value is sliderIntervals.
 		-- So scale is...
-		local scale = (self._value - 1)/(sliderIntervals-1)
+		local scale = (self._value - 1) / (sliderIntervals - 1)
 
 		self._preThumbImage.Size = UDim2.new(scale, 0, 1, 0)
 		self._postThumbImage.Size = UDim2.new(1 - scale, 0, 1, 0)
 		self._postThumbImage.Position = UDim2.new(scale, 0, 0, 0)
-		
-		self._thumb.Position = UDim2.new(scale, 0, 
-			0.5, 0)
 
-		if self._valueChangedFunction then 
+		self._thumb.Position = UDim2.new(scale, 0, 0.5, 0)
+
+		if self._valueChangedFunction then
 			self._valueChangedFunction(self._value)
 		end
 	end)
-	
+
 	self:SetValue(defaultValue)
 	slider.AnchorPoint = Vector2.new(0, 0.5)
 	slider.Size = UDim2.new(1, -GuiUtilities.DefaultRightMargin, 1, 0)
-	slider.Position = UDim2.new(0, GuiUtilities.DefaultLineElementLeftMargin, 0, GuiUtilities.kDefaultPropertyHeight/2)
+	slider.Position =
+		UDim2.new(0, GuiUtilities.DefaultLineElementLeftMargin, 0, GuiUtilities.kDefaultPropertyHeight / 2)
 	slider.Parent = frame
-		
+
 	local function updateImages()
-		if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
+		if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() then
 			self._thumb.Image = kSliderThumbImageDark
 			self._preThumbImage.Image = kPreThumbImageDark
 			self._postThumbImage.Image = kPostThumbImageDark

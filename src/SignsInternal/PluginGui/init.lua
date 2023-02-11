@@ -91,7 +91,8 @@ function PluginGui:newPluginGui(widgetGui)
 		"markupCheckbox", -- name suffix of gui object
 		"Rich Text", -- text beside the checkbox
 		false, -- initial value
-		false -- initially disabled?
+		false, -- initially disabled?
+		"articles/gui-rich-text" -- link to wiki page
 	)
 	markupCheckbox:GetFrame().Parent = textCollapse:GetContentsFrame()
 
@@ -99,7 +100,8 @@ function PluginGui:newPluginGui(widgetGui)
 		"scaledCheckbox", -- name suffix of gui object
 		"Text Scaled", -- text beside the checkbox
 		false, -- initial value
-		false -- initially disabled?
+		false, -- initially disabled?
+		"api-reference/property/TextLabel/TextScaled" -- link to wiki page
 	)
 	scaledCheckbox:GetFrame().Parent = textCollapse:GetContentsFrame()
 
@@ -107,7 +109,8 @@ function PluginGui:newPluginGui(widgetGui)
 		"wrappedCheckbox", -- name suffix of gui object
 		"Text Wrapped", -- text beside the checkbox
 		true, -- initial value
-		false -- initially disabled?
+		false, -- initially disabled?
+		"api-reference/property/TextLabel/TextWrapped" -- link to wiki page
 	)
 	wrappedCheckbox:GetFrame().Parent = textCollapse:GetContentsFrame()
 
@@ -202,7 +205,8 @@ function PluginGui:newPluginGui(widgetGui)
 		"thicknessStrokeSlider", -- name suffix of gui object
 		"Thickness", -- title text of the multi choice
 		11, -- how many intervals to split the slider into
-		2 -- the starting value of the slider
+		2, -- the starting value of the slider
+		"api-reference/property/UIStroke/Thickness" -- link to wiki page
 	)
 	thicknessStrokeSlider:GetFrame().Parent = strokeCollapse:GetContentsFrame()
 
@@ -210,7 +214,8 @@ function PluginGui:newPluginGui(widgetGui)
 		"transparencyStrokeSlider", -- name suffix of gui object
 		"Transparency", -- title text of the multi choice
 		11, -- how many intervals to split the slider into
-		1 -- the starting value of the slider
+		1, -- the starting value of the slider
+		"api-reference/property/UIStroke/Transparency" -- link to wiki page
 	)
 	transparencyStrokeSlider:GetFrame().Parent = strokeCollapse:GetContentsFrame()
 
@@ -218,7 +223,8 @@ function PluginGui:newPluginGui(widgetGui)
 		"joinStrokeChoice", -- name suffix of gui object
 		"Line Join Mode", -- title text of the multi choice
 		LineJoinMode, -- choices array
-		1 -- the starting index of the selection
+		1, -- the starting index of the selection
+		"api-reference/property/UIStroke/LineJoinMode" -- link to wiki page
 	)
 	joinStrokeChoice:GetFrame().Parent = strokeCollapse:GetContentsFrame()
 
@@ -226,7 +232,8 @@ function PluginGui:newPluginGui(widgetGui)
 		"colorStrokeChoice", -- name suffix of gui object
 		"Color", -- title text of the multi choice
 		Color, -- choices array
-		11 -- the starting index of the selection
+		11, -- the starting index of the selection
+		"api-reference/property/UIStroke/Color" -- link to wiki page
 	)
 	if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() == true then
 		colorStrokeChoice:SetSelectedIndex(11)

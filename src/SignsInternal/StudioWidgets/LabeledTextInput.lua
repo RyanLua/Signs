@@ -13,7 +13,7 @@ local kTextBoxInternalPadding = 3
 LabeledTextInputClass = {}
 LabeledTextInputClass.__index = LabeledTextInputClass
 
-function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
+function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue, wikiLink)
 	local self = {}
 	setmetatable(self, LabeledTextInputClass)
 
@@ -32,7 +32,7 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 	frame.AutomaticSize = Enum.AutomaticSize.Y
 	self._frame = frame
 
-	local label = GuiUtilities.MakeDefaultPropertyLabel(labelText)
+	local label = GuiUtilities.MakeDefaultPropertyLabel(labelText, false, wikiLink)
 	label.Parent = frame
 	self._label = label
 

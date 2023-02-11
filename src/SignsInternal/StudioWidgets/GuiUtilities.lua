@@ -161,6 +161,14 @@ function module.syncGuiElementFontColor(guiElement)
 	setColors()
 end
 
+function module.syncGuiImageColor(guiElement)
+	local function setColors()
+		guiElement.ImageColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText)
+	end
+	settings().Studio.ThemeChanged:Connect(setColors)
+	setColors()
+end
+
 function module.syncGuiElementScrollColor(guiElement)
 	local function setColors()
 		guiElement.ScrollBarImageColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.ScrollBar)
@@ -239,7 +247,7 @@ function module.AddStripedChildrenToListFrame(listFrame, frames)
 	end
 end
 
-function module.MakeDefaultPropertyLabel(text, opt_ignoreThemeUpdates)
+function module.MakeDefaultPropertyLabel(text: string, opt_ignoreThemeUpdates: boolean, WikiPage: string?)
 	local label = Instance.new("TextLabel")
 	label.RichText = true
 	label.Name = "Label"
@@ -250,20 +258,38 @@ function module.MakeDefaultPropertyLabel(text, opt_ignoreThemeUpdates)
 	label.Text = text
 	label.AnchorPoint = Vector2.new(0, 0.5)
 	label.Position = UDim2.new(0, module.DefaultLineLabelLeftMargin, 0.5, module.kTextVerticalFudge)
-	label.Size = UDim2.new(0, module.DefaultLineLabelWidth, 1, 0)
-
+	label.Size = UDim2.new(0, 0, 1, 0)
+	label.AutomaticSize = Enum.AutomaticSize.X
 	if not opt_ignoreThemeUpdates then
 		module.syncGuiElementFontColor(label)
+	end
+
+	if WikiPage then
+		local help = Instance.new("ImageButton")
+		help.Name = "Help"
+		help.BackgroundTransparency = 1
+		help.Image = "rbxasset://textures/AlignTool/Help.png"
+		help.Size = UDim2.new(0, 14, 0, 14)
+		help.Position = UDim2.new(1, 4, 0.5, 0)
+		help.AnchorPoint = Vector2.new(0, 0.5)
+		help.Parent = label
+
+		help.MouseButton1Click:Connect(function()
+			local plugin = script.Parent.Parent.Parent
+			plugin:OpenWikiPage(WikiPage)
+		end)
+
+		-- module.syncGuiImageColor(help)
 	end
 
 	return label
 end
 
-function module.MakeFrameWithSubSectionLabel(name, text)
+function module.MakeFrameWithSubSectionLabel(name, text, wikiLink)
 	local row = module.MakeFixedHeightFrame(name, module.kSubSectionLabelHeight)
 	row.BackgroundTransparency = 1
 
-	local label = module.MakeDefaultPropertyLabel(text)
+	local label = module.MakeDefaultPropertyLabel(text, false, wikiLink)
 	label.BackgroundTransparency = 1
 	label.Parent = row
 

@@ -15,13 +15,13 @@ local kMinTextSize = 14
 local kMinHeight = 24
 local kMinLabelWidth = GuiUtilities.kCheckboxMinLabelWidth
 local kMinMargin = GuiUtilities.kCheckboxMinMargin
-local kMinButtonWidth = kCheckboxWidth;
+local kMinButtonWidth = kCheckboxWidth
 
 local kMinLabelSize = UDim2.new(0, kMinLabelWidth, 0, kMinHeight)
-local kMinLabelPos = UDim2.new(0, kMinButtonWidth + kMinMargin, 0, kMinHeight/2)
+local kMinLabelPos = UDim2.new(0, kMinButtonWidth + kMinMargin, 0, kMinHeight / 2)
 
 local kMinButtonSize = UDim2.new(0, kMinButtonWidth, 0, kMinButtonWidth)
-local kMinButtonPos = UDim2.new(0, 0, 0, kMinHeight/2)
+local kMinButtonPos = UDim2.new(0, 0, 0, kMinHeight / 2)
 
 local kCheckImageWidth = kMinMargin
 local kMinCheckImageWidth = kCheckImageWidth
@@ -44,8 +44,7 @@ LabeledCheckboxClass.__index = LabeledCheckboxClass
 
 LabeledCheckboxClass.kMinFrameSize = UDim2.new(0, kMinLabelWidth + kMinMargin + kMinButtonWidth, 0, kMinHeight)
 
-
-function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled)
+function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled, wikiLink)
 	local self = {}
 	setmetatable(self, LabeledCheckboxClass)
 
@@ -59,19 +58,19 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
 	fullBackgroundButton.Position = UDim2.new(0, 0, 0, 0)
 	fullBackgroundButton.Text = ""
 
-	local label = GuiUtilities.MakeDefaultPropertyLabel(labelText, true)
+	local label = GuiUtilities.MakeDefaultPropertyLabel(labelText, false, wikiLink)
 	label.Parent = fullBackgroundButton
 
-	local button = Instance.new('ImageButton')
-	button.Name = 'Button'
+	local button = Instance.new("ImageButton")
+	button.Name = "Button"
 	button.Size = UDim2.new(0, kCheckboxWidth, 0, kCheckboxWidth)
-	button.AnchorPoint = Vector2.new(0, .5)
+	button.AnchorPoint = Vector2.new(0, 0.5)
 	button.BackgroundTransparency = 1
-	button.Position = UDim2.new(0, GuiUtilities.DefaultLineElementLeftMargin, .5, 0)
+	button.Position = UDim2.new(0, GuiUtilities.DefaultLineElementLeftMargin, 0.5, 0)
 	button.Parent = fullBackgroundButton
 	button.BorderSizePixel = 0
 	button.AutoButtonColor = false
-	
+
 	local checkImage = Instance.new("ImageLabel")
 	checkImage.Name = "CheckImage"
 	checkImage.Parent = button
@@ -165,7 +164,7 @@ end
 
 -- Too buggy with other GuiObjects to be used.
 function LabeledCheckboxClass:_updateCheckboxVisual()
-	if self._hovered then 
+	if self._hovered then
 		if GuiUtilities.ShouldUseIconsForDarkerBackgrounds() then
 			self._button.Image = kHoverCheckImageDark
 		else
@@ -183,7 +182,7 @@ end
 function LabeledCheckboxClass:_HandleUpdatedValue()
 	self._checkImage.Visible = self:GetValue()
 
-	if self._valueChangedFunction then 
+	if self._valueChangedFunction then
 		self._valueChangedFunction(self:GetValue())
 	end
 end
@@ -212,9 +211,9 @@ function LabeledCheckboxClass:GetFrame()
 end
 
 function LabeledCheckboxClass:GetValue()
-	-- If button is disabled, and we should be using a disabled override, 
+	-- If button is disabled, and we should be using a disabled override,
 	-- use the disabled override.
-	if self._disabled and self._useDisabledOverride then 
+	if self._disabled and self._useDisabledOverride then
 		return self._disabledOverride
 	else
 		return self._value
@@ -229,7 +228,7 @@ function LabeledCheckboxClass:GetButton()
 	return self._button
 end
 
-function LabeledCheckboxClass:SetValueChangedFunction(vcFunction) 
+function LabeledCheckboxClass:SetValueChangedFunction(vcFunction)
 	self._valueChangedFunction = vcFunction
 end
 
@@ -239,13 +238,13 @@ function LabeledCheckboxClass:SetDisabled(newDisabled)
 	if newDisabled ~= self._disabled then
 		self._disabled = newDisabled
 
-		-- if we are no longer disabled, then we don't need or want 
+		-- if we are no longer disabled, then we don't need or want
 		-- the override any more.  Forget it.
-		if not self._disabled then 
+		if not self._disabled then
 			self._useDisabledOverride = false
 		end
 
-		if newDisabled then 
+		if newDisabled then
 			if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() then
 				self._checkImage.Image = kDisabledCheckImageDark
 			else
@@ -260,21 +259,23 @@ function LabeledCheckboxClass:SetDisabled(newDisabled)
 		end
 
 		self:UpdateFontColors()
-		self._button.BackgroundColor3 = self._disabled and GuiUtilities.kButtonDisabledBackgroundColor or GuiUtilities.kButtonDefaultBackgroundColor
-		self._button.BorderColor3 = self._disabled and GuiUtilities.kButtonDisabledBorderColor or GuiUtilities.kButtonDefaultBorderColor
+		self._button.BackgroundColor3 = self._disabled and GuiUtilities.kButtonDisabledBackgroundColor
+			or GuiUtilities.kButtonDefaultBackgroundColor
+		self._button.BorderColor3 = self._disabled and GuiUtilities.kButtonDisabledBorderColor
+			or GuiUtilities.kButtonDefaultBorderColor
 		if self._disabledChangedFunction then
 			self._disabledChangedFunction(self._disabled)
 		end
 	end
 
 	local newValue = self:GetValue()
-	if newValue ~= originalValue then 
+	if newValue ~= originalValue then
 		self:_HandleUpdatedValue()
 	end
 end
 
 function LabeledCheckboxClass:UpdateFontColors()
-	if self._disabled then 
+	if self._disabled then
 		self._label.TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.DimmedText)
 	else
 		self._label.TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText)
@@ -289,7 +290,7 @@ function LabeledCheckboxClass:DisableWithOverrideValue(overrideValue)
 	self._disabledOverride = overrideValue
 	self:SetDisabled(true)
 	local newValue = self:GetValue()
-	if oldValue ~= newValue then 
+	if oldValue ~= newValue then
 		self:_HandleUpdatedValue()
 	end
 end
@@ -298,7 +299,7 @@ function LabeledCheckboxClass:GetDisabled()
 	return self._disabled
 end
 
-function LabeledCheckboxClass:SetValue(newValue)	
+function LabeledCheckboxClass:SetValue(newValue)
 	if newValue ~= self._value then
 		self._value = newValue
 
