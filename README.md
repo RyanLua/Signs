@@ -1,10 +1,18 @@
 <div align="center">
-    <a href="https://github.com/The-Winner-Games/Signs"><img src="assets/type/SignsText.png" alt="Signs - A Roblox Studio Plugin" height="117"/></a>
+    <a href="https://github.com/The-Winner-Games/Signs/releases"><img src="assets/type/SignsText.png" alt="Signs - A Roblox Studio Plugin" height="117"/></a>
 </div>
 
 <div>&nbsp;</div>
 
-<div align="center">Signs is an easy-to-use, intuitive text tool plugin for creating signs, text, and labels.</div>
+<div align="center">
+    <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/The-Winner-Games/Signs">
+    <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/The-Winner-Games/Signs/total">
+    <img alt="GitHub" src="https://img.shields.io/github/license/The-Winner-Games/Signs">
+</div>
+
+<hr />
+
+> Signs is an easy-to-use, intuitive text tool plugin for creating signs, text, and labels.
 
 ## Installation
 Signs is avaliable on the **Creator Marketplace for 100 Robux** or from **GitHub for free**. There is a free version on the Roblox Marketplace also.
