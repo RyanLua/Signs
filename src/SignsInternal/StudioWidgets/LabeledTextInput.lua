@@ -7,13 +7,12 @@
 ----------------------------------------
 GuiUtilities = require(script.Parent.GuiUtilities)
 
-local kTextInputHeight = 16
-local kTextBoxInternalPadding = 3
+local kTextBoxInternalPadding = 8
 
 LabeledTextInputClass = {}
 LabeledTextInputClass.__index = LabeledTextInputClass
 
-function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue, wikiLink)
+function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue, url)
 	local self = {}
 	setmetatable(self, LabeledTextInputClass)
 
@@ -32,16 +31,16 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue, wikiLink
 	frame.AutomaticSize = Enum.AutomaticSize.Y
 	self._frame = frame
 
-	local label = GuiUtilities.MakeDefaultPropertyLabel(labelText, false, wikiLink)
+	local label = GuiUtilities.MakeDefaultPropertyLabel(labelText, false, url)
 	label.Parent = frame
 	self._label = label
 
 	self._value = defaultValue
 
 	local textBoxBorder = Instance.new("ImageLabel")
-	textBoxBorder.Name = "TextBox"
+	textBoxBorder.Name = "TextBoxBorder"
 	textBoxBorder.Size = UDim2.new(1, -GuiUtilities.DefaultRightMargin, 0, GuiUtilities.kTextInputHeight)
-	textBoxBorder.Position = UDim2.new(0, GuiUtilities.DefaultLineElementLeftMargin, 0, kTextBoxInternalPadding)
+	textBoxBorder.Position = UDim2.new(0, GuiUtilities.DefaultLineElementLeftMargin, 0, 4)
 	textBoxBorder.AnchorPoint = Vector2.new(0, 0)
 	textBoxBorder.BackgroundTransparency = 1
 	textBoxBorder.ScaleType = Enum.ScaleType.Slice
@@ -57,7 +56,7 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue, wikiLink
 	-- Dumb hack to add padding to text box,
 	local textBoxBackground = Instance.new("ImageLabel")
 	textBoxBackground.Name = "TextBoxFrame"
-	textBoxBackground.Size = UDim2.new(1, 0, 0, kTextInputHeight)
+	textBoxBackground.Size = UDim2.new(1, 0, 0, GuiUtilities.kTextInputHeight)
 	textBoxBackground.BorderSizePixel = 0
 	textBoxBackground.Image = "rbxasset://textures/StudioToolbox/RoundedBackground.png"
 	textBoxBackground.AnchorPoint = Vector2.new(0, 0)
@@ -82,12 +81,13 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue, wikiLink
 	textBox.TextWrapped = true
 	textBox.BackgroundTransparency = 1
 	textBox.TextXAlignment = Enum.TextXAlignment.Left
-	textBox.TextYAlignment = Enum.TextYAlignment.Top
-	textBox.AnchorPoint = Vector2.new(0, 0)
-	textBox.Size = UDim2.new(1, 0, 1, 0)
-	textBox.Position = UDim2.new(0, kTextBoxInternalPadding, 0, kTextBoxInternalPadding)
+	textBox.TextYAlignment = Enum.TextYAlignment.Center
+	textBox.AnchorPoint = Vector2.new(0.5, 0)
+	textBox.Size = UDim2.new(1, -kTextBoxInternalPadding, 0, GuiUtilities.kTextInputHeight)
+	textBox.Position = UDim2.new(0.5, 0, 0, 0)
 	textBox.AutomaticSize = Enum.AutomaticSize.Y
 	textBox.ClipsDescendants = true
+	GuiUtilities.syncGuiElementPlaceholderColor(textBox)
 	GuiUtilities.syncGuiElementFontColor(textBox)
 	self._textBox = textBox
 
