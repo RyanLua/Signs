@@ -11,11 +11,18 @@ local kMinTextSize = 14
 local kMinHeight = 24
 local kMinLabelWidth = GuiUtilities.kCheckboxMinLabelWidth
 local kMinMargin = GuiUtilities.kCheckboxMinMargin
-local kMinButtonWidth = kCheckboxWidth;
+local kMinButtonWidth = kCheckboxWidth
 
-local kButtonDefaultBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.FilterButtonDefault, Enum.StudioStyleGuideModifier.Default)
-local kButtonHoverBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.FilterButtonHover, Enum.StudioStyleGuideModifier.Hover)
-local kButtonPressedBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.FilterButtonChecked, Enum.StudioStyleGuideModifier.Pressed)
+local kButtonDefaultBackgroundColor = settings().Studio.Theme:GetColor(
+	Enum.StudioStyleGuideColor.FilterButtonDefault,
+	Enum.StudioStyleGuideModifier.Default
+)
+local kButtonHoverBackgroundColor =
+	settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.FilterButtonHover, Enum.StudioStyleGuideModifier.Hover)
+local kButtonPressedBackgroundColor = settings().Studio.Theme:GetColor(
+	Enum.StudioStyleGuideColor.FilterButtonChecked,
+	Enum.StudioStyleGuideModifier.Pressed
+)
 
 LabeledButtonClass = {}
 LabeledButtonClass.__index = LabeledButtonClass
@@ -45,7 +52,7 @@ function LabeledButtonClass.new(nameSuffix, labelText, initValue, initDisabled)
 	local label = Instance.new("TextButton")
 	label.Text = labelText
 	label.RichText = true
-	label.Name = 'Label'
+	label.Name = "Label"
 	label.Font = GuiUtilities.kDefaultFontFace
 	label.TextSize = GuiUtilities.kDefaultFontSize
 	label.BackgroundTransparency = 1
@@ -91,19 +98,18 @@ function LabeledButtonClass:_MaybeToggleState()
 	if not self._disabled then
 		self:SetValue(not self._value)
 	end
-	
 end
 
 function LabeledButtonClass:_SetupMouseClickHandling()
 	self._label.InputBegan:Connect(function(input)
-		if (input.UserInputType == Enum.UserInputType.MouseMovement) then
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			self._hovered = true
 			self:_updateCheckboxVisual()
 		end
 	end)
 
 	self._label.InputEnded:Connect(function(input)
-		if (input.UserInputType == Enum.UserInputType.MouseMovement) then
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			self._hovered = false
 			self._clicked = false
 			self:_updateCheckboxVisual()
@@ -120,22 +126,31 @@ end
 function LabeledButtonClass:_HandleUpdatedValue()
 	self._button.Visible = self:GetValue()
 
-	if (self._valueChangedFunction) then 
+	if self._valueChangedFunction then
 		self._valueChangedFunction(self:GetValue())
 	end
 end
 
 -- Too buggy with other GuiObjects to be used.
 function LabeledButtonClass:_updateCheckboxVisual()
-	local kButtonDefaultBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.FilterButtonDefault, Enum.StudioStyleGuideModifier.Default)
-	local kButtonHoverBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.FilterButtonHover, Enum.StudioStyleGuideModifier.Hover)
-	local kButtonPressedBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.FilterButtonChecked, Enum.StudioStyleGuideModifier.Pressed)
+	local kButtonDefaultBackgroundColor = settings().Studio.Theme:GetColor(
+		Enum.StudioStyleGuideColor.FilterButtonDefault,
+		Enum.StudioStyleGuideModifier.Default
+	)
+	local kButtonHoverBackgroundColor = settings().Studio.Theme:GetColor(
+		Enum.StudioStyleGuideColor.FilterButtonHover,
+		Enum.StudioStyleGuideModifier.Hover
+	)
+	local kButtonPressedBackgroundColor = settings().Studio.Theme:GetColor(
+		Enum.StudioStyleGuideColor.FilterButtonChecked,
+		Enum.StudioStyleGuideModifier.Pressed
+	)
 
-	if (self._value) then
+	if self._value then
 		self._button.BackgroundColor3 = kButtonPressedBackgroundColor
-	elseif (self._clicked) then 
+	elseif self._clicked then
 		self._button.BackgroundColor3 = kButtonPressedBackgroundColor
-	elseif (self._hovered) then 
+	elseif self._hovered then
 		self._button.BackgroundColor3 = kButtonHoverBackgroundColor
 	else
 		self._button.BackgroundColor3 = kButtonDefaultBackgroundColor
@@ -143,13 +158,13 @@ function LabeledButtonClass:_updateCheckboxVisual()
 end
 
 function LabeledButtonClass:_HandleUpdatedValue()
-	if (self:GetValue())then
+	if self:GetValue() then
 		self._button.BackgroundColor3 = kButtonPressedBackgroundColor
 	else
 		self._button.BackgroundColor3 = kButtonDefaultBackgroundColor
 	end
 
-	if (self._valueChangedFunction) then 
+	if self._valueChangedFunction then
 		self._valueChangedFunction(self:GetValue())
 	end
 end
@@ -159,9 +174,9 @@ function LabeledButtonClass:GetFrame()
 end
 
 function LabeledButtonClass:GetValue()
-	-- If button is disabled, and we should be using a disabled override, 
+	-- If button is disabled, and we should be using a disabled override,
 	-- use the disabled override.
-	if (self._disabled and self._useDisabledOverride) then 
+	if self._disabled and self._useDisabledOverride then
 		return self._disabledOverride
 	else
 		return self._value
@@ -176,7 +191,7 @@ function LabeledButtonClass:GetButton()
 	return self._button
 end
 
-function LabeledButtonClass:SetValueChangedFunction(vcFunction) 
+function LabeledButtonClass:SetValueChangedFunction(vcFunction)
 	self._valueChangedFunction = vcFunction
 end
 
@@ -188,28 +203,30 @@ function LabeledButtonClass:SetDisabled(newDisabled)
 	if newDisabled ~= self._disabled then
 		self._disabled = newDisabled
 
-		-- if we are no longer disabled, then we don't need or want 
+		-- if we are no longer disabled, then we don't need or want
 		-- the override any more.  Forget it.
-		if (not self._disabled) then 
+		if not self._disabled then
 			self._useDisabledOverride = false
 		end
 
 		self:UpdateFontColors()
-		self._button.BackgroundColor3 = self._disabled and GuiUtilities.kButtonDisabledBackgroundColor or GuiUtilities.kButtonDefaultBackgroundColor
-		self._button.BorderColor3 = self._disabled and GuiUtilities.kButtonDisabledBorderColor or GuiUtilities.kButtonDefaultBorderColor
+		self._button.BackgroundColor3 = self._disabled and GuiUtilities.kButtonDisabledBackgroundColor
+			or GuiUtilities.kButtonDefaultBackgroundColor
+		self._button.BorderColor3 = self._disabled and GuiUtilities.kButtonDisabledBorderColor
+			or GuiUtilities.kButtonDefaultBorderColor
 		if self._disabledChangedFunction then
 			self._disabledChangedFunction(self._disabled)
 		end
 	end
 
 	local newValue = self:GetValue()
-	if (newValue ~= originalValue) then 
+	if newValue ~= originalValue then
 		self:_HandleUpdatedValue()
 	end
 end
 
 function LabeledButtonClass:UpdateFontColors()
-	if self._disabled then 
+	if self._disabled then
 		self._label.TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.DimmedText)
 	else
 		self._label.TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText)
@@ -224,9 +241,9 @@ function LabeledButtonClass:DisableWithOverrideValue(overrideValue)
 	self._disabledOverride = overrideValue
 	self:SetDisabled(true)
 	local newValue = self:GetValue()
-	if (oldValue ~= newValue) then 
+	if oldValue ~= newValue then
 		self:_HandleUpdatedValue()
-	end		
+	end
 end
 
 function LabeledButtonClass:GetDisabled()
@@ -235,7 +252,7 @@ end
 
 function LabeledButtonClass:SetValue(newValue)
 	local newValue = not not newValue
-	
+
 	if newValue ~= self._value then
 		self._value = newValue
 

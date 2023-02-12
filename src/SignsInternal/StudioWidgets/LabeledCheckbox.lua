@@ -44,7 +44,7 @@ LabeledCheckboxClass.__index = LabeledCheckboxClass
 
 LabeledCheckboxClass.kMinFrameSize = UDim2.new(0, kMinLabelWidth + kMinMargin + kMinButtonWidth, 0, kMinHeight)
 
-function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled, wikiLink)
+function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled, url)
 	local self = {}
 	setmetatable(self, LabeledCheckboxClass)
 
@@ -58,7 +58,7 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
 	fullBackgroundButton.Position = UDim2.new(0, 0, 0, 0)
 	fullBackgroundButton.Text = ""
 
-	local label = GuiUtilities.MakeDefaultPropertyLabel(labelText, false, wikiLink)
+	local label = GuiUtilities.MakeDefaultPropertyLabel(labelText, false, url)
 	label.Parent = fullBackgroundButton
 
 	local button = Instance.new("ImageButton")
@@ -140,25 +140,19 @@ function LabeledCheckboxClass:_SetupMouseClickHandling()
 		self:_MaybeToggleState()
 	end)
 
-	self._fullBackgroundButton.InputBegan:Connect(function(input)
+	self._button.InputBegan:Connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			self._hovered = true
 			self:_updateCheckboxVisual()
 		end
 	end)
 
-	self._fullBackgroundButton.InputEnded:Connect(function(input)
+	self._button.InputEnded:Connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			self._hovered = false
 			self._clicked = false
 			self:_updateCheckboxVisual()
 		end
-	end)
-
-	self._fullBackgroundButton.MouseButton1Down:Connect(function()
-		self._clicked = true
-		self:_updateCheckboxVisual()
-		self:_MaybeToggleState()
 	end)
 end
 

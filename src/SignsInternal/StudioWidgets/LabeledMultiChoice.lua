@@ -21,7 +21,7 @@ LabeledMultiChoiceClass.__index = LabeledMultiChoiceClass
 -- each entry must have at least 2 fields:
 -- "Id" - a unique (in the scope of choices) string id.  Not visible to user.
 -- "Text" - user-facing string: the label for the choice.
-function LabeledMultiChoiceClass.new(nameSuffix, labelText, choices, initChoiceIndex, wikiLink)
+function LabeledMultiChoiceClass.new(nameSuffix, labelText, choices, initChoiceIndex, url)
 	local self = {}
 	setmetatable(self, LabeledMultiChoiceClass)
 
@@ -37,7 +37,7 @@ function LabeledMultiChoiceClass.new(nameSuffix, labelText, choices, initChoiceI
 	local vsl = VerticallyScalingListFrame.new("MCC_" .. nameSuffix)
 	vsl:AddBottomPadding()
 
-	local titleLabel = GuiUtilities.MakeFrameWithSubSectionLabel("Title", labelText, wikiLink)
+	local titleLabel = GuiUtilities.MakeFrameWithSubSectionLabel("Title", labelText, url)
 	vsl:AddChild(titleLabel)
 
 	-- Container for cells.
