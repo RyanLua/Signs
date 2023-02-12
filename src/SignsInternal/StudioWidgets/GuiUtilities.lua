@@ -22,6 +22,9 @@ module.kCheckboxMinLabelWidth = 52
 module.kCheckboxMinMargin = 16 -- Default: 12
 module.kCheckboxWidth = module.kCheckboxMinMargin -- Default: 12
 
+module.kTextInputHeight = 22
+module.kTextInputWidth = module.kCheckboxWidth * 2
+
 module.kRadioButtonsHPadding = 54
 
 module.DefaultLineLabelLeftMargin = module.kTitleBarHeight
@@ -161,6 +164,14 @@ function module.syncGuiElementFontColor(guiElement)
 	setColors()
 end
 
+function module.syncGuiElementPlaceholderColor(guiElement)
+	local function setColors()
+		guiElement.PlaceholderColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.DimmedText)
+	end
+	settings().Studio.ThemeChanged:Connect(setColors)
+	setColors()
+end
+
 function module.syncGuiImageColor(guiElement)
 	local function setColors()
 		guiElement.ImageColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText)
@@ -247,7 +258,7 @@ function module.AddStripedChildrenToListFrame(listFrame, frames)
 	end
 end
 
-function module.MakeDefaultPropertyLabel(text: string, opt_ignoreThemeUpdates: boolean, WikiPage: string?)
+function module.MakeDefaultPropertyLabel(text: string, opt_ignoreThemeUpdates: boolean, url: string?)
 	local label = Instance.new("TextLabel")
 	label.RichText = true
 	label.Name = "Label"
@@ -264,7 +275,7 @@ function module.MakeDefaultPropertyLabel(text: string, opt_ignoreThemeUpdates: b
 		module.syncGuiElementFontColor(label)
 	end
 
-	if WikiPage then
+	if url then
 		local help = Instance.new("ImageButton")
 		help.Name = "Help"
 		help.BackgroundTransparency = 1
@@ -276,20 +287,21 @@ function module.MakeDefaultPropertyLabel(text: string, opt_ignoreThemeUpdates: b
 
 		help.MouseButton1Click:Connect(function()
 			local plugin = script.Parent.Parent.Parent
-			plugin:OpenWikiPage(WikiPage)
+			plugin:OpenWikiPage(url)
 		end)
-
-		-- module.syncGuiImageColor(help)
+		if not opt_ignoreThemeUpdates then
+			module.syncGuiImageColor(help)
+		end
 	end
 
 	return label
 end
 
-function module.MakeFrameWithSubSectionLabel(name, text, wikiLink)
+function module.MakeFrameWithSubSectionLabel(name, text, url)
 	local row = module.MakeFixedHeightFrame(name, module.kSubSectionLabelHeight)
 	row.BackgroundTransparency = 1
 
-	local label = module.MakeDefaultPropertyLabel(text, false, wikiLink)
+	local label = module.MakeDefaultPropertyLabel(text, false, url)
 	label.BackgroundTransparency = 1
 	label.Parent = row
 
