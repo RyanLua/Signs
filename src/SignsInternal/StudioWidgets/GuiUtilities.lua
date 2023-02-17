@@ -279,7 +279,7 @@ function module.MakeDefaultPropertyLabel(text: string, opt_ignoreThemeUpdates: b
 		local help = Instance.new("ImageButton")
 		help.Name = "Help"
 		help.BackgroundTransparency = 1
-		help.Image = "rbxasset://textures/AlignTool/Help.png"
+		help.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/HelpTab@2x.png"
 		help.Size = UDim2.new(0, 14, 0, 14)
 		help.Position = UDim2.new(1, 4, 0.5, 0)
 		help.AnchorPoint = Vector2.new(0, 0.5)
@@ -292,6 +292,9 @@ function module.MakeDefaultPropertyLabel(text: string, opt_ignoreThemeUpdates: b
 		if not opt_ignoreThemeUpdates then
 			module.syncGuiImageColor(help)
 		end
+		label.Changed:Connect(function()
+			help.ImageColor3 = label.TextColor3
+		end)
 	end
 
 	return label
