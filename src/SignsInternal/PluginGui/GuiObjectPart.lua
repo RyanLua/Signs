@@ -13,18 +13,20 @@ local Selection = game:GetService("Selection")
 GuiObjectPart = {}
 GuiObjectPart.__index = GuiObjectPart
 
-function GuiObjectPart.new(label: GuiObject, autoLocalize: boolean?, lightInfluence: number?, alwaysOnTop: boolean?)
+function GuiObjectPart.new(label: GuiObject, autoLocalize: boolean?, lightInfluence: number?, alwaysOnTop: boolean?, size: Vector2)
 	local self = {}
 	setmetatable(self, GuiObjectPart)
 
 	local camera = workspace.CurrentCamera or Instance.new("Camera")
 
+	local partSizeX = label.AbsoluteSize.X / 50
+	local partSizeY = label.AbsoluteSize.Y / 50
 	local part = Instance.new("Part")
 	part.Name = "SignPart"
 	part.Anchored = true
 	part.Parent = workspace
 	part.Transparency = 1
-	part.Size = Vector3.new(4, 4, 0)
+	part.Size = Vector3.new(partSizeX, partSizeY, 0)
 	part.Position = (camera.CFrame + camera.CFrame.LookVector * 10).Position
 	local yCameraRotation = camera.CFrame.Rotation.Y
 	local yRotation = math.floor(yCameraRotation/90 + 0.5) * 90
@@ -33,7 +35,8 @@ function GuiObjectPart.new(label: GuiObject, autoLocalize: boolean?, lightInflue
 	CollectionService:AddTag(part, "_Sign")
 
 	local surfaceGui = Instance.new("SurfaceGui")
-	surfaceGui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
+	-- surfaceGui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
+	surfaceGui.CanvasSize = size or Vector2.new(200, 200)
 	surfaceGui.LightInfluence = lightInfluence or 0
 	surfaceGui.AlwaysOnTop = alwaysOnTop or false
 	surfaceGui.AutoLocalize = autoLocalize or true

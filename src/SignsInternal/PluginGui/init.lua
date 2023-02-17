@@ -15,6 +15,7 @@ local Color = require(script.Color)
 local FontFace = require(script.FontFace)
 local GuiObjectPart = require(script.GuiObjectPart)
 local LineJoinMode = require(script.LineJoinMode)
+local AspectRatio = require(script.AspectRatio)
 local TextXAlignment = require(script.TextXAlignment)
 local TextYAlignment = require(script.TextYAlignment)
 
@@ -246,6 +247,23 @@ function PluginGui:newPluginGui(widgetGui)
 	end
 	colorStrokeChoice:GetFrame().Parent = strokeCollapse:GetContentsFrame()
 
+	local sizeCollapse = CollapsibleTitledSection.new( -- Fonts collapse
+		"SizeCollapse", -- name suffix of the gui object
+		"Size", -- the text displayed beside the collapsible arrow
+		true, -- have the content frame auto-update its size?
+		true, -- minimizable?
+		true -- minimized by default?
+	)
+	listFrame:AddChild(sizeCollapse:GetSectionFrame()) -- add child to expanding VerticallyScalingListFrame
+
+	local ratioChoice = LabeledMultiChoice.new(
+		"RatioChoice", -- name suffix of gui object
+		"Aspect Ratio", -- title text of the multi choice
+		AspectRatio, -- choices array
+		5 -- the starting index of the selection
+	)
+	ratioChoice:GetFrame().Parent = sizeCollapse:GetContentsFrame()
+
 	local backgroundCollapse = CollapsibleTitledSection.new( -- Fonts collapse
 		"BackgroundCollapse", -- name suffix of the gui object
 		"Background", -- the text displayed beside the collapsible arrow
@@ -318,7 +336,8 @@ function PluginGui:newPluginGui(widgetGui)
 		local influence = ((influenceSlider:GetValue() - 1) / 4)
 		local top = topCheckbox:GetValue()
 		local localize = localizeCheckbox:GetValue()
-		GuiObjectPart.new(label, localize, influence, top)
+		local size = CustomTextLabel:GetLabel().AbsoluteSize
+		GuiObjectPart.new(label, localize, influence, top, size)
 	end)
 
 	textInput:SetValueChangedFunction(function(newValue)
@@ -414,6 +433,11 @@ function PluginGui:newPluginGui(widgetGui)
 	colorBackgroundChoice:SetValueChangedFunction(function(newIndex)
 		local newValue = Color[newIndex].Color
 		CustomTextLabel:UpdateBackgroundColor3(newValue)
+	end)
+
+	ratioChoice:SetValueChangedFunction(function(newIndex)
+		local newValue = AspectRatio[newIndex].Value
+		CustomTextLabel:UpdateAspectRatio(newValue)
 	end)
 end
 

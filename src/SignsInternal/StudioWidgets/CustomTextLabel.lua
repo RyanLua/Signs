@@ -14,11 +14,23 @@ function CustomTextLabelClass.new(nameSuffix, height)
 	local self = {}
 	setmetatable(self, CustomTextLabelClass)
 
-	local frame = GuiUtilities.MakeFixedHeightFrame("TextLabel " .. nameSuffix, height)
+	local background = GuiUtilities.MakeFixedHeightFrame("TextLabel " .. nameSuffix, height)
+	background.Size = UDim2.new(1, 0, 0, height)
+	background.BackgroundTransparency = 1
+	self._background = background
+
+	local frame = Instance.new("Frame")
 	frame.BorderSizePixel = 1
-	frame.Size = UDim2.new(1, 0, 0, height)
+	frame.Size = UDim2.new(0, height, 0, height)
+	frame.AnchorPoint = Vector2.new(0.5, 0.5)
+	frame.Position = UDim2.new(0.5, 0, 0.5, 0)
+	frame.Parent = background
 	GuiUtilities.syncGuiElementShadowColor(frame)
+	GuiUtilities.syncGuiElementScrollBarBackgroundColor(frame)
 	self._frame = frame
+
+	local aspectRatio = Instance.new("UIAspectRatioConstraint")
+	aspectRatio.Parent = frame
 
 	local label = Instance.new("TextLabel")
 	label.Text = "Preview"
@@ -42,6 +54,10 @@ function CustomTextLabelClass.new(nameSuffix, height)
 		stroke.Color = Color3.fromRGB(0, 0, 0)
 	end
 	self._stroke = stroke
+
+	function CustomTextLabelClass:UpdateAspectRatio(newValue: number)
+		aspectRatio.AspectRatio = newValue
+	end
 
 	function CustomTextLabelClass:UpdateTextRotation(newValue: number)
 		label.Rotation = newValue
@@ -160,7 +176,7 @@ function CustomTextLabelClass.new(nameSuffix, height)
 	end
 
 	function CustomTextLabelClass:GetFrame()
-		return frame
+		return background
 	end
 
 	return self
