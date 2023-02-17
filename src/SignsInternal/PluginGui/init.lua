@@ -31,7 +31,7 @@ function PluginGui:newPluginGui(widgetGui)
 	previewLabel:GetFrame().Parent = scrollFrame:GetContentsFrame()
 
 	local insertButton = CustomTextButton.new( -- Insert button
-		"insertButton", -- name of the gui object
+		"InsertButton", -- name of the gui object
 		"Insert" -- the text displayed on the button
 	)
 	local buttonObject = insertButton:GetButton()
@@ -39,7 +39,7 @@ function PluginGui:newPluginGui(widgetGui)
 	buttonObject.Parent = scrollFrame:GetContentsFrame()
 
 	local textCollapse = CollapsibleTitledSection.new( -- Text collapse
-		"textCollapse", -- name suffix of the gui object
+		"TextCollapse", -- name suffix of the gui object
 		"Text", -- the text displayed beside the collapsible arrow
 		true, -- have the content frame auto-update its size?
 		true, -- minimizable?
@@ -48,7 +48,7 @@ function PluginGui:newPluginGui(widgetGui)
 	listFrame:AddChild(textCollapse:GetSectionFrame()) -- add child to expanding VerticallyScalingListFrame
 
 	local textInput = LabeledTextInput.new( -- Asks user for text
-		"textInput", -- name suffix of gui object
+		"TextInput", -- name suffix of gui object
 		"Text", -- title text of the multi choice
 		"Text here" -- default value
 	)
@@ -56,39 +56,43 @@ function PluginGui:newPluginGui(widgetGui)
 	textInput:GetFrame().Parent = textCollapse:GetContentsFrame()
 
 	local transparencyTextSlider = LabeledSlider.new( -- Size Slider
-		"transparencyTextSlider", -- name suffix of gui object
+		"TransparencyTextSlider", -- name suffix of gui object
 		"Transparency", -- title text of the multi choice
 		11, -- how many intervals to split the slider into
-		1 -- the starting value of the slider
+		1, -- the starting value of the slider
+		0.1 -- multiplier for the slider value
 	)
 	transparencyTextSlider:GetFrame().Parent = textCollapse:GetContentsFrame()
 
 	local rotationTextSlider = LabeledSlider.new( -- Rotation Slider
-		"rotationSlider", -- name suffix of gui object
+		"RotationSlider", -- name suffix of gui object
 		"Text Rotation", -- title text of the multi choice
-		13, -- how many intervals to split the slider into
-		1 -- the starting value of the slider
+		9, -- how many intervals to split the slider into
+		1, -- the starting value of the slider
+		45 -- multiplier for the slider value
 	)
 	rotationTextSlider:GetFrame().Parent = textCollapse:GetContentsFrame()
 
 	local sizeTextSlider = LabeledSlider.new( -- Size Slider
-		"sizeSlider", -- name suffix of gui object
+		"SizeSlider", -- name suffix of gui object
 		"Text Size", -- title text of the multi choice
 		21, -- how many intervals to split the slider into
-		4 -- the starting value of the slider
+		4, -- the starting value of the slider
+		5 -- multiplier for the slider value
 	)
 	sizeTextSlider:GetFrame().Parent = textCollapse:GetContentsFrame()
 
 	local heightTextSlider = LabeledSlider.new( -- Line height slider. Intended for onlt paid supporters.
-		"heightSlider", -- name suffix of gui object
+		"HeightSlider", -- name suffix of gui object
 		"Line Height", -- title text of the multi choice
 		5, -- how many intervals to split the slider into
-		3 -- the starting value of the slider
+		3, -- the starting value of the slider
+		0.5 -- multiplier for the slider value
 	)
 	heightTextSlider:GetFrame().Parent = textCollapse:GetContentsFrame()
 
 	local markupCheckbox = LabeledCheckbox.new(
-		"markupCheckbox", -- name suffix of gui object
+		"MarkupCheckbox", -- name suffix of gui object
 		"Rich Text", -- text beside the checkbox
 		false, -- initial value
 		false, -- initially disabled?
@@ -97,7 +101,7 @@ function PluginGui:newPluginGui(widgetGui)
 	markupCheckbox:GetFrame().Parent = textCollapse:GetContentsFrame()
 
 	local scaledCheckbox = LabeledCheckbox.new(
-		"scaledCheckbox", -- name suffix of gui object
+		"ScaledCheckbox", -- name suffix of gui object
 		"Text Scaled", -- text beside the checkbox
 		false, -- initial value
 		false, -- initially disabled?
@@ -106,7 +110,7 @@ function PluginGui:newPluginGui(widgetGui)
 	scaledCheckbox:GetFrame().Parent = textCollapse:GetContentsFrame()
 
 	local wrappedCheckbox = LabeledCheckbox.new(
-		"wrappedCheckbox", -- name suffix of gui object
+		"WrappedCheckbox", -- name suffix of gui object
 		"Text Wrapped", -- text beside the checkbox
 		true, -- initial value
 		false, -- initially disabled?
@@ -115,7 +119,7 @@ function PluginGui:newPluginGui(widgetGui)
 	wrappedCheckbox:GetFrame().Parent = textCollapse:GetContentsFrame()
 
 	local fontCollapse = CollapsibleTitledSection.new( -- Fonts collapse
-		"fontCollapse", -- name suffix of the gui object
+		"FontCollapse", -- name suffix of the gui object
 		"Font", -- the text displayed beside the collapsible arrow
 		true, -- have the content frame auto-update its size?
 		true, -- minimizable?
@@ -124,7 +128,7 @@ function PluginGui:newPluginGui(widgetGui)
 	listFrame:AddChild(fontCollapse:GetSectionFrame()) -- add child to expanding VerticallyScalingListFrame
 
 	local boldCheckbox = LabeledCheckbox.new(
-		"boldCheckbox", -- name suffix of gui object
+		"BoldCheckbox", -- name suffix of gui object
 		"Bold", -- text beside the checkbox
 		false, -- initial value
 		false -- initially disabled?
@@ -132,7 +136,7 @@ function PluginGui:newPluginGui(widgetGui)
 	boldCheckbox:GetFrame().Parent = fontCollapse:GetContentsFrame()
 
 	local italicCheckbox = LabeledCheckbox.new(
-		"italicCheckbox", -- name suffix of gui object
+		"ItalicCheckbox", -- name suffix of gui object
 		"Italic", -- text beside the checkbox
 		false, -- initial value
 		false -- initially disabled?
@@ -140,7 +144,7 @@ function PluginGui:newPluginGui(widgetGui)
 	italicCheckbox:GetFrame().Parent = fontCollapse:GetContentsFrame()
 
 	local colorTextChoice = LabeledMultiChoice.new(
-		"colorSelection", -- name suffix of gui object
+		"ColorSelection", -- name suffix of gui object
 		"Text Color", -- title text of the multi choice
 		Color, -- choices array
 		11 -- the starting index of the selection
@@ -152,7 +156,7 @@ function PluginGui:newPluginGui(widgetGui)
 
 	local fontTextChoice =
 		LabeledMultiChoice.new( -- Basically in beta thingy for fonts. New system prob done by another PluginGui soon. This will suffice.
-			"fontTextChoice", -- name suffix of gui object
+			"FontTextChoice", -- name suffix of gui object
 			"Font Face", -- title text of the multi choice
 			FontFace, -- choices array
 			32 -- the starting index of the selection
@@ -160,7 +164,7 @@ function PluginGui:newPluginGui(widgetGui)
 	fontTextChoice:GetFrame().Parent = fontCollapse:GetContentsFrame()
 
 	local alignmentCollapse = CollapsibleTitledSection.new( -- Fonts collapse
-		"alignmentCollapse", -- name suffix of the gui object
+		"AlignmentCollapse", -- name suffix of the gui object
 		"Alignment", -- the text displayed beside the collapsible arrow
 		true, -- have the content frame auto-update its size?
 		true, -- minimizable?
@@ -169,7 +173,7 @@ function PluginGui:newPluginGui(widgetGui)
 	listFrame:AddChild(alignmentCollapse:GetSectionFrame()) -- add child to expanding VerticallyScalingListFrame
 
 	local yChoice = LabeledMultiChoice.new(
-		"yChoice", -- name suffix of gui object
+		"YChoice", -- name suffix of gui object
 		"Horizontal Alignment", -- title text of the multi choice
 		TextYAlignment, -- choices array
 		2 -- the starting index of the selection
@@ -177,7 +181,7 @@ function PluginGui:newPluginGui(widgetGui)
 	yChoice:GetFrame().Parent = alignmentCollapse:GetContentsFrame()
 
 	local xChoice = LabeledMultiChoice.new(
-		"xChoice", -- name suffix of gui object
+		"XChoice", -- name suffix of gui object
 		"Vertical Alignment", -- title text of the multi choice
 		TextXAlignment, -- choices array
 		2 -- the starting index of the selection
@@ -185,7 +189,7 @@ function PluginGui:newPluginGui(widgetGui)
 	xChoice:GetFrame().Parent = alignmentCollapse:GetContentsFrame()
 
 	local strokeCollapse = CollapsibleTitledSection.new( -- Fonts collapse
-		"strokeCollapse", -- name suffix of the gui object
+		"StrokeCollapse", -- name suffix of the gui object
 		"Stroke", -- the text displayed beside the collapsible arrow
 		true, -- have the content frame auto-update its size?
 		true, -- minimizable?
@@ -194,7 +198,7 @@ function PluginGui:newPluginGui(widgetGui)
 	listFrame:AddChild(strokeCollapse:GetSectionFrame()) -- add child to expanding VerticallyScalingListFrame
 
 	local strokeCheckbox = LabeledCheckbox.new(
-		"strokeCheckbox", -- name suffix of gui object
+		"StrokeCheckbox", -- name suffix of gui object
 		"Enabled", -- text beside the checkbox
 		false, -- initial value
 		false -- initially disabled?
@@ -202,25 +206,27 @@ function PluginGui:newPluginGui(widgetGui)
 	strokeCheckbox:GetFrame().Parent = strokeCollapse:GetContentsFrame()
 
 	local thicknessStrokeSlider = LabeledSlider.new( -- Size Slider
-		"thicknessStrokeSlider", -- name suffix of gui object
+		"ThicknessStrokeSlider", -- name suffix of gui object
 		"Thickness", -- title text of the multi choice
 		11, -- how many intervals to split the slider into
 		2, -- the starting value of the slider
+		1, -- the multiplier for the slider
 		"api-reference/property/UIStroke/Thickness" -- link to wiki page
 	)
 	thicknessStrokeSlider:GetFrame().Parent = strokeCollapse:GetContentsFrame()
 
 	local transparencyStrokeSlider = LabeledSlider.new( -- Size Slider
-		"transparencyStrokeSlider", -- name suffix of gui object
+		"TransparencyStrokeSlider", -- name suffix of gui object
 		"Transparency", -- title text of the multi choice
 		11, -- how many intervals to split the slider into
 		1, -- the starting value of the slider
+		0.1, -- the multiplier for the slider
 		"api-reference/property/UIStroke/Transparency" -- link to wiki page
 	)
 	transparencyStrokeSlider:GetFrame().Parent = strokeCollapse:GetContentsFrame()
 
 	local joinStrokeChoice = LabeledMultiChoice.new(
-		"joinStrokeChoice", -- name suffix of gui object
+		"JoinStrokeChoice", -- name suffix of gui object
 		"Line Join Mode", -- title text of the multi choice
 		LineJoinMode, -- choices array
 		1, -- the starting index of the selection
@@ -229,7 +235,7 @@ function PluginGui:newPluginGui(widgetGui)
 	joinStrokeChoice:GetFrame().Parent = strokeCollapse:GetContentsFrame()
 
 	local colorStrokeChoice = LabeledMultiChoice.new(
-		"colorStrokeChoice", -- name suffix of gui object
+		"ColorStrokeChoice", -- name suffix of gui object
 		"Color", -- title text of the multi choice
 		Color, -- choices array
 		11, -- the starting index of the selection
@@ -241,7 +247,7 @@ function PluginGui:newPluginGui(widgetGui)
 	colorStrokeChoice:GetFrame().Parent = strokeCollapse:GetContentsFrame()
 
 	local backgroundCollapse = CollapsibleTitledSection.new( -- Fonts collapse
-		"backgroundCollapse", -- name suffix of the gui object
+		"BackgroundCollapse", -- name suffix of the gui object
 		"Background", -- the text displayed beside the collapsible arrow
 		true, -- have the content frame auto-update its size?
 		true, -- minimizable?
@@ -250,15 +256,16 @@ function PluginGui:newPluginGui(widgetGui)
 	listFrame:AddChild(backgroundCollapse:GetSectionFrame()) -- add child to expanding VerticallyScalingListFrame
 
 	local transparencyBackgroundSlider = LabeledSlider.new( -- Size Slider
-		"transparencyBackgroundSlider", -- name suffix of gui object
+		"TransparencyBackgroundSlider", -- name suffix of gui object
 		"Transparency", -- title text of the multi choice
 		11, -- how many intervals to split the slider into
-		11 -- the starting value of the slider
+		11, -- the starting value of the slider
+		0.1 -- the multiplier for the slider
 	)
 	transparencyBackgroundSlider:GetFrame().Parent = backgroundCollapse:GetContentsFrame()
 
 	local colorBackgroundChoice = LabeledMultiChoice.new(
-		"colorBackgroundSelection", -- name suffix of gui object
+		"ColorBackgroundSelection", -- name suffix of gui object
 		"Background Color", -- title text of the multi choice
 		Color, -- choices array
 		1 -- the starting index of the selection
@@ -266,7 +273,7 @@ function PluginGui:newPluginGui(widgetGui)
 	colorBackgroundChoice:GetFrame().Parent = backgroundCollapse:GetContentsFrame()
 
 	local surfaceCollapse = CollapsibleTitledSection.new( -- Fonts collapse
-		"surfaceCollapse", -- name suffix of the gui object
+		"SurfaceCollapse", -- name suffix of the gui object
 		"Other", -- the text displayed beside the collapsible arrow
 		true, -- have the content frame auto-update its size?
 		true, -- minimizable?
@@ -275,15 +282,16 @@ function PluginGui:newPluginGui(widgetGui)
 	listFrame:AddChild(surfaceCollapse:GetSectionFrame()) -- add child to expanding VerticallyScalingListFrame
 
 	local influenceSlider = LabeledSlider.new( -- Size Slider
-		"influenceSlider", -- name suffix of gui object
+		"InfluenceSlider", -- name suffix of gui object
 		"Light Influence", -- title text of the multi choice
 		5, -- how many intervals to split the slider into
-		1 -- the starting value of the slider
+		1, -- the starting value of the slider
+		0.1 -- the multiplier for the slider
 	)
 	influenceSlider:GetFrame().Parent = surfaceCollapse:GetContentsFrame()
 
 	local topCheckbox = LabeledCheckbox.new(
-		"topCheckbox", -- name suffix of gui object
+		"TopCheckbox", -- name suffix of gui object
 		"Always On Top", -- text beside the checkbox
 		false, -- initial value
 		false -- initially disabled?
@@ -291,7 +299,7 @@ function PluginGui:newPluginGui(widgetGui)
 	topCheckbox:GetFrame().Parent = surfaceCollapse:GetContentsFrame()
 
 	local localizeCheckbox = LabeledCheckbox.new(
-		"localizeCheckbox", -- name suffix of gui object
+		"LocalizeCheckbox", -- name suffix of gui object
 		"Auto Localize", -- text beside the checkbox
 		true, -- initial value
 		false -- initially disabled?
@@ -318,19 +326,19 @@ function PluginGui:newPluginGui(widgetGui)
 	end)
 
 	transparencyTextSlider:SetValueChangedFunction(function(newValue)
-		CustomTextLabel:UpdateTextTransparency((newValue - 1) / 10)
+		CustomTextLabel:UpdateTextTransparency(newValue)
 	end)
 
 	sizeTextSlider:SetValueChangedFunction(function(newValue)
-		CustomTextLabel:UpdateTextSize((newValue - 1) * 5)
+		CustomTextLabel:UpdateTextSize(newValue)
 	end)
 
 	rotationTextSlider:SetValueChangedFunction(function(newValue)
-		CustomTextLabel:UpdateTextRotation((newValue - 1) * 30)
+		CustomTextLabel:UpdateTextRotation(newValue)
 	end)
 
 	heightTextSlider:SetValueChangedFunction(function(newValue)
-		CustomTextLabel:UpdateLineHeight((newValue - 1) / 2)
+		CustomTextLabel:UpdateLineHeight(newValue)
 	end)
 
 	markupCheckbox:SetValueChangedFunction(function(newValue)
@@ -344,7 +352,7 @@ function PluginGui:newPluginGui(widgetGui)
 			wrappedCheckbox:SetDisabled(true)
 			wrappedCheckbox:SetValue(true)
 		else
-			sizeTextSlider:SetValue(4)
+			sizeTextSlider:SetValue(3)
 			wrappedCheckbox:SetDisabled(false)
 		end
 	end)
@@ -392,15 +400,15 @@ function PluginGui:newPluginGui(widgetGui)
 	end)
 
 	thicknessStrokeSlider:SetValueChangedFunction(function(newValue)
-		CustomTextLabel:UpdateStrokeThickness((newValue - 1))
+		CustomTextLabel:UpdateStrokeThickness(newValue)
 	end)
 
 	transparencyStrokeSlider:SetValueChangedFunction(function(newValue)
-		CustomTextLabel:UpdateStrokeTransparency((newValue - 1) / 10)
+		CustomTextLabel:UpdateStrokeTransparency(newValue)
 	end)
 
 	transparencyBackgroundSlider:SetValueChangedFunction(function(newValue)
-		CustomTextLabel:UpdateBackgroundTransparency((newValue - 1) / 10)
+		CustomTextLabel:UpdateBackgroundTransparency(newValue)
 	end)
 
 	colorBackgroundChoice:SetValueChangedFunction(function(newIndex)

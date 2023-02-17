@@ -174,6 +174,15 @@ function LabeledTextInputClass:_updateInputVisual()
 	end
 end
 
+function LabeledTextInputClass:UseSmallSize()
+	self._textBoxBorder.AutomaticSize = Enum.AutomaticSize.None
+	self._textBoxBorder.Size = UDim2.new(0, GuiUtilities.kTextInputWidth, 0, GuiUtilities.kTextInputHeight)
+	self._textBox.TextXAlignment = Enum.TextXAlignment.Center
+	self._textBox.TextYAlignment = Enum.TextYAlignment.Center
+	self._textBox.ClearTextOnFocus = true
+	self._textBox.MultiLine = false
+end
+
 function LabeledTextInputClass:SetValueChangedFunction(vcf)
 	self._valueChangedFunction = vcf
 end

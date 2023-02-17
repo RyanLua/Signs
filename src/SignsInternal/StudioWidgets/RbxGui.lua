@@ -1,3 +1,15 @@
+GuiUtilities = require(script.Parent.GuiUtilities)
+
+local kSliderThumbImage = "rbxasset://textures/RoactStudioWidgets/slider_handle_light.png"
+local kPreThumbImage = "rbxasset://textures/RoactStudioWidgets/slider_bar_light.png"
+local kPostThumbImage = "rbxasset://textures/RoactStudioWidgets/slider_bar_background_light.png"
+
+local kSliderThumbImageDark = "rbxasset://textures/RoactStudioWidgets/slider_handle_dark.png"
+local kPreThumbImageDark = "rbxasset://textures/RoactStudioWidgets/slider_bar_dark.png"
+local kPostThumbImageDark = "rbxasset://textures/RoactStudioWidgets/slider_bar_background_dark.png"
+
+local kThumbSize = 12
+
 local t = {}
 
 local function getLayerCollectorAncestor(instance)
@@ -8,224 +20,123 @@ local function getLayerCollectorAncestor(instance)
 	return localInstance
 end
 
-local function setSliderPos(newAbsPosX,slider,sliderPosition,bar,steps)
-
+local function setSliderPos(newAbsPosX, slider, sliderPosition, bar, steps)
 	local newStep = steps - 1 --otherwise we really get one more step than we want
-	local relativePosX = math.min(1, math.max(0, (newAbsPosX - bar.AbsolutePosition.X) / bar.AbsoluteSize.X ))
+	local relativePosX = math.min(1, math.max(0, (newAbsPosX - bar.AbsolutePosition.X) / bar.AbsoluteSize.X))
 	local wholeNum, remainder = math.modf(relativePosX * newStep)
 	if remainder > 0.5 then
 		wholeNum = wholeNum + 1
 	end
-	relativePosX = wholeNum/newStep
+	relativePosX = wholeNum / newStep
 
 	local result = math.ceil(relativePosX * newStep)
 	if sliderPosition.Value ~= (result + 1) then --only update if we moved a step
 		sliderPosition.Value = result + 1
-		slider.Position = UDim2.new(relativePosX,-slider.AbsoluteSize.X/2,slider.Position.Y.Scale,slider.Position.Y.Offset)
+		slider.Position =
+			UDim2.new(relativePosX, -slider.AbsoluteSize.X / 2, slider.Position.Y.Scale, slider.Position.Y.Offset)
 	end
-	
 end
 
 local function cancelSlide(areaSoak)
 	areaSoak.Visible = false
 end
 
-t.CreateSlider = function(steps,width,position)
+t.CreateSlider = function(steps: number, size: UDim2, position: UDim2)
 	local sliderGui = Instance.new("Frame")
-	sliderGui.Size = UDim2.new(1,0,1,0)
+	sliderGui.Size = size
 	sliderGui.BackgroundTransparency = 1
 	sliderGui.Name = "SliderGui"
 	
+	if
+		position["X"]
+		and position["X"]["Scale"]
+		and position["X"]["Offset"]
+		and position["Y"]
+		and position["Y"]["Scale"]
+		and position["Y"]["Offset"]
+	then
+		sliderGui.Position = position
+	end
+
 	local sliderSteps = Instance.new("IntValue")
 	sliderSteps.Name = "SliderSteps"
 	sliderSteps.Value = steps
 	sliderSteps.Parent = sliderGui
-	
+
 	local areaSoak = Instance.new("TextButton")
 	areaSoak.Name = "AreaSoak"
 	areaSoak.Text = ""
 	areaSoak.BackgroundTransparency = 1
 	areaSoak.Active = false
-	areaSoak.Size = UDim2.new(1,0,1,0)
+	areaSoak.Size = UDim2.new(1, 0, 1, 0)
 	areaSoak.Visible = false
 	areaSoak.ZIndex = 4
-	
-	sliderGui.AncestryChanged:Connect(function(child,parent)
+
+	sliderGui.AncestryChanged:Connect(function(child, parent)
 		if parent == nil then
 			areaSoak.Parent = nil
 		else
 			areaSoak.Parent = getLayerCollectorAncestor(sliderGui)
 		end
 	end)
-	
+
 	local sliderPosition = Instance.new("IntValue")
 	sliderPosition.Name = "SliderPosition"
 	sliderPosition.Value = 0
 	sliderPosition.Parent = sliderGui
-	
-	local id = math.random(1,100)
-	
-	local bar = Instance.new("TextButton")
-	bar.Text = ""
-	bar.AutoButtonColor = false
-	bar.Name = "Bar"
-	bar.BackgroundColor3 = Color3.new(0,0,0)
-	if type(width) == "number" then
-		bar.Size = UDim2.new(1,0,0,5)
-	else
-		bar.Size = UDim2.new(1,0,0,5)
-	end
-	bar.BorderColor3 = Color3.new(95/255,95/255,95/255)
-	bar.ZIndex = 2
-	bar.Parent = sliderGui
-	
-	if position["X"] and position["X"]["Scale"] and position["X"]["Offset"] and position["Y"] and position["Y"]["Scale"] and position["Y"]["Offset"] then
-		bar.Position = position
-	end
-	
-	local slider = Instance.new("ImageButton")
-	slider.Name = "Slider"
-	slider.BackgroundTransparency = 1
-	slider.Image = "rbxasset://textures/ui/Slider.png"
-	slider.Position = UDim2.new(0,0,0.5,-10)
-	slider.Size = UDim2.new(0,20,0,20)
-	slider.ZIndex = 3
-	slider.Parent = bar
-	
-	local areaSoakMouseMoveCon = nil
-	
-	areaSoak.MouseLeave:Connect(function()
-		if areaSoak.Visible then
-			cancelSlide(areaSoak)
-		end
-	end)
-	areaSoak.MouseButton1Up:Connect(function()
-		if areaSoak.Visible then
-			cancelSlide(areaSoak)
-		end
-	end)
-	
-	slider.MouseButton1Down:Connect(function()
-		areaSoak.Visible = true
-		if areaSoakMouseMoveCon then areaSoakMouseMoveCon:Disconnect() end
-		areaSoakMouseMoveCon = areaSoak.MouseMoved:Connect(function(x,y)
-			setSliderPos(x,slider,sliderPosition,bar,steps)
-		end)
-	end)
-	
-	slider.MouseButton1Up:Connect(function() cancelSlide(areaSoak) end)
-	
-	sliderPosition.Changed:Connect(function(prop)
-		sliderPosition.Value = math.min(steps, math.max(1,sliderPosition.Value))
-		local relativePosX = (sliderPosition.Value - 1) / (steps - 1)
-		slider.Position = UDim2.new(relativePosX,-slider.AbsoluteSize.X/2,slider.Position.Y.Scale,slider.Position.Y.Offset)
-	end)
-	
-	bar.MouseButton1Down:Connect(function(x,y)
-		setSliderPos(x,slider,sliderPosition,bar,steps)
-	end)
-	
-	return sliderGui, sliderPosition, sliderSteps
-
-end
-
-t.CreateSliderNew = function(steps,width,position)
-	local sliderGui = Instance.new("Frame")
-	sliderGui.Size = UDim2.new(1,0,1,0)
-	sliderGui.BackgroundTransparency = 1
-	sliderGui.Name = "SliderGui"
-	
-	local sliderSteps = Instance.new("IntValue")
-	sliderSteps.Name = "SliderSteps"
-	sliderSteps.Value = steps
-	sliderSteps.Parent = sliderGui
-	
-	local areaSoak = Instance.new("TextButton")
-	areaSoak.Name = "AreaSoak"
-	areaSoak.Text = ""
-	areaSoak.BackgroundTransparency = 1
-	areaSoak.Active = false
-	areaSoak.Size = UDim2.new(1,0,1,0)
-	areaSoak.Visible = false
-	areaSoak.ZIndex = 6
-	
-	sliderGui.AncestryChanged:Connect(function(child,parent)
-		if parent == nil then
-			areaSoak.Parent = nil
-		else
-			areaSoak.Parent = getLayerCollectorAncestor(sliderGui)
-		end
-	end)
-	
-	local sliderPosition = Instance.new("IntValue")
-	sliderPosition.Name = "SliderPosition"
-	sliderPosition.Value = 0
-	sliderPosition.Parent = sliderGui
-	
-	local id = math.random(1,100)
-	
-	local sliderBarImgHeight = 7
-	local sliderBarCapImgWidth = 4
 
 	local bar = Instance.new("ImageButton")
-	bar.BackgroundTransparency = 1
-	bar.Image = "rbxasset://textures/ui/Slider-BKG-Center.png"
 	bar.Name = "Bar"
-	local displayWidth = 200
-	if type(width) == "number" then
-		bar.Size = UDim2.new(0,width - (sliderBarCapImgWidth * 2),0,sliderBarImgHeight)
-		displayWidth = width - (sliderBarCapImgWidth * 2)
-	else
-		bar.Size = UDim2.new(0,200,0,sliderBarImgHeight)
-	end
-	bar.ZIndex = 3
-	bar.Parent = sliderGui	
-	if position["X"] and position["X"]["Scale"] and position["X"]["Offset"] and position["Y"] and position["Y"]["Scale"] and position["Y"]["Offset"] then
-		bar.Position = position
-	end
+	bar.BackgroundTransparency = 1
+	bar.BorderSizePixel = 0
+	bar.Position = UDim2.new(0, 0, 0.5, 0)
+	bar.AnchorPoint = Vector2.new(0, 0.5)
+	bar.Size = UDim2.new(1, 0, 0, 5)
+	bar.ZIndex = 2
+	bar.Parent = sliderGui
 
-	local barLeft = bar:Clone()
-	barLeft.Name = "BarLeft"
-	barLeft.Image = "rbxasset://textures/ui/Slider-BKG-Left-Cap.png"
-	barLeft.Size = UDim2.new(0, sliderBarCapImgWidth, 0, sliderBarImgHeight)
-	barLeft.Position = UDim2.new(position.X.Scale, position.X.Offset - sliderBarCapImgWidth, position.Y.Scale, position.Y.Offset)
-	barLeft.Parent = sliderGui	
-	barLeft.ZIndex = 3
+	local preBar = Instance.new("ImageLabel")
+	preBar.Name = "PreThumb"
+	preBar.Parent = bar
+	preBar.BackgroundTransparency = 1
+	preBar.ScaleType = Enum.ScaleType.Slice
+	preBar.SliceCenter = Rect.new(3, 0, 4, 3)
+	preBar.Size = UDim2.new(0, 0, 1, 0)
+	preBar.Position = UDim2.new(0, 0, 0, 0)
+	preBar.Image = kPreThumbImage
+	preBar.BorderSizePixel = 0
 
-	local barRight = barLeft:Clone()
-	barRight.Name = "BarRight"
-	barRight.Image = "rbxasset://textures/ui/Slider-BKG-Right-Cap.png"
-	barRight.Position = UDim2.new(position.X.Scale, position.X.Offset + displayWidth, position.Y.Scale, position.Y.Offset)
-	barRight.Parent = sliderGui	
+	local postBar = Instance.new("ImageLabel")
+	postBar.Name = "PostThumb"
+	postBar.Parent = bar
+	postBar.BackgroundTransparency = 1
+	postBar.ScaleType = Enum.ScaleType.Slice
+	postBar.SliceCenter = Rect.new(3, 0, 4, 3)
+	postBar.Size = UDim2.new(1, 0, 1, 0)
+	postBar.Position = UDim2.new(0, 0, 0, 0)
+	postBar.Image = kPostThumbImage
+	postBar.BorderSizePixel = 0
 
-	local fillLeft = barLeft:Clone()
-	fillLeft.Name = "FillLeft"
-	fillLeft.Image = "rbxasset://textures/ui/Slider-Fill-Left-Cap.png"
-	fillLeft.Parent = sliderGui	
-	fillLeft.ZIndex = 4
+	sliderPosition.Changed:Connect(function()
+		local scale = (sliderPosition.Value - 1) / (steps - 1)
 
-	local fill = fillLeft:Clone()
-	fill.Name = "Fill"
-	fill.Image = "rbxasset://textures/ui/Slider-Fill-Center.png"
-	fill.Parent = bar	
-	fill.ZIndex = 4
-	fill.Position = UDim2.new(0, 0, 0, 0)
-	fill.Size = UDim2.new(0.5, 0, 1, 0)
-
-
---	bar.Visible = false
+		preBar.Size = UDim2.new(scale, 0, 1, 0)
+		postBar.Size = UDim2.new(1 - scale, 0, 1, 0)
+		postBar.Position = UDim2.new(scale, 0, 0, 0)
+	end)
 
 	local slider = Instance.new("ImageButton")
 	slider.Name = "Slider"
 	slider.BackgroundTransparency = 1
-	slider.Image = "rbxasset://textures/ui/slider_new_tab.png"
-	slider.Position = UDim2.new(0,0,0.5,-14)
-	slider.Size = UDim2.new(0,28,0,28)
-	slider.ZIndex = 5
+	slider.Image = kSliderThumbImage
+	slider.Position = UDim2.new(0, -kThumbSize / 2, 0.5, 0)
+	slider.AnchorPoint = Vector2.new(0, 0.5)
+	slider.Size = UDim2.new(0, kThumbSize, 0, kThumbSize)
+	slider.ZIndex = 3
 	slider.Parent = bar
-	
+
 	local areaSoakMouseMoveCon = nil
-	
+
 	areaSoak.MouseLeave:Connect(function()
 		if areaSoak.Visible then
 			cancelSlide(areaSoak)
@@ -236,39 +147,47 @@ t.CreateSliderNew = function(steps,width,position)
 			cancelSlide(areaSoak)
 		end
 	end)
-	
+
 	slider.MouseButton1Down:Connect(function()
 		areaSoak.Visible = true
-		if areaSoakMouseMoveCon then areaSoakMouseMoveCon:Disconnect() end
-		areaSoakMouseMoveCon = areaSoak.MouseMoved:Connect(function(x,y)
-			setSliderPos(x,slider,sliderPosition,bar,steps)
+		if areaSoakMouseMoveCon then
+			areaSoakMouseMoveCon:Disconnect()
+		end
+		areaSoakMouseMoveCon = areaSoak.MouseMoved:Connect(function(x, y)
+			setSliderPos(x, slider, sliderPosition, bar, steps)
 		end)
 	end)
-	
-	slider.MouseButton1Up:Connect(function() cancelSlide(areaSoak) end)
-	
-	sliderPosition.Changed:Connect(function(prop)
-		sliderPosition.Value = math.min(steps, math.max(1,sliderPosition.Value))
+
+	slider.MouseButton1Up:Connect(function()
+		cancelSlide(areaSoak)
+	end)
+
+	sliderPosition.Changed:Connect(function()
+		sliderPosition.Value = math.min(steps, math.max(1, sliderPosition.Value))
 		local relativePosX = (sliderPosition.Value - 1) / (steps - 1)
-		slider.Position = UDim2.new(relativePosX,-slider.AbsoluteSize.X/2,slider.Position.Y.Scale,slider.Position.Y.Offset)
-		fill.Size = UDim2.new(relativePosX, 0, 1, 0)
-	end)
-	
-	bar.MouseButton1Down:Connect(function(x,y)
-		setSliderPos(x,slider,sliderPosition,bar,steps)
+		slider.Position =
+			UDim2.new(relativePosX, -slider.AbsoluteSize.X / 2, slider.Position.Y.Scale, slider.Position.Y.Offset)
 	end)
 
-	fill.MouseButton1Down:Connect(function(x,y)
-		setSliderPos(x,slider,sliderPosition,bar,steps)
+	bar.MouseButton1Down:Connect(function(x)
+		setSliderPos(x, slider, sliderPosition, bar, steps)
 	end)
 
-	fillLeft.MouseButton1Down:Connect(function(x,y)
-		setSliderPos(x,slider,sliderPosition,bar,steps)
-	end)
-
+	local function setImages()
+		if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() then
+			slider.Image = kSliderThumbImageDark
+			preBar.Image = kPreThumbImageDark
+			postBar.Image = kPostThumbImageDark
+		else
+			slider.Image = kSliderThumbImage
+			preBar.Image = kPreThumbImage
+			postBar.Image = kPostThumbImage
+		end
+	end
+	settings().Studio.ThemeChanged:Connect(setImages)
+	setImages()
 
 	return sliderGui, sliderPosition, sliderSteps
-
 end
 
 return t
