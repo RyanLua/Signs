@@ -280,9 +280,9 @@ function module.MakeDefaultPropertyLabel(text: string, opt_ignoreThemeUpdates: b
 		help.Name = "Help"
 		help.BackgroundTransparency = 1
 		help.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/HelpTab@2x.png"
-		help.Size = UDim2.new(0, 14, 0, 14)
+		help.Size = UDim2.new(0, module.kDefaultFontSize, 0, module.kDefaultFontSize)
 		help.Position = UDim2.new(1, 4, 0.5, 0)
-		help.AnchorPoint = Vector2.new(0, 0.5)
+		help.AnchorPoint = Vector2.new(0, 0.45)
 		help.Parent = label
 
 		help.MouseButton1Click:Connect(function()
