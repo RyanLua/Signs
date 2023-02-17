@@ -5,7 +5,6 @@
 -- Creates a scrolling frame that automatically updates canvas size
 --
 ----------------------------------------
-
 local GuiUtilities = require(script.Parent.GuiUtilities)
 
 local VerticalScrollingFrame = {}
@@ -14,15 +13,15 @@ VerticalScrollingFrame.__index = VerticalScrollingFrame
 function VerticalScrollingFrame.new(suffix)
 	local self = {}
 	setmetatable(self, VerticalScrollingFrame)
-	
+
 	local section = Instance.new("Frame")
 	section.BorderSizePixel = 0
-	section.Size = UDim2.new(1, 0, 1, 0)
+	section.Size = UDim2.new(1, 0, 1, 0) -- TODO: Make this detect HorizontalTabBar size and adjust accordingly so we don't have to hardcode this.
 	section.Position = UDim2.new(0, 0, 0, 0)
 	section.BackgroundTransparency = 0
 	section.Name = "VerticalScrollFrame" .. suffix
 	GuiUtilities.syncGuiElementBackgroundColor(section)
-	
+
 	local scrollBackground = Instance.new("Frame")
 	scrollBackground.Name = "ScrollbarBackground"
 	scrollBackground.BackgroundColor3 = Color3.fromRGB(238, 238, 238)
@@ -30,8 +29,8 @@ function VerticalScrollingFrame.new(suffix)
 	scrollBackground.Size = UDim2.new(0, 11, 1, -2) -- Original: 0, 15, 1, -2
 	scrollBackground.Position = UDim2.new(1, -12, 0, 1) -- Original: 1, -16, 0, 1
 	scrollBackground.Parent = section
-	scrollBackground.ZIndex = 2;
-	
+	scrollBackground.ZIndex = 2
+
 	local scrollFrame = Instance.new("ScrollingFrame")
 	scrollFrame.Name = "ScrollFrame" .. suffix
 	scrollFrame.VerticalScrollBarPosition = Enum.VerticalScrollBarPosition.Right
@@ -47,26 +46,30 @@ function VerticalScrollingFrame.new(suffix)
 	scrollFrame.Size = UDim2.new(1, 0, 1, 0)
 	scrollFrame.Position = UDim2.new(0, 0, 0, 0)
 	scrollFrame.Parent = section
-	
+
 	local uiListLayout = Instance.new("UIListLayout")
 	uiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	uiListLayout.Padding = UDim.new(0, 5)
 	uiListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 	uiListLayout.Parent = scrollFrame
-	
+
 	self._section = section
 	self._scrollFrame = scrollFrame
 	self._scrollBackground = scrollBackground
 	self._uiListLayout = uiListLayout
-	
-	scrollFrame:GetPropertyChangedSignal("AbsoluteSize"):Connect(function() self:_updateScrollingFrameCanvas() end)
-	uiListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function() self:_updateScrollingFrameCanvas() end)
+
+	scrollFrame:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
+		self:_updateScrollingFrameCanvas()
+	end)
+	uiListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+		self:_updateScrollingFrameCanvas()
+	end)
 	self:_updateScrollingFrameCanvas()
-	
+
 	GuiUtilities.syncGuiElementScrollColor(scrollFrame)
 	GuiUtilities.syncGuiElementBorderColor(scrollBackground)
 	GuiUtilities.syncGuiElementScrollBarBackgroundColor(scrollBackground)
-	
+
 	return self
 end
 

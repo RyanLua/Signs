@@ -5,11 +5,11 @@
 -- Creates a frame containing a label and a text input control.
 --
 ----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
+local GuiUtilities = require(script.Parent.GuiUtilities)
 
 local kTextBoxInternalPadding = 8
 
-LabeledTextInputClass = {}
+local LabeledTextInputClass = {}
 LabeledTextInputClass.__index = LabeledTextInputClass
 
 function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue, url)
@@ -25,7 +25,7 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue, url)
 
 	self._valueChangedFunction = nil
 
-	local defaultValue = defaultValue or ""
+	local value = defaultValue or ""
 
 	local frame = GuiUtilities.MakeDefaultFixedHeightFrame("TextInput " .. nameSuffix)
 	frame.AutomaticSize = Enum.AutomaticSize.Y
@@ -35,7 +35,7 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue, url)
 	label.Parent = frame
 	self._label = label
 
-	self._value = defaultValue
+	self._value = value
 
 	local textBoxBorder = Instance.new("ImageLabel")
 	textBoxBorder.Name = "TextBoxBorder"
@@ -75,7 +75,7 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue, url)
 	textBox.ClearTextOnFocus = false
 	textBox.MultiLine = true
 	textBox.Text = ""
-	textBox.PlaceholderText = defaultValue
+	textBox.PlaceholderText = value
 	textBox.Font = GuiUtilities.kDefaultFontFace
 	textBox.TextSize = GuiUtilities.kDefaultFontSize
 	textBox.TextWrapped = true

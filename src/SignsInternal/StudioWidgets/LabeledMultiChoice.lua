@@ -6,14 +6,12 @@
 -- is always selected.
 --
 ----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
-LabeledRadioButton = require(script.Parent.LabeledRadioButton)
-LabeledCheckbox = require(script.Parent.LabeledCheckbox)
-VerticallyScalingListFrame = require(script.Parent.VerticallyScalingListFrame)
+local GuiUtilities = require(script.Parent.GuiUtilities)
 
-local kRadioButtonsHPadding = GuiUtilities.kRadioButtonsHPadding
+local LabeledRadioButton = require(script.Parent.LabeledRadioButton)
+local VerticallyScalingListFrame = require(script.Parent.VerticallyScalingListFrame)
 
-LabeledMultiChoiceClass = {}
+local LabeledMultiChoiceClass = {}
 LabeledMultiChoiceClass.__index = LabeledMultiChoiceClass
 
 -- Note:

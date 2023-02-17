@@ -6,9 +6,9 @@
 -- Will scale dynamically as children grow.
 --
 ----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
+local GuiUtilities = require(script.Parent.GuiUtilities)
 
-VerticallyScalingListFrameClass = {}
+local VerticallyScalingListFrameClass = {}
 VerticallyScalingListFrameClass.__index = VerticallyScalingListFrameClass
 
 local kBottomPadding = 10
@@ -18,24 +18,24 @@ function VerticallyScalingListFrameClass.new(nameSuffix)
 	setmetatable(self, VerticallyScalingListFrameClass)
 
 	self._resizeCallback = nil
-	
-	local frame = Instance.new('Frame')
-	frame.Name = 'VSLFrame' .. nameSuffix
+
+	local frame = Instance.new("Frame")
+	frame.Name = "VSLFrame" .. nameSuffix
 	frame.Size = UDim2.new(1, 0, 0, 0)
 	frame.BackgroundTransparency = 0
 	frame.BorderSizePixel = 0
 	GuiUtilities.syncGuiElementBackgroundColor(frame)
 
 	self._frame = frame
-	
-	local uiListLayout = Instance.new('UIListLayout')
+
+	local uiListLayout = Instance.new("UIListLayout")
 	uiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	uiListLayout.Parent = frame
 	self._uiListLayout = uiListLayout
 
 	local function updateSizes()
 		self._frame.Size = UDim2.new(1, 0, 0, uiListLayout.AbsoluteContentSize.Y)
-		if (self._resizeCallback) then 
+		if self._resizeCallback then
 			self._resizeCallback()
 		end
 	end

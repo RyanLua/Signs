@@ -10,10 +10,16 @@ local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local CollectionService = game:GetService("CollectionService")
 local Selection = game:GetService("Selection")
 
-GuiObjectPart = {}
+local GuiObjectPart = {}
 GuiObjectPart.__index = GuiObjectPart
 
-function GuiObjectPart.new(label: GuiObject, autoLocalize: boolean?, lightInfluence: number?, alwaysOnTop: boolean?, size: Vector2)
+function GuiObjectPart.new(
+	label: GuiObject,
+	autoLocalize: boolean?,
+	lightInfluence: number?,
+	alwaysOnTop: boolean?,
+	size: Vector2
+)
 	local self = {}
 	setmetatable(self, GuiObjectPart)
 
@@ -29,7 +35,7 @@ function GuiObjectPart.new(label: GuiObject, autoLocalize: boolean?, lightInflue
 	part.Size = Vector3.new(partSizeX, partSizeY, 0)
 	part.Position = (camera.CFrame + camera.CFrame.LookVector * 10).Position
 	local yCameraRotation = camera.CFrame.Rotation.Y
-	local yRotation = math.floor(yCameraRotation/90 + 0.5) * 90
+	local yRotation = math.floor(yCameraRotation / 90 + 0.5) * 90
 	part.Rotation = Vector3.new(0, yRotation, 0)
 
 	CollectionService:AddTag(part, "_Sign")
@@ -45,7 +51,7 @@ function GuiObjectPart.new(label: GuiObject, autoLocalize: boolean?, lightInflue
 	local guiObject = label:Clone()
 	guiObject.Parent = surfaceGui
 
-	Selection:Set({part})
+	Selection:Set({ part })
 
 	ChangeHistoryService:SetWaypoint("Insert new SignPart")
 

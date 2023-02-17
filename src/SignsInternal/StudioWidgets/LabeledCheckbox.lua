@@ -4,10 +4,8 @@
 --
 -- Creates a frame containing a label and a checkbox.
 --
--- TODO: Overhaul this to support new checkboxes along with GuiUtilities support.
---
 ----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
+local GuiUtilities = require(script.Parent.GuiUtilities)
 
 local kCheckboxWidth = GuiUtilities.kCheckboxWidth
 
@@ -39,7 +37,7 @@ local kDisabledCheckImageDark = "rbxasset://textures/DeveloperFramework/checkbox
 local kHoverCheckImageDark = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_hover_dark.png"
 local kCheckboxFrameImageDark = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_dark.png"
 
-LabeledCheckboxClass = {}
+local LabeledCheckboxClass = {}
 LabeledCheckboxClass.__index = LabeledCheckboxClass
 
 LabeledCheckboxClass.kMinFrameSize = UDim2.new(0, kMinLabelWidth + kMinMargin + kMinButtonWidth, 0, kMinHeight)

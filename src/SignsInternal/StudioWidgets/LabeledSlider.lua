@@ -5,16 +5,17 @@
 -- Creates a frame containing a label, text input, and a slider control.
 --
 ----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
-rbxGuiLibrary = require(script.Parent.RbxGui)
-LabeledTextInput = require(script.Parent.LabeledTextInput)
+local GuiUtilities = require(script.Parent.GuiUtilities)
+
+local rbxGuiLibrary = require(script.Parent.RbxGui)
+local LabeledTextInput = require(script.Parent.LabeledTextInput)
 
 local kSliderOffset = GuiUtilities.DefaultLineElementLeftMargin
 	+ GuiUtilities.kTextInputWidth
 	- GuiUtilities.kButtonVerticalFudge * 2
 	- 5
 
-LabeledSliderClass = {}
+local LabeledSliderClass = {}
 LabeledSliderClass.__index = LabeledSliderClass
 
 function LabeledSliderClass.new(
@@ -30,8 +31,8 @@ function LabeledSliderClass.new(
 
 	self._valueChangedFunction = nil
 
-	local defaultValue = defaultValue or 1
-	self._value = defaultValue
+	local value = defaultValue or 1
+	self._value = value
 	self._multiplier = multiplier or 1
 
 	-- Creates the frame.
@@ -39,7 +40,8 @@ function LabeledSliderClass.new(
 	self._frame = frame
 
 	-- Creates the input.
-	local input = LabeledTextInput.new("SliderInput" .. nameSuffix, labelText, (self._value - 1) * self._multiplier, url)
+	local input =
+		LabeledTextInput.new("SliderInput" .. nameSuffix, labelText, (self._value - 1) * self._multiplier, url)
 	input:UseSmallSize()
 	input:SetMaxGraphemes(5)
 	input:SetValue(tostring(self._value * self._multiplier))
@@ -70,12 +72,12 @@ function LabeledSliderClass.new(
 	end)
 
 	-- Sets the input value to the slider value when the input is changed.
-	input:SetValueChangedFunction(function(value)
-		if value == "" then
-			self:SetValue(defaultValue)
+	input:SetValueChangedFunction(function(vcf)
+		if vcf == "" then
+			self:SetValue(vcf)
 		else
-			if value ~= nil then
-				self:SetValue(tonumber(value) / self._multiplier + 1)
+			if vcf ~= nil then
+				self:SetValue(tonumber(vcf) / self._multiplier + 1)
 			end
 		end
 	end)
@@ -86,7 +88,7 @@ function LabeledSliderClass.new(
 		end
 	end)
 
-	self:SetValue(defaultValue)
+	self:SetValue(value)
 
 	return self
 end

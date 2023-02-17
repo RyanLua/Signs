@@ -1,4 +1,4 @@
-GuiUtilities = require(script.Parent.GuiUtilities)
+local GuiUtilities = require(script.Parent.GuiUtilities)
 
 local kSliderThumbImage = "rbxasset://textures/RoactStudioWidgets/slider_handle_light.png"
 local kPreThumbImage = "rbxasset://textures/RoactStudioWidgets/slider_bar_light.png"
@@ -46,7 +46,7 @@ t.CreateSlider = function(steps: number, size: UDim2, position: UDim2)
 	sliderGui.Size = size
 	sliderGui.BackgroundTransparency = 1
 	sliderGui.Name = "SliderGui"
-	
+
 	if
 		position["X"]
 		and position["X"]["Scale"]
@@ -72,7 +72,7 @@ t.CreateSlider = function(steps: number, size: UDim2, position: UDim2)
 	areaSoak.Visible = false
 	areaSoak.ZIndex = 4
 
-	sliderGui.AncestryChanged:Connect(function(child, parent)
+	sliderGui.AncestryChanged:Connect(function(parent)
 		if parent == nil then
 			areaSoak.Parent = nil
 		else
@@ -153,7 +153,7 @@ t.CreateSlider = function(steps: number, size: UDim2, position: UDim2)
 		if areaSoakMouseMoveCon then
 			areaSoakMouseMoveCon:Disconnect()
 		end
-		areaSoakMouseMoveCon = areaSoak.MouseMoved:Connect(function(x, y)
+		areaSoakMouseMoveCon = areaSoak.MouseMoved:Connect(function(x)
 			setSliderPos(x, slider, sliderPosition, bar, steps)
 		end)
 	end)

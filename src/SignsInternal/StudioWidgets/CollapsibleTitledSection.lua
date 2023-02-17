@@ -15,42 +15,41 @@
 -- This is important for cases when you want minimize button to push or contract what is below it.
 --
 -- Both "minimizeable" and "minimizedByDefault" are false by default
--- These parameters define if the section will have an arrow button infront of the title label, 
+-- These parameters define if the section will have an arrow button infront of the title label,
 -- which the user may use to hide the section's contents
 --
 ----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
+local GuiUtilities = require(script.Parent.GuiUtilities)
 
 local kRightButtonAsset = "rbxasset://textures/DeveloperFramework/button_arrow_right.png"
 local kDownButtonAsset = "rbxasset://textures/DeveloperFramework/button_arrow_down.png"
 
 local kArrowSize = 7
 
-CollapsibleTitledSectionClass = {}
+local CollapsibleTitledSectionClass = {}
 CollapsibleTitledSectionClass.__index = CollapsibleTitledSectionClass
-
 
 function CollapsibleTitledSectionClass.new(nameSuffix, titleText, autoScalingList, minimizable, minimizedByDefault)
 	local self = {}
 	setmetatable(self, CollapsibleTitledSectionClass)
-	
+
 	self._minimized = minimizedByDefault
 	self._minimizable = minimizable
 
 	self._titleBarHeight = GuiUtilities.kTitleBarHeight
 
-	local frame = Instance.new('Frame')
-	frame.Name = 'CTSection' .. nameSuffix
+	local frame = Instance.new("Frame")
+	frame.Name = "CTSection" .. nameSuffix
 	frame.BackgroundTransparency = 1
 	self._frame = frame
 
-	local uiListLayout = Instance.new('UIListLayout')
+	local uiListLayout = Instance.new("UIListLayout")
 	uiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	uiListLayout.Parent = frame
 	self._uiListLayout = uiListLayout
 
-	local contentsFrame = Instance.new('Frame')
-	contentsFrame.Name = 'Contents'
+	local contentsFrame = Instance.new("Frame")
+	contentsFrame.Name = "Contents"
 	contentsFrame.BackgroundTransparency = 1
 	contentsFrame.Size = UDim2.new(1, 0, 0, 1)
 	contentsFrame.Position = UDim2.new(0, 0, 0, 0)
@@ -60,21 +59,20 @@ function CollapsibleTitledSectionClass.new(nameSuffix, titleText, autoScalingLis
 
 	self._contentsFrame = contentsFrame
 
-	uiListLayout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+	uiListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
 		self:_UpdateSize()
 	end)
 	self:_UpdateSize()
 
 	self:_CreateTitleBar(titleText)
 	self:SetCollapsedState(self._minimized)
-	
-	if (autoScalingList) then
+
+	if autoScalingList then
 		GuiUtilities.MakeFrameAutoScalingList(self:GetContentsFrame())
 	end
 
 	return self
 end
-
 
 function CollapsibleTitledSectionClass:GetSectionFrame()
 	return self._frame
@@ -93,7 +91,7 @@ function CollapsibleTitledSectionClass:_UpdateMinimizeButton()
 	-- We can't rotate it because rotated images don't get clipped by parents.
 	-- This is all in a scroll widget.
 	-- :(
-	if (self._minimized) then 
+	if self._minimized then
 		self._minimizeButton.Image = kRightButtonAsset
 	else
 		self._minimizeButton.Image = kDownButtonAsset
@@ -114,8 +112,8 @@ end
 function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 	local titleTextOffset = self._titleBarHeight
 
-	local titleBar = Instance.new('ImageButton')
-	titleBar.Name = 'TitleBarVisual'
+	local titleBar = Instance.new("ImageButton")
+	titleBar.Name = "TitleBarVisual"
 	titleBar.AutoButtonColor = false
 	titleBar.Position = UDim2.new(0, 0, 0, 0)
 	titleBar.Size = UDim2.new(1, 0, 0, self._titleBarHeight)
@@ -125,8 +123,8 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 	GuiUtilities.syncGuiElementShadowColor(titleBar)
 	GuiUtilities.syncGuiElementTitleColor(titleBar)
 
-	local titleLabel = Instance.new('TextLabel')
-	titleLabel.Name = 'TitleLabel'
+	local titleLabel = Instance.new("TextLabel")
+	titleLabel.Name = "TitleLabel"
 	titleLabel.BackgroundTransparency = 1
 	titleLabel.Font = GuiUtilities.kDefaultFontFaceBold
 	titleLabel.TextSize = GuiUtilities.kDefaultFontSize
@@ -137,13 +135,12 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 	titleLabel.Parent = titleBar
 	GuiUtilities.syncGuiElementFontColor(titleLabel)
 
-	self._minimizeButton = Instance.new('ImageButton')
-	self._minimizeButton.Name = 'MinimizeSectionButton'
-	self._minimizeButton.Image = kRightButtonAsset              -- TODO: input arrow image from spec
+	self._minimizeButton = Instance.new("ImageButton")
+	self._minimizeButton.Name = "MinimizeSectionButton"
+	self._minimizeButton.Image = kRightButtonAsset -- TODO: input arrow image from spec
 	self._minimizeButton.Size = UDim2.new(0, kArrowSize, 0, kArrowSize)
 	self._minimizeButton.AnchorPoint = Vector2.new(0.5, 0.5)
-	self._minimizeButton.Position = UDim2.new(0, self._titleBarHeight*.5,
-		 0, self._titleBarHeight*.5)
+	self._minimizeButton.Position = UDim2.new(0, self._titleBarHeight * 0.5, 0, self._titleBarHeight * 0.5)
 	self._minimizeButton.BackgroundTransparency = 1
 	self._minimizeButton.Visible = self._minimizable -- only show when minimizable
 	self._minimizeButton.Parent = titleBar
@@ -157,14 +154,14 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 	_UpdateMinimizeButtonTheme()
 
 	titleBar.InputBegan:Connect(function(input)
-		if (input.UserInputType == Enum.UserInputType.MouseMovement) then
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			self._hovered = true
 			self:_updateButtonVisual()
 		end
 	end)
 
 	titleBar.InputEnded:Connect(function(input)
-		if (input.UserInputType == Enum.UserInputType.MouseMovement) then
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			self._hovered = false
 			self._clicked = false
 			self:_updateButtonVisual()
@@ -187,13 +184,13 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 end
 
 function CollapsibleTitledSectionClass:_updateButtonVisual()
-	local kTitlebarDefaultBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.CategoryItem, Enum.StudioStyleGuideModifier.Default)
-	local kTitlebarHoverBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Hover)
-	local kTitlebarPressedBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Pressed)
+	local kTitlebarDefaultBackgroundColor =
+		settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.CategoryItem, Enum.StudioStyleGuideModifier.Default)
+	local kTitlebarHoverBackgroundColor =
+		settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Hover)
 
-	if (self._clicked) then 
-		self._titleBar.BackgroundColor3 = kTitlebarHoverBackgroundColor
-	elseif (self._hovered) then 
+
+	if self._hovered then
 		self._titleBar.BackgroundColor3 = kTitlebarHoverBackgroundColor
 	else
 		self._titleBar.BackgroundColor3 = kTitlebarDefaultBackgroundColor

@@ -3,11 +3,10 @@
 -- LabeledSelection.lua
 --
 ----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
+local GuiUtilities = require(script.Parent.GuiUtilities)
 
 local kCheckboxWidth = GuiUtilities.kCheckboxWidth
 
-local kMinTextSize = 14
 local kMinHeight = 24
 local kMinLabelWidth = GuiUtilities.kCheckboxMinLabelWidth
 local kMinMargin = GuiUtilities.kCheckboxMinMargin
@@ -24,17 +23,17 @@ local kButtonPressedBackgroundColor = settings().Studio.Theme:GetColor(
 	Enum.StudioStyleGuideModifier.Pressed
 )
 
-LabeledButtonClass = {}
+local LabeledButtonClass = {}
 LabeledButtonClass.__index = LabeledButtonClass
 
 LabeledButtonClass.kMinFrameSize = UDim2.new(0, kMinLabelWidth + kMinMargin + kMinButtonWidth, 0, kMinHeight)
 
-function LabeledButtonClass.new(nameSuffix, labelText, initValue, initDisabled)
+function LabeledButtonClass.new(nameSuffix, labelText, value, disabled)
 	local self = {}
 	setmetatable(self, LabeledButtonClass)
 
-	local initValue = not not initValue
-	local initDisabled = not not initDisabled
+	local initValue = not not value
+	local initDisabled = not not disabled
 
 	local frame = GuiUtilities.MakeDefaultFixedHeightFrame("CBF" .. nameSuffix)
 	frame.Size = UDim2.new(1, 0, GuiUtilities.kDefaultPropertyHeight, 0)
@@ -123,32 +122,9 @@ function LabeledButtonClass:_SetupMouseClickHandling()
 	end)
 end
 
-function LabeledButtonClass:_HandleUpdatedValue()
-	self._button.Visible = self:GetValue()
-
-	if self._valueChangedFunction then
-		self._valueChangedFunction(self:GetValue())
-	end
-end
-
 -- Too buggy with other GuiObjects to be used.
 function LabeledButtonClass:_updateCheckboxVisual()
-	local kButtonDefaultBackgroundColor = settings().Studio.Theme:GetColor(
-		Enum.StudioStyleGuideColor.FilterButtonDefault,
-		Enum.StudioStyleGuideModifier.Default
-	)
-	local kButtonHoverBackgroundColor = settings().Studio.Theme:GetColor(
-		Enum.StudioStyleGuideColor.FilterButtonHover,
-		Enum.StudioStyleGuideModifier.Hover
-	)
-	local kButtonPressedBackgroundColor = settings().Studio.Theme:GetColor(
-		Enum.StudioStyleGuideColor.FilterButtonChecked,
-		Enum.StudioStyleGuideModifier.Pressed
-	)
-
-	if self._value then
-		self._button.BackgroundColor3 = kButtonPressedBackgroundColor
-	elseif self._clicked then
+	if self._clicked then
 		self._button.BackgroundColor3 = kButtonPressedBackgroundColor
 	elseif self._hovered then
 		self._button.BackgroundColor3 = kButtonHoverBackgroundColor
@@ -195,8 +171,8 @@ function LabeledButtonClass:SetValueChangedFunction(vcFunction)
 	self._valueChangedFunction = vcFunction
 end
 
-function LabeledButtonClass:SetDisabled(newDisabled)
-	local newDisabled = not not newDisabled
+function LabeledButtonClass:SetDisabled(disabled)
+	local newDisabled = not not disabled
 
 	local originalValue = self:GetValue()
 
@@ -251,10 +227,10 @@ function LabeledButtonClass:GetDisabled()
 end
 
 function LabeledButtonClass:SetValue(newValue)
-	local newValue = not not newValue
+	local value = not not newValue
 
-	if newValue ~= self._value then
-		self._value = newValue
+	if value ~= self._value then
+		self._value = value
 
 		self:_HandleUpdatedValue()
 	end
