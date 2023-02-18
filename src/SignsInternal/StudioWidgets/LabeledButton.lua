@@ -2,6 +2,8 @@
 --
 -- LabeledSelection.lua
 --
+-- Creates a labeled selection with a set amount of options.
+--
 ----------------------------------------
 local GuiUtilities = require(script.Parent.GuiUtilities)
 
@@ -28,6 +30,7 @@ LabeledButtonClass.__index = LabeledButtonClass
 
 LabeledButtonClass.kMinFrameSize = UDim2.new(0, kMinLabelWidth + kMinMargin + kMinButtonWidth, 0, kMinHeight)
 
+-- Creates a new LabeledButtonClass.
 function LabeledButtonClass.new(nameSuffix, labelText, value, disabled)
 	local self = {}
 	setmetatable(self, LabeledButtonClass)
@@ -124,7 +127,7 @@ end
 
 -- Too buggy with other GuiObjects to be used.
 function LabeledButtonClass:_updateCheckboxVisual()
-	if self._clicked then
+	if self._value then
 		self._button.BackgroundColor3 = kButtonPressedBackgroundColor
 	elseif self._hovered then
 		self._button.BackgroundColor3 = kButtonHoverBackgroundColor
