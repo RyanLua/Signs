@@ -5,9 +5,9 @@
 -- Custom text button class which can be used in any gui.
 --
 ----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
+local GuiUtilities = require(script.Parent.GuiUtilities)
 
-CustomTextLabelClass = {}
+local CustomTextLabelClass = {}
 CustomTextLabelClass.__index = CustomTextLabelClass
 
 function CustomTextLabelClass.new(nameSuffix, height)
@@ -30,11 +30,18 @@ function CustomTextLabelClass.new(nameSuffix, height)
 	self._frame = frame
 
 	local aspectRatio = Instance.new("UIAspectRatioConstraint")
+	aspectRatio.AspectRatio = 1
+	aspectRatio.AspectType = Enum.AspectType.ScaleWithParentSize
+	aspectRatio.DominantAxis = Enum.DominantAxis.Height
 	aspectRatio.Parent = frame
+	self._aspectRatio = aspectRatio
 
 	local label = Instance.new("TextLabel")
 	label.Text = "Preview"
 	label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() then
+		label.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	end
 	if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() then
 		label.TextColor3 = Color3.fromRGB(255, 255, 255)
 	end
@@ -183,3 +190,5 @@ function CustomTextLabelClass.new(nameSuffix, height)
 end
 
 return CustomTextLabelClass
+
+-- To fix the above you can

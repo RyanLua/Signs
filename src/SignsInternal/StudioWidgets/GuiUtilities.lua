@@ -104,6 +104,14 @@ function module.syncGuiElementBackgroundColor(guiElement)
 	setColors()
 end
 
+function module.syncGuiElementTitlebarColor(guiElement)
+	local function setColors()
+		guiElement.BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Titlebar)
+	end
+	settings().Studio.ThemeChanged:Connect(setColors)
+	setColors()
+end
+
 function module.syncGuiElementScrollBarBackgroundColor(guiElement)
 	local function setColors()
 		guiElement.BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.ScrollBarBackground)
@@ -139,6 +147,23 @@ function module.syncGuiInputFieldBorderColor(guiElement)
 	settings().Studio.ThemeChanged:Connect(setColors)
 	setColors()
 end
+
+function module.syncGuiTabBarBackgroundColor(guiElement)
+	local function setColors()
+		guiElement.BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.RibbonTab)
+	end
+	settings().Studio.ThemeChanged:Connect(setColors)
+	setColors()
+end
+
+function module.syncGuiTabBackgroundColor(guiElement)
+	local function setColors()
+		guiElement.BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.RibbonTab)
+	end
+	settings().Studio.ThemeChanged:Connect(setColors)
+	setColors()
+end
+
 
 function module.syncGuiInputFieldBackgroundColor(guiElement)
 	local function setColors()
@@ -305,7 +330,6 @@ function module.MakeFrameWithSubSectionLabel(name, text, url)
 	row.BackgroundTransparency = 1
 
 	local label = module.MakeDefaultPropertyLabel(text, false, url)
-	label.BackgroundTransparency = 1
 	label.Parent = row
 
 	return row
