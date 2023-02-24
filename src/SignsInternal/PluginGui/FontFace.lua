@@ -1,8 +1,5 @@
 local FontFace = {
-
-	-- Every font in existance, needs a better loop system for if fromName font is made. Much as a proof of concept for now.
-	-- [[<font family="rbxasset://fonts/families/_FAMILY_.json">_NAME_</font>]]
-
+	-- [[<font family="rbxasset://fonts/families/FAMILY.json">NAME</font>]]
 	{
 		Id = "AccanthisADFStd",
 		Font = Font.fromName("AccanthisADFStd"),
@@ -183,6 +180,6 @@ local FontFace = {
 		Font = Font.fromName("Zekton"),
 		Text = [[<font family="rbxasset://fonts/families/Zekton.json">Zekton</font>]],
 	},
-} -- Array of fonts, please fix this. I really hate this.
+}
 
 return FontFace

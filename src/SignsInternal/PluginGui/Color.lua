@@ -1,7 +1,5 @@
 local choices = {
-
-	-- Every font in existance, needs a better loop system for if new font is made. Much as a proof of concept for now.
-	-- [[<font color="rgb(_COLOR3_)">_COLOR_</font>]]
+	-- [[<font color="rgb(r, g, b)">COLOR</font>]]
 	{
 		Id = "1",
 		Color = Color3.fromRGB(255, 255, 255),
@@ -25,6 +23,6 @@ local choices = {
 		Color = Color3.fromRGB(17, 17, 17),
 		Text = [[<stroke color="rgb(255, 255, 255)" joins="round" thickness="1" transparency="0.75"><font color="rgb(17, 17, 17)">Really black</font></stroke>]],
 	},
-} -- Array of fonts, please fix this. I really hate this.
+}
 
 return choices
