@@ -66,44 +66,44 @@ Change the stroke of the font in customize in ways that the text stroke property
 
 ## Frequently Asked Questions <sup>(FAQ)</sup>
 
-- Wasn't Signs formerly **closed-source**? Why is it **open-sourced** now?
+Wasn't Signs formerly **closed-source**? Why is it **open-sourced** now?
 
-    > Signs was **closed-sourced** for much of its **v1.0.0** development, but starting in **v2.0.0**, Signs was changed to being **open-sourced**. Learn more at [v2.0.0](https://github.com/The-Winner-Games/Signs/releases/tag/v2.0.0).
+> Signs was **closed-sourced** for much of its **v1.0.0** development, but starting in **v2.0.0**, Signs was changed to being **open-sourced**. Learn more at [v2.0.0](https://github.com/The-Winner-Games/Signs/releases/tag/v2.0.0).
 
-- Is Signs **harmful or malicious**? I've **found a security vulnerability**. What do I do?
+Is Signs **harmful or malicious**? I've **found a security vulnerability**. What do I do?
 
-    > Signs is **completely safe** and open-sourced to allow anyone to check for potentially harmful or malicious code. Security vulnerabilities are taken seriously, **to report a security vulnerability** fill out a [draft security advisory](https://github.com/The-Winner-Games/Signs/security/advisories/new), and a collaborator will try to fix this vulnerability as fast as possible.
+> Signs is **completely safe** and open-sourced to allow anyone to check for potentially harmful or malicious code. Security vulnerabilities are taken seriously, **to report a security vulnerability** fill out a [draft security advisory](https://github.com/The-Winner-Games/Signs/security/advisories/new), and a collaborator will try to fix this vulnerability as fast as possible.
 
-- How do I **install Signs**? What can I do if I have **issues installing**?
+How do I **install Signs**? What can I do if I have **issues installing**?
 
-    > You can **install Signs** by following the [installation steps](https://github.com/The-Winner-Games/Signs#installation). They are two currently supported ways to install Signs, either [from the Creator Marketplace](https://create.roblox.com/marketplace/asset/6967799394/) or [from GitHub](https://github.com/The-Winner-Games/Signs/releases). If you **still can't install**, open a [issue](https://github.com/The-Winner-Games/Signs/issues/new/choose) from this GitHub repository.
+> You can **install Signs** by following the [installation steps](https://github.com/The-Winner-Games/Signs#installation). They are two currently supported ways to install Signs, either [from the Creator Marketplace](https://create.roblox.com/marketplace/asset/6967799394/) or [from GitHub](https://github.com/The-Winner-Games/Signs/releases). If you **still can't install**, open a [issue](https://github.com/The-Winner-Games/Signs/issues/new/choose) from this GitHub repository.
 
-- Can I get **Signs for free**? What if I **can't afford Signs**?
+Can I get **Signs for free**? What if I **can't afford Signs**?
 
-    > You can **get Signs for free** following the [GitHub installation steps](README.md#github). Additionally **if you want automatic updates** you can get Signs Free [from the Creator Marketplace](https://create.roblox.com/marketplace/asset/6967799394/).
+> You can **get Signs for free** following the [GitHub installation steps](README.md#github). Additionally **if you want automatic updates** you can get Signs Free [from the Creator Marketplace](https://create.roblox.com/marketplace/asset/6967799394/).
 
-- I've **found a bug or want to request a feature**. How do I report it?
+I've **found a bug or want to request a feature**. How do I report it?
 
-    > That's great! You can **report bugs or request features** by [opening an issue](https://github.com/The-Winner-Games/Signs/issues/new/choose). Your issue will be reviewed by maintainers and considered.
+> That's great! You can **report bugs or request features** by [opening an issue](https://github.com/The-Winner-Games/Signs/issues/new/choose). Your issue will be reviewed by maintainers and considered.
 
-- You **stole my plugin/code**. What do I do if there **copyrighted or stolen content** in this plugin?
+You **stole my plugin/code**. What do I do if there **copyrighted or stolen content** in this plugin?
 
-    > There is **no known copyrighted or stolen content** in Signs, but just in case you find unknowingly stolen or copyrighted content **, please get in touch with us on [Twitter (@RaenLua)](https://twitter.com/RaenLua)** before filing a DMCA takedown notice with GitHub.
+> There is **no known copyrighted or stolen content** in Signs, but just in case you find unknowingly stolen or copyrighted content**, please get in touch with us on [Twitter (@RaenLua)](https://twitter.com/RaenLua)** before filing a DMCA takedown notice with GitHub.
 
-- Can I **republish Signs**? What if I want to **make a plugin similar** to Signs?
+Can I **republish Signs**? What if I want to **make a plugin similar** to Signs?
 
-    > Yes, you can **republish Signs**, but you will be required to follow the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html), which Signs is licensed under. You can **make a plugin similar to Signs** which will **not be required** to follow the same license as Signs as long as the code is **not copied** from Signs. See [License](README.md#license) for more.
+> Yes, you can **republish Signs**, but you will be required to follow the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html), which Signs is licensed under. You can **make a plugin similar to Signs** which will **not be required** to follow the same license as Signs as long as the code is **not copied** from Signs. See [License](README.md#license) for more.
 
-- I want to **contribute** to Signs. How can I contribute?
+I want to **contribute** to Signs. How can I contribute?
 
-    > You can **contribute** to Signs by **[forking this repository](https://github.com/The-Winner-Games/Signs/fork)** and **[making a pull request](https://github.com/The-Winner-Games/Signs/compare)**. Learn more at [Contributing](README.md#contributing).
+> You can **contribute** to Signs by **[forking this repository](https://github.com/The-Winner-Games/Signs/fork)** and **[making a pull request](https://github.com/The-Winner-Games/Signs/compare)**. Learn more at [Contributing](README.md#contributing).
 
-- I'm enjoying and **want to support Signs**. How can I **support Signs**?
+I'm enjoying and **want to support Signs**. How can I **support Signs**?
 
-    > We love to hear you're enjoying Signs. You can **support Signs** by **starring this [repository](https://github.com/The-Winner-Games/Signs)** or **rating us on the [Creator Marketplace](https://create.roblox.com/marketplace/asset/6967799394/Signs)**. If you want to support us financially, you can **sponsor us on [GitHub](https://github.com/The-Winner-Games/Signs)** or **buy Signs on the [Creator Marketplace](https://create.roblox.com/marketplace/asset/6967799394/Signs)** if you haven't so already.
+> We love to hear you're enjoying Signs. You can **support Signs** by **starring this [repository](https://github.com/The-Winner-Games/Signs)** or **rating us on the [Creator Marketplace](https://create.roblox.com/marketplace/asset/6967799394/Signs)**. If you want to support us financially, you can **sponsor us on [GitHub](https://github.com/The-Winner-Games/Signs)** or **buy Signs on the [Creator Marketplace](https://create.roblox.com/marketplace/asset/6967799394/Signs)** if you haven't so already.
 
-- I have a **question that isn't answered** here. What do I do?
-    > If you have a **question that isn't answered** here, you can **[start a discussion](https://github.com/The-Winner-Games/Signs/discussions/new/choose)** and ask your question. If your question is **asked frequently enough** by different people, it will be added to this FAQ.
+I have a **question that isn't answered** here. What do I do?
+> If you have a **question that isn't answered** here, you can **[start a discussion](https://github.com/The-Winner-Games/Signs/discussions/new/choose)** and ask your question. If your question is **asked frequently enough** by different people, it will be added to this FAQ.
 
 ## Contributing
 
