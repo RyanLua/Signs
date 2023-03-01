@@ -153,6 +153,7 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 	titleLabel.Font = GuiUtilities.kDefaultFontFaceBold
 	titleLabel.TextSize = GuiUtilities.kDefaultFontSize
 	titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+	titleLabel.TextTruncate = Enum.TextTruncate.AtEnd
 	titleLabel.Text = titleText
 	titleLabel.Position = UDim2.new(0, titleTextOffset, 0, 0)
 	titleLabel.Size = UDim2.new(1, -titleTextOffset, 1, GuiUtilities.kTextVerticalFudge)
