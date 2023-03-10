@@ -13,7 +13,8 @@ VerticallyScalingListFrameClass.__index = VerticallyScalingListFrameClass
 
 local kBottomPadding = 10
 
-function VerticallyScalingListFrameClass.new(nameSuffix)
+-- Creates a new VerticallyScalingListFrameClass
+function VerticallyScalingListFrameClass.new(nameSuffix: string)
 	local self = {}
 	setmetatable(self, VerticallyScalingListFrameClass)
 
@@ -47,6 +48,17 @@ function VerticallyScalingListFrameClass.new(nameSuffix)
 	return self
 end
 
+-- Adds a padding frame to the top of the list
+function VerticallyScalingListFrameClass:AddTopPadding()
+	local frame = Instance.new("Frame")
+	frame.Name = "TopPadding"
+	frame.BackgroundTransparency = 1
+	frame.Size = UDim2.new(1, 0, 0, kBottomPadding)
+	frame.LayoutOrder = -1
+	frame.Parent = self._frame
+end
+
+-- Adds a padding frame to the bottom of the list
 function VerticallyScalingListFrameClass:AddBottomPadding()
 	local frame = Instance.new("Frame")
 	frame.Name = "BottomPadding"
@@ -56,17 +68,20 @@ function VerticallyScalingListFrameClass:AddBottomPadding()
 	frame.Parent = self._frame
 end
 
-function VerticallyScalingListFrameClass:GetFrame()
+-- Returns the frame that this class is wrapping
+function VerticallyScalingListFrameClass:GetFrame(): Frame
 	return self._frame
 end
 
-function VerticallyScalingListFrameClass:AddChild(childFrame)
+-- Adds a child frame to the list
+function VerticallyScalingListFrameClass:AddChild(childFrame: Frame)
 	childFrame.LayoutOrder = self._childCount
 	self._childCount = self._childCount + 1
 	childFrame.Parent = self._frame
 end
 
-function VerticallyScalingListFrameClass:SetCallbackOnResize(callback)
+-- Removes all children from the list
+function VerticallyScalingListFrameClass:SetCallbackOnResize(callback: boolean)
 	self._resizeCallback = callback
 end
 

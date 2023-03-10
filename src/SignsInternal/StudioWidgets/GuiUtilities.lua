@@ -1,11 +1,11 @@
 local module = {}
 
-module.kTitleBarHeight = 27
+module.kTitleBarHeight = 24
 module.kInlineTitleBarHeight = 24
 
 module.kDefaultContentAreaWidth = 180
 
-module.kDefaultFontSize = 16
+module.kDefaultFontSize = 15
 module.kDefaultFontFace = Enum.Font.SourceSans
 module.kDefaultFontFaceBold = Enum.Font.SourceSansBold
 
@@ -18,12 +18,17 @@ module.kDefaultBorderColor =
 module.kDefaultVMargin = 7
 module.kDefaultHMargin = 16
 
+module.kCheckboxSize = 16
+module.kCheckboxPadding = (module.kDefaultPropertyHeight - module.kCheckboxSize) / 2
 module.kCheckboxMinLabelWidth = 52
 module.kCheckboxMinMargin = 16 -- Default: 12
 module.kCheckboxWidth = module.kCheckboxMinMargin -- Default: 12
 
 module.kTextInputHeight = 22
+module.kTextInputPadding = (module.kDefaultPropertyHeight - module.kTextInputHeight) / 2
 module.kTextInputWidth = module.kCheckboxWidth * 2
+
+module.kSliderPadding = module.kTextInputPadding * 2
 
 module.kRadioButtonsHPadding = 54
 
@@ -164,7 +169,6 @@ function module.syncGuiTabBackgroundColor(guiElement)
 	setColors()
 end
 
-
 function module.syncGuiInputFieldBackgroundColor(guiElement)
 	local function setColors()
 		guiElement.ImageColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBackground)
@@ -235,10 +239,9 @@ end
 function module.MakeFrame(name)
 	local frame = Instance.new("Frame")
 	frame.Name = name
-	frame.BackgroundTransparency = 0
-	frame.BorderSizePixel = 0
-
+	frame.ClipsDescendants = true
 	module.syncGuiElementBackgroundColor(frame)
+	module.syncGuiElementShadowColor(frame)
 
 	return frame
 end
@@ -283,46 +286,13 @@ function module.AddStripedChildrenToListFrame(listFrame, frames)
 	end
 end
 
-function module.MakeDefaultPropertyLabel(text: string, opt_ignoreThemeUpdates: boolean, url: string?)
-	local label = Instance.new("TextLabel")
-	label.RichText = true
-	label.Name = "Label"
-	label.BackgroundTransparency = 1
-	label.Font = module.kDefaultFontFace
-	label.TextSize = module.kDefaultFontSize
-	label.TextXAlignment = Enum.TextXAlignment.Left
-	label.Text = text
-	label.AnchorPoint = Vector2.new(0, 0.5)
-	label.Position = UDim2.new(0, module.DefaultLineLabelLeftMargin, 0.5, module.kTextVerticalFudge)
-	label.Size = UDim2.new(0, 0, 1, 0)
-	label.AutomaticSize = Enum.AutomaticSize.X
-	if not opt_ignoreThemeUpdates then
-		module.syncGuiElementFontColor(label)
-	end
+function module.MakeDefaultPropertyLabel(text: string, multiLine: boolean, url: string?)
+	local CollapsibleItem = require(script.Parent.CollapsibleItem)
 
-	if url then
-		local help = Instance.new("ImageButton")
-		help.Name = "Help"
-		help.BackgroundTransparency = 1
-		help.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/HelpTab@2x.png"
-		help.Size = UDim2.new(0, module.kDefaultFontSize, 0, module.kDefaultFontSize)
-		help.Position = UDim2.new(1, 4, 0.5, 0)
-		help.AnchorPoint = Vector2.new(0, 0.45)
-		help.Parent = label
+	local collapsibleItem = CollapsibleItem.new(text, text, false, url)
+	local frame = collapsibleItem:GetFrame()
 
-		help.MouseButton1Click:Connect(function()
-			local plugin = script.Parent.Parent.Parent
-			plugin:OpenWikiPage(url)
-		end)
-		if not opt_ignoreThemeUpdates then
-			module.syncGuiImageColor(help)
-		end
-		label.Changed:Connect(function()
-			help.ImageColor3 = label.TextColor3
-		end)
-	end
-
-	return label
+	return frame
 end
 
 function module.MakeFrameWithSubSectionLabel(name, text, url)

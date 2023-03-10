@@ -1,8 +1,8 @@
 ----------------------------------------
 --
--- LabeledSelection.lua
+-- LabeledButton.lua
 --
--- Creates a labeled selection with a set amount of options.
+-- Creates a labeled square button.
 --
 ----------------------------------------
 local GuiUtilities = require(script.Parent.GuiUtilities)
@@ -31,14 +31,16 @@ LabeledButtonClass.__index = LabeledButtonClass
 LabeledButtonClass.kMinFrameSize = UDim2.new(0, kMinLabelWidth + kMinMargin + kMinButtonWidth, 0, kMinHeight)
 
 -- Creates a new LabeledButtonClass.
-function LabeledButtonClass.new(nameSuffix, labelText, value, disabled)
+function LabeledButtonClass.new(nameSuffix: string, labelText: string, value: number, disabled: boolean)
 	local self = {}
 	setmetatable(self, LabeledButtonClass)
 
 	local initValue = not not value
 	local initDisabled = not not disabled
 
-	local frame = GuiUtilities.MakeDefaultFixedHeightFrame("CBF" .. nameSuffix)
+	local frame = Instance.new("Frame")
+	frame.Name = "LabeledButton" .. nameSuffix
+	frame.BorderSizePixel = 0
 	frame.Size = UDim2.new(1, 0, GuiUtilities.kDefaultPropertyHeight, 0)
 
 	local fullBackgroundButton = Instance.new("TextButton")
@@ -96,26 +98,24 @@ function LabeledButtonClass.new(nameSuffix, labelText, value, disabled)
 	return self
 end
 
+-- Internal function to update button toggle state.
 function LabeledButtonClass:_MaybeToggleState()
 	if not self._disabled then
 		self:SetValue(not self._value)
 	end
 end
 
+-- Internal function to setup mouse click handling.
 function LabeledButtonClass:_SetupMouseClickHandling()
-	self._label.InputBegan:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseMovement then
-			self._hovered = true
-			self:_updateCheckboxVisual()
-		end
+	self._label.InputBegan:Connect(function()
+		self._hovered = true
+		self:_updateCheckboxVisual()
 	end)
 
-	self._label.InputEnded:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseMovement then
-			self._hovered = false
-			self._clicked = false
-			self:_updateCheckboxVisual()
-		end
+	self._label.InputEnded:Connect(function()
+		self._hovered = false
+		self._clicked = false
+		self:_updateCheckboxVisual()
 	end)
 
 	self._label.MouseButton1Down:Connect(function()
@@ -125,7 +125,7 @@ function LabeledButtonClass:_SetupMouseClickHandling()
 	end)
 end
 
--- Too buggy with other GuiObjects to be used.
+-- Internal function to update button visual state.
 function LabeledButtonClass:_updateCheckboxVisual()
 	if self._value then
 		self._button.BackgroundColor3 = kButtonPressedBackgroundColor
@@ -136,6 +136,7 @@ function LabeledButtonClass:_updateCheckboxVisual()
 	end
 end
 
+-- Internal function to update button visual state.
 function LabeledButtonClass:_HandleUpdatedValue()
 	if self:GetValue() then
 		self._button.BackgroundColor3 = kButtonPressedBackgroundColor
@@ -148,10 +149,12 @@ function LabeledButtonClass:_HandleUpdatedValue()
 	end
 end
 
+-- Returns the frame GuiObject.
 function LabeledButtonClass:GetFrame()
 	return self._frame
 end
 
+-- Returns boolean of the button.
 function LabeledButtonClass:GetValue()
 	-- If button is disabled, and we should be using a disabled override,
 	-- use the disabled override.
@@ -162,18 +165,22 @@ function LabeledButtonClass:GetValue()
 	end
 end
 
+-- Returns the label GuiObject.
 function LabeledButtonClass:GetLabel()
 	return self._label
 end
 
+-- Returns the button GuiObject.
 function LabeledButtonClass:GetButton()
 	return self._button
 end
 
+-- Fires when the button is clicked.
 function LabeledButtonClass:SetValueChangedFunction(vcFunction)
 	self._valueChangedFunction = vcFunction
 end
 
+-- Sets the button disabled state.
 function LabeledButtonClass:SetDisabled(disabled)
 	local newDisabled = not not disabled
 
@@ -212,6 +219,7 @@ function LabeledButtonClass:UpdateFontColors()
 	end
 end
 
+-- Sets the button disabled state when it is disabled.
 function LabeledButtonClass:DisableWithOverrideValue(overrideValue)
 	-- Disable this checkbox.  While disabled, force value to override
 	-- value.
@@ -225,10 +233,12 @@ function LabeledButtonClass:DisableWithOverrideValue(overrideValue)
 	end
 end
 
+-- Gets the button disabled state.
 function LabeledButtonClass:GetDisabled()
 	return self._disabled
 end
 
+-- Sets the button state.
 function LabeledButtonClass:SetValue(newValue)
 	local value = not not newValue
 

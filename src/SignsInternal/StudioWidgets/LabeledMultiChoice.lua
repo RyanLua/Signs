@@ -7,6 +7,7 @@
 --
 ----------------------------------------
 local GuiUtilities = require(script.Parent.GuiUtilities)
+local CollapsibleItem = require(script.Parent.CollapsibleItem)
 
 local LabeledRadioButton = require(script.Parent.LabeledRadioButton)
 local VerticallyScalingListFrame = require(script.Parent.VerticallyScalingListFrame)
@@ -35,6 +36,7 @@ function LabeledMultiChoiceClass.new(nameSuffix, labelText, choices, initChoiceI
 	local vsl = VerticallyScalingListFrame.new("MCC_" .. nameSuffix)
 	vsl:AddBottomPadding()
 
+	-- local titleLabel = GuiUtilities.MakeFrameWithSubSectionLabel("Title", labelText, url)
 	local titleLabel = GuiUtilities.MakeFrameWithSubSectionLabel("Title", labelText, url)
 	vsl:AddChild(titleLabel)
 
@@ -81,10 +83,10 @@ function LabeledMultiChoiceClass:_MakeRadioButtons(choices)
 	frame.BackgroundTransparency = 1
 	frame.Size = UDim2.new(1, -GuiUtilities.DefaultLineLabelLeftMargin * 2, 1, 0)
 
-	-- local padding = Instance.new("UIPadding")
-	-- padding.PaddingLeft = UDim.new(0, GuiUtilities.DefaultLineLabelLeftMargin)
-	-- padding.PaddingRight = UDim.new(0, GuiUtilities.DefaultLineLabelLeftMargin)
-	-- padding.Parent = frame
+	local padding = Instance.new("UIPadding")
+	padding.PaddingLeft = UDim.new(0, GuiUtilities.DefaultLineLabelLeftMargin)
+	padding.PaddingRight = UDim.new(0, GuiUtilities.DefaultLineLabelLeftMargin)
+	padding.Parent = frame
 
 	-- Make a grid to put checkboxes in.
 	local uiGridLayout = Instance.new("UIGridLayout")

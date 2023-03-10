@@ -84,12 +84,12 @@ function CollapsibleTitledSectionClass.new(
 end
 
 -- Returns the frame of the section
-function CollapsibleTitledSectionClass:GetSectionFrame()
+function CollapsibleTitledSectionClass:GetSectionFrame(): Frame
 	return self._frame
 end
 
 -- Returns the frame of the section's contents frame
-function CollapsibleTitledSectionClass:GetContentsFrame()
+function CollapsibleTitledSectionClass:GetContentsFrame(): Frame
 	return self._contentsFrame
 end
 
@@ -177,19 +177,15 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 	settings().Studio.ThemeChanged:Connect(_UpdateMinimizeButtonTheme)
 	_UpdateMinimizeButtonTheme()
 
-	titleBar.InputBegan:Connect(function(input: Enum.UserInputType)
-		if input.UserInputType == Enum.UserInputType.MouseMovement then
-			self._hovered = true
-			self:_updateButtonVisual()
-		end
+	titleBar.InputBegan:Connect(function()
+		self._hovered = true
+		self:_updateButtonVisual()
 	end)
 
-	titleBar.InputEnded:Connect(function(input: Enum.UserInputType)
-		if input.UserInputType == Enum.UserInputType.MouseMovement then
-			self._hovered = false
-			self._clicked = false
-			self:_updateButtonVisual()
-		end
+	titleBar.InputEnded:Connect(function()
+		self._hovered = false
+		self._clicked = false
+		self:_updateButtonVisual()
 	end)
 
 	self._minimizeButton.MouseButton1Click:Connect(function()

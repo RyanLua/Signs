@@ -10,10 +10,8 @@ local GuiUtilities = require(script.Parent.GuiUtilities)
 local rbxGuiLibrary = require(script.Parent.RbxGui)
 local LabeledTextInput = require(script.Parent.LabeledTextInput)
 
-local kSliderOffset = GuiUtilities.DefaultLineElementLeftMargin
-	+ GuiUtilities.kTextInputWidth
-	- GuiUtilities.kButtonVerticalFudge * 2
-	- 5
+local kInputOffset = GuiUtilities.kTextInputWidth + GuiUtilities.kTextInputPadding + GuiUtilities.kSliderPadding
+local kSliderOffset = -kInputOffset - GuiUtilities.kSliderPadding
 
 local LabeledSliderClass = {}
 LabeledSliderClass.__index = LabeledSliderClass
@@ -51,8 +49,8 @@ function LabeledSliderClass.new(
 	-- Creates the slider.
 	local slider, sliderValue = rbxGuiLibrary.CreateSlider(
 		sliderIntervals,
-		UDim2.new(1, -kSliderOffset - 5, 1, 0),
-		UDim2.new(0, kSliderOffset, 0, 0)
+		UDim2.new(0.5, kSliderOffset, 1, 0),
+		UDim2.new(0.5, kInputOffset, 0.5, 0)
 	)
 	self._slider = slider
 	self._sliderValue = sliderValue
@@ -74,7 +72,7 @@ function LabeledSliderClass.new(
 	-- Sets the input value to the slider value when the input is changed.
 	input:SetValueChangedFunction(function(vcf)
 		if vcf == "" then
-			self:SetValue(vcf)
+			self:SetValue(value)
 		else
 			if vcf ~= nil then
 				self:SetValue(tonumber(vcf) / self._multiplier + 1)
@@ -82,9 +80,12 @@ function LabeledSliderClass.new(
 		end
 	end)
 
+	-- Sets the slider value to the input value when the input is unfocused.
 	input._textBox.FocusLost:Connect(function()
-		if input._textBox.Text ~= "" then
-			input:SetValue((self._value - 1) * self._multiplier)
+		if input._textBox.Text == "" then
+			input:SetValue((value - 1) * self._multiplier)
+		else
+			self:SetValue(tonumber(input._textBox.Text) / self._multiplier + 1)
 		end
 	end)
 

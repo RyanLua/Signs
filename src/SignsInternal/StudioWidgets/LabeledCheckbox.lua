@@ -1,19 +1,21 @@
 ----------------------------------------
 --
--- LabeledCheckbox.lua
+-- LabeledCheckbox
 --
 -- Creates a frame containing a label and a checkbox.
 --
 ----------------------------------------
 local GuiUtilities = require(script.Parent.GuiUtilities)
+local CollapsibleItem = require(script.Parent.CollapsibleItem)
 
-local kCheckboxWidth = GuiUtilities.kCheckboxWidth
+local kCheckboxSize = GuiUtilities.kCheckboxSize
 
 local kMinTextSize = 14
 local kMinHeight = 24
 local kMinLabelWidth = GuiUtilities.kCheckboxMinLabelWidth
 local kMinMargin = GuiUtilities.kCheckboxMinMargin
-local kMinButtonWidth = kCheckboxWidth
+local kMinButtonWidth = kCheckboxSize
+local kMinFrameSize = UDim2.new(0, kMinLabelWidth + kMinMargin + kMinButtonWidth, 0, kMinHeight)
 
 local kMinLabelSize = UDim2.new(0, kMinLabelWidth, 0, kMinHeight)
 local kMinLabelPos = UDim2.new(0, kMinButtonWidth + kMinMargin, 0, kMinHeight / 2)
@@ -24,13 +26,13 @@ local kMinButtonPos = UDim2.new(0, 0, 0, kMinHeight / 2)
 local kCheckImageWidth = kMinMargin
 local kMinCheckImageWidth = kCheckImageWidth
 
-local kCheckImageSize = UDim2.new(0, kCheckImageWidth, 0, kCheckImageWidth)
+local kCheckImageSize = UDim2.new(0, kCheckboxSize, 0, kCheckboxSize)
 local kMinCheckImageSize = UDim2.new(0, kMinCheckImageWidth, 0, kMinCheckImageWidth)
 
-local kEnabledCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_checked_light.png"
-local kDisabledCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_indeterminate_light.png"
-local kHoverCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_hover_light.png"
-local kCheckboxFrameImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_light.png"
+local kLightEnabledCheckImage = "rbxasset://textures/CollisionGroupsEditor/checked-bluebg.png"
+local kLightDisabledCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_indeterminate_light.png"
+local kLightHoverCheckImage = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_hover_light.png"
+local kLightCheckboxFrameImage = "rbxasset://textures/CollisionGroupsEditor/unchecked.png"
 
 local kEnabledCheckImageDark = "rbxasset://textures/DeveloperFramework/checkbox_checked_dark.png"
 local kDisabledCheckImageDark = "rbxasset://textures/DeveloperFramework/checkbox_indeterminate_dark.png"
@@ -40,32 +42,26 @@ local kCheckboxFrameImageDark = "rbxasset://textures/DeveloperFramework/checkbox
 local LabeledCheckboxClass = {}
 LabeledCheckboxClass.__index = LabeledCheckboxClass
 
-LabeledCheckboxClass.kMinFrameSize = UDim2.new(0, kMinLabelWidth + kMinMargin + kMinButtonWidth, 0, kMinHeight)
-
-function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled, url)
+-- Creates a new LabeledCheckbox
+function LabeledCheckboxClass.new(
+	nameSuffix: string,
+	labelText: string,
+	initValue: boolean,
+	initDisabled: boolean,
+	url: string
+)
 	local self = {}
 	setmetatable(self, LabeledCheckboxClass)
 
-	local frame = GuiUtilities.MakeDefaultFixedHeightFrame("CBF" .. nameSuffix)
-
-	local fullBackgroundButton = Instance.new("TextButton")
-	fullBackgroundButton.Name = "FullBackground"
-	fullBackgroundButton.Parent = frame
-	fullBackgroundButton.BackgroundTransparency = 1
-	fullBackgroundButton.Size = UDim2.new(1, 0, 1, 0)
-	fullBackgroundButton.Position = UDim2.new(0, 0, 0, 0)
-	fullBackgroundButton.Text = ""
-
-	local label = GuiUtilities.MakeDefaultPropertyLabel(labelText, false, url)
-	label.Parent = fullBackgroundButton
+	local item = CollapsibleItem.new(nameSuffix, labelText, false, url)
 
 	local button = Instance.new("ImageButton")
 	button.Name = "Button"
-	button.Size = UDim2.new(0, kCheckboxWidth, 0, kCheckboxWidth)
+	button.Size = UDim2.new(0, kCheckboxSize, 0, kCheckboxSize)
 	button.AnchorPoint = Vector2.new(0, 0.5)
 	button.BackgroundTransparency = 1
-	button.Position = UDim2.new(0, GuiUtilities.DefaultLineElementLeftMargin, 0.5, 0)
-	button.Parent = fullBackgroundButton
+	button.Position = UDim2.new(0.5, GuiUtilities.kCheckboxPadding, 0.5, 0)
+	button.Parent = item:GetFrame()
 	button.BorderSizePixel = 0
 	button.AutoButtonColor = false
 
@@ -74,20 +70,19 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
 	checkImage.Parent = button
 	checkImage.Visible = false
 	checkImage.Size = kCheckImageSize
-	checkImage.AnchorPoint = Vector2.new(0.5, 0.5)
-	checkImage.Position = UDim2.new(0.5, 0, 0.5, 0)
+	checkImage.AnchorPoint = Vector2.new(0, 0.5)
+	checkImage.Position = UDim2.new(0, 0, 0.5, 0)
 	checkImage.BackgroundTransparency = 1
 	checkImage.BorderSizePixel = 0
 
-	self._frame = frame
+	self._frame = item:GetFrame()
 	self._button = button
-	self._label = label
+	self._label = item:GetLabel()
 
 	self._clicked = false
 	self._hovered = false
 
 	self._checkImage = checkImage
-	self._fullBackgroundButton = fullBackgroundButton
 	self._useDisabledOverride = false
 	self._disabledOverride = false
 	self:SetDisabled(initDisabled)
@@ -100,17 +95,17 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
 	local function updateImages()
 		if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() then
 			self._button.Image = kCheckboxFrameImageDark
-			if self._checkImage.Image == kDisabledCheckImage then
+			if self._checkImage.Image == kLightDisabledCheckImage then
 				self._checkImage.Image = kDisabledCheckImageDark
 			else
 				self._checkImage.Image = kEnabledCheckImageDark
 			end
 		else
-			self._button.Image = kCheckboxFrameImage
+			self._button.Image = kLightCheckboxFrameImage
 			if self._checkImage.Image == kDisabledCheckImageDark then
-				self._checkImage.Image = kDisabledCheckImage
+				self._checkImage.Image = kLightDisabledCheckImage
 			else
-				self._checkImage.Image = kEnabledCheckImage
+				self._checkImage.Image = kLightEnabledCheckImage
 			end
 		end
 	end
@@ -126,51 +121,50 @@ function LabeledCheckboxClass.new(nameSuffix, labelText, initValue, initDisabled
 	return self
 end
 
+-- Sets the value of the checkbox
 function LabeledCheckboxClass:_MaybeToggleState()
 	if not self._disabled then
 		self:SetValue(not self._value)
 	end
 end
 
+-- Setup the mouse click handling for the checkbox
 function LabeledCheckboxClass:_SetupMouseClickHandling()
 	self._button.MouseButton1Down:Connect(function()
 		self._clicked = true
 		self:_MaybeToggleState()
 	end)
 
-	self._button.InputBegan:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseMovement then
-			self._hovered = true
-			self:_updateCheckboxVisual()
-		end
+	self._button.InputBegan:Connect(function()
+		self._hovered = true
+		self:_UpdateCheckboxVisual()
 	end)
 
-	self._button.InputEnded:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseMovement then
-			self._hovered = false
-			self._clicked = false
-			self:_updateCheckboxVisual()
-		end
+	self._button.InputEnded:Connect(function()
+		self._hovered = false
+		self._clicked = false
+		self:_UpdateCheckboxVisual()
 	end)
 end
 
--- Too buggy with other GuiObjects to be used.
-function LabeledCheckboxClass:_updateCheckboxVisual()
+-- Updates the visual state of the checkbox
+function LabeledCheckboxClass:_UpdateCheckboxVisual()
 	if self._hovered then
 		if GuiUtilities.ShouldUseIconsForDarkerBackgrounds() then
 			self._button.Image = kHoverCheckImageDark
 		else
-			self._button.Image = kHoverCheckImage
+			self._button.Image = kLightHoverCheckImage
 		end
 	else
 		if GuiUtilities.ShouldUseIconsForDarkerBackgrounds() then
 			self._button.Image = kCheckboxFrameImageDark
 		else
-			self._button.Image = kCheckboxFrameImage
+			self._button.Image = kLightCheckboxFrameImage
 		end
 	end
 end
 
+-- Handles the value being updated
 function LabeledCheckboxClass:_HandleUpdatedValue()
 	self._checkImage.Visible = self:GetValue()
 
@@ -194,14 +188,16 @@ function LabeledCheckboxClass:UseSmallSize()
 
 	self._checkImage.Size = kMinCheckImageSize
 
-	self._frame.Size = LabeledCheckboxClass.kMinFrameSize
+	self._frame.Size = kMinFrameSize
 	self._frame.BackgroundTransparency = 1
 end
 
+-- Gets the frame for the checkbox
 function LabeledCheckboxClass:GetFrame()
 	return self._frame
 end
 
+-- Gets the value of the checkbox
 function LabeledCheckboxClass:GetValue()
 	-- If button is disabled, and we should be using a disabled override,
 	-- use the disabled override.
@@ -212,19 +208,23 @@ function LabeledCheckboxClass:GetValue()
 	end
 end
 
+-- Gets the label for the checkbox
 function LabeledCheckboxClass:GetLabel()
 	return self._label
 end
 
+-- Gets the button for the checkbox
 function LabeledCheckboxClass:GetButton()
 	return self._button
 end
 
-function LabeledCheckboxClass:SetValueChangedFunction(vcFunction)
+-- Set the value changed function
+function LabeledCheckboxClass:SetValueChangedFunction(vcFunction: boolean)
 	self._valueChangedFunction = vcFunction
 end
 
-function LabeledCheckboxClass:SetDisabled(newDisabled)
+-- Sets the disabled state of the checkbox
+function LabeledCheckboxClass:SetDisabled(newDisabled: boolean)
 	local originalValue = self:GetValue()
 
 	if newDisabled ~= self._disabled then
@@ -240,13 +240,13 @@ function LabeledCheckboxClass:SetDisabled(newDisabled)
 			if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() then
 				self._checkImage.Image = kDisabledCheckImageDark
 			else
-				self._checkImage.Image = kDisabledCheckImage
+				self._checkImage.Image = kLightDisabledCheckImage
 			end
 		else
 			if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() then
 				self._checkImage.Image = kEnabledCheckImageDark
 			else
-				self._checkImage.Image = kEnabledCheckImage
+				self._checkImage.Image = kLightEnabledCheckImage
 			end
 		end
 
@@ -266,6 +266,7 @@ function LabeledCheckboxClass:SetDisabled(newDisabled)
 	end
 end
 
+-- Updates the font colors of the checkbox
 function LabeledCheckboxClass:UpdateFontColors()
 	if self._disabled then
 		self._label.TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.DimmedText)
@@ -274,7 +275,8 @@ function LabeledCheckboxClass:UpdateFontColors()
 	end
 end
 
-function LabeledCheckboxClass:DisableWithOverrideValue(overrideValue)
+-- Disables the checkbox, and forces the value to be the override value.
+function LabeledCheckboxClass:DisableWithOverrideValue(overrideValue: boolean)
 	-- Disable this checkbox.  While disabled, force value to override
 	-- value.
 	local oldValue = self:GetValue()
@@ -287,11 +289,13 @@ function LabeledCheckboxClass:DisableWithOverrideValue(overrideValue)
 	end
 end
 
+-- Gets the disabled state of the checkbox
 function LabeledCheckboxClass:GetDisabled()
 	return self._disabled
 end
 
-function LabeledCheckboxClass:SetValue(newValue)
+-- Sets the value of the checkbox
+function LabeledCheckboxClass:SetValue(newValue: boolean)
 	if newValue ~= self._value then
 		self._value = newValue
 

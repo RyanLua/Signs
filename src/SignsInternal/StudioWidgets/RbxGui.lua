@@ -1,8 +1,8 @@
 local GuiUtilities = require(script.Parent.GuiUtilities)
 
 local kSliderThumbImage = "rbxasset://textures/RoactStudioWidgets/slider_handle_light.png"
-local kPreThumbImage = "rbxasset://textures/RoactStudioWidgets/slider_bar_light.png"
-local kPostThumbImage = "rbxasset://textures/RoactStudioWidgets/slider_bar_background_light.png"
+local kPreThumbImage = "rbxasset://textures/AvatarEditorImages/Sliders/gr-slide-bar-fill.png"
+local kPostThumbImage = "rbxasset://textures/AvatarEditorImages/Sliders/gr-slide-bar-empty.png"
 
 local kSliderThumbImageDark = "rbxasset://textures/RoactStudioWidgets/slider_handle_dark.png"
 local kPreThumbImageDark = "rbxasset://textures/RoactStudioWidgets/slider_bar_dark.png"
@@ -44,6 +44,7 @@ end
 t.CreateSlider = function(steps: number, size: UDim2, position: UDim2)
 	local sliderGui = Instance.new("Frame")
 	sliderGui.Size = size
+	sliderGui.AnchorPoint = Vector2.new(0, 0.5)
 	sliderGui.BackgroundTransparency = 1
 	sliderGui.Name = "SliderGui"
 
@@ -117,7 +118,7 @@ t.CreateSlider = function(steps: number, size: UDim2, position: UDim2)
 	postBar.Image = kPostThumbImage
 	postBar.BorderSizePixel = 0
 
-	sliderPosition.Changed:Connect(function()
+	sliderPosition:GetPropertyChangedSignal("Value"):Connect(function()
 		local scale = (sliderPosition.Value - 1) / (steps - 1)
 
 		preBar.Size = UDim2.new(scale, 0, 1, 0)
@@ -162,7 +163,7 @@ t.CreateSlider = function(steps: number, size: UDim2, position: UDim2)
 		cancelSlide(areaSoak)
 	end)
 
-	sliderPosition.Changed:Connect(function()
+	sliderPosition:GetPropertyChangedSignal("Value"):Connect(function()
 		sliderPosition.Value = math.min(steps, math.max(1, sliderPosition.Value))
 		local relativePosX = (sliderPosition.Value - 1) / (steps - 1)
 		slider.Position =
@@ -186,6 +187,14 @@ t.CreateSlider = function(steps: number, size: UDim2, position: UDim2)
 	end
 	settings().Studio.ThemeChanged:Connect(setImages)
 	setImages()
+
+	sliderGui:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
+		if sliderGui.AbsoluteSize.X <= 0 then
+			sliderGui.Visible = false
+		else
+			sliderGui.Visible = true
+		end
+	end)
 
 	return sliderGui, sliderPosition, sliderSteps
 end
