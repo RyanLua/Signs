@@ -168,14 +168,23 @@ end
 
 -- Update the visual state of the input field
 function LabeledTextInputClass:_UpdateVisualState()
-	if self._selected or self._hovered then
+	if self._selected then
 		self._textBoxBorder.ImageColor3 = settings().Studio.Theme:GetColor(
-			Enum.StudioStyleGuideColor.CheckedFieldBackground,
+			Enum.StudioStyleGuideColor.InputFieldBorder,
 			Enum.StudioStyleGuideModifier.Selected
 		)
 		self._textBoxBackground.ImageColor3 = settings().Studio.Theme:GetColor(
 			Enum.StudioStyleGuideColor.InputFieldBackground,
 			Enum.StudioStyleGuideModifier.Selected
+		)
+	elseif self._hovered then
+		self._textBoxBorder.ImageColor3 = settings().Studio.Theme:GetColor(
+			Enum.StudioStyleGuideColor.InputFieldBorder,
+			Enum.StudioStyleGuideModifier.Hover
+		)
+		self._textBoxBackground.ImageColor3 = settings().Studio.Theme:GetColor(
+			Enum.StudioStyleGuideColor.InputFieldBackground,
+			Enum.StudioStyleGuideModifier.Default
 		)
 	else
 		self._textBoxBorder.ImageColor3 = settings().Studio.Theme:GetColor(
