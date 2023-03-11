@@ -31,6 +31,7 @@ function VerticallyScalingListFrameClass.new(nameSuffix: string)
 
 	local uiListLayout = Instance.new("UIListLayout")
 	uiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	uiListLayout.Padding = UDim.new(0, 1)
 	uiListLayout.Parent = frame
 	self._uiListLayout = uiListLayout
 
