@@ -54,6 +54,9 @@ function LabeledCheckboxClass.new(
 	setmetatable(self, LabeledCheckboxClass)
 
 	local item = CollapsibleItem.new(nameSuffix, labelText, false, url)
+	self._item = item
+	self._frame = item:GetFrame()
+	self._label = item:GetLabel()
 
 	local button = Instance.new("ImageButton")
 	button.Name = "Button"
@@ -64,6 +67,7 @@ function LabeledCheckboxClass.new(
 	button.Parent = item:GetFrame()
 	button.BorderSizePixel = 0
 	button.AutoButtonColor = false
+	self._button = button
 
 	local checkImage = Instance.new("ImageLabel")
 	checkImage.Name = "CheckImage"
@@ -74,15 +78,11 @@ function LabeledCheckboxClass.new(
 	checkImage.Position = UDim2.new(0, 0, 0.5, 0)
 	checkImage.BackgroundTransparency = 1
 	checkImage.BorderSizePixel = 0
-
-	self._frame = item:GetFrame()
-	self._button = button
-	self._label = item:GetLabel()
+	self._checkImage = checkImage
 
 	self._clicked = false
 	self._hovered = false
 
-	self._checkImage = checkImage
 	self._useDisabledOverride = false
 	self._disabledOverride = false
 	self:SetDisabled(initDisabled)
@@ -130,7 +130,7 @@ end
 
 -- Setup the mouse click handling for the checkbox
 function LabeledCheckboxClass:_SetupMouseClickHandling()
-	self._button.MouseButton1Down:Connect(function()
+	self._frame.MouseButton1Down:Connect(function()
 		self._clicked = true
 		self:_MaybeToggleState()
 	end)
@@ -140,7 +140,7 @@ function LabeledCheckboxClass:_SetupMouseClickHandling()
 		self:_UpdateCheckboxVisual()
 	end)
 
-	self._button.InputEnded:Connect(function()
+	self._frame.InputEnded:Connect(function()
 		self._hovered = false
 		self._clicked = false
 		self:_UpdateCheckboxVisual()
