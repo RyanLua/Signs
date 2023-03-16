@@ -135,6 +135,11 @@ function LabeledCheckboxClass:_SetupMouseClickHandling()
 		self:_MaybeToggleState()
 	end)
 
+	self._button.MouseButton1Down:Connect(function()
+		self._clicked = true
+		self:_UpdateCheckboxVisual()
+	end)
+
 	self._button.InputBegan:Connect(function()
 		self._hovered = true
 		self:_UpdateCheckboxVisual()
