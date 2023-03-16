@@ -170,7 +170,7 @@ end
 function LabeledTextInputClass:_UpdateVisualState()
 	if self._selected then
 		self._textBoxBorder.ImageColor3 = settings().Studio.Theme:GetColor(
-			Enum.StudioStyleGuideColor.InputFieldBorder,
+			Enum.StudioStyleGuideColor.CheckedFieldBackground,
 			Enum.StudioStyleGuideModifier.Selected
 		)
 		self._textBoxBackground.ImageColor3 = settings().Studio.Theme:GetColor(
