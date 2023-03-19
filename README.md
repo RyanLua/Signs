@@ -32,7 +32,7 @@ To install from the **Creator Marketplace**, click the below link for the plugin
 
 Installing from [**GitHub**](https://github.com/about) allows you to access the full paid version of Signs for free but **no automatic updates** due to limitations and a slightly more complex installation.
 
-To install from **GitHub**, first, download the latest `.rbxm` plugin file of Signs from the below link. Once you have the file, go to `C:\Users\YOUR_WINDOWS_USER\AppData\Local\Roblox\Plugins` and insert `Signs.rbxm` (the one you downloaded) into that folder.
+To install from **GitHub**, first, download the latest `.rbxm` plugin file of Signs from the below link. Once you have the file, go to `%localappdata%\Roblox\Plugins` and insert `Signs.rbxm` into that folder.
 
 - [**Signs**](https://github.com/The-Winner-Games/Signs/releases)
 
