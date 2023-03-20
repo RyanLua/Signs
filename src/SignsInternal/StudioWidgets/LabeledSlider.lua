@@ -6,6 +6,7 @@
 --
 ----------------------------------------
 local GuiUtilities = require(script.Parent.GuiUtilities)
+local CollapsibleItem = require(script.Parent.CollapsibleItem)
 
 local rbxGuiLibrary = require(script.Parent.RbxGui)
 local LabeledTextInput = require(script.Parent.LabeledTextInput)
@@ -33,17 +34,16 @@ function LabeledSliderClass.new(
 	self._value = value
 	self._multiplier = multiplier or 1
 
-	-- Creates the frame.
-	local frame = GuiUtilities.MakeDefaultFixedHeightFrame("Slider" .. nameSuffix)
-	self._frame = frame
+	local item = CollapsibleItem.new(nameSuffix, labelText, false, url)
+	self._item = item
 
-	-- Creates the input.
+	-- Creates the input
 	local input =
 		LabeledTextInput.new("SliderInput" .. nameSuffix, labelText, (self._value - 1) * self._multiplier, url)
 	input:UseSmallSize()
 	input:SetMaxGraphemes(5)
 	input:SetValue(tostring(self._value * self._multiplier))
-	input:GetFrame().Parent = frame
+	input:GetFrame().Parent = item:GetFrame()
 	self._input = input
 
 	-- Creates the slider.
@@ -54,9 +54,9 @@ function LabeledSliderClass.new(
 	)
 	self._slider = slider
 	self._sliderValue = sliderValue
-	slider.Parent = frame
+	slider.Parent = item:GetFrame()
 
-	-- Sets the slider value to the input value when the slider is changed.
+	-- Sets the slider value to the input value when the slider is changed
 	sliderValue.Changed:Connect(function()
 		self._value = sliderValue.Value
 
@@ -69,7 +69,7 @@ function LabeledSliderClass.new(
 		end
 	end)
 
-	-- Sets the input value to the slider value when the input is changed.
+	-- Sets the input value to the slider value when the input is changed
 	input:SetValueChangedFunction(function(vcf)
 		if vcf == "" then
 			self:SetValue(value)
@@ -80,7 +80,7 @@ function LabeledSliderClass.new(
 		end
 	end)
 
-	-- Sets the slider value to the input value when the input is unfocused.
+	-- Sets the slider value to the input value when the input is unfocused
 	input._textBox.FocusLost:Connect(function()
 		if input._textBox.Text == "" then
 			input:SetValue((value - 1) * self._multiplier)
@@ -99,7 +99,7 @@ function LabeledSliderClass:SetValueChangedFunction(vcf)
 end
 
 function LabeledSliderClass:GetFrame()
-	return self._frame
+	return self._item:GetFrame()
 end
 
 function LabeledSliderClass:SetValue(newValue)
