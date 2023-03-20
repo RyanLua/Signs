@@ -16,7 +16,6 @@ local VerticallyScalingListFrame = require(targetFolder.VerticallyScalingListFra
 local Color = require(script.Color)
 local FontFace = require(script.FontFace)
 local GuiObjectPart = require(script.GuiObjectPart)
-local HighlightEditable = require(script.HighlightEditable)
 local LineJoinMode = require(script.LineJoinMode)
 local AspectRatio = require(script.AspectRatio)
 local TextXAlignment = require(script.TextXAlignment)
@@ -34,6 +33,7 @@ function PluginGui:newPluginGui(widgetGui)
 	createScalingFrame:GetFrame().Parent = tabBar:GetFrame()
 
 	local createScrollFrame = VerticalScrollingFrameScrollingFrame.new("CreateScrollFrame")
+	createScrollFrame:GetSectionFrame().Size = UDim2.new(1, 0, 1, -215)
 	createScrollFrame:GetSectionFrame().LayoutOrder = 1
 	createScrollFrame:GetSectionFrame().Parent = createScalingFrame:GetFrame()
 
