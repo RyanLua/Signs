@@ -10,6 +10,7 @@ local GuiUtilities = require(script.Parent.GuiUtilities)
 local CustomTextLabelClass = {}
 CustomTextLabelClass.__index = CustomTextLabelClass
 
+-- Creates a new CustomTextLabelClass
 function CustomTextLabelClass.new(nameSuffix, height)
 	local self = {}
 	setmetatable(self, CustomTextLabelClass)

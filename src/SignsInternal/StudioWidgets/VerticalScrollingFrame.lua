@@ -107,7 +107,7 @@ function VerticalScrollingFrame:GetContentsFrame(): Frame
 	return self._scrollFrame
 end
 
--- Returns the UIListLayout used by this VerticalScrollingFrame
+-- Returns the Frame used by this VerticalScrollingFrame
 function VerticalScrollingFrame:GetSectionFrame(): Frame
 	return self._section
 end

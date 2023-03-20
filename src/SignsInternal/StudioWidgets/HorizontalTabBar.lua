@@ -50,13 +50,13 @@ function HorizontalTabClass.new(suffix: string)
 	self._selected = false
 	self._hovered = false
 
-	-- self:_SetupTabHandling()
+	self:_SetupTabHandling(self)
 	-- HorizontalTabClass._SetupMouseClickHandling()
 
 	return self
 end
 
-function HorizontalTabClass:_SetupTabHandling()
+function HorizontalTabClass:_SetupTabHandling(self)
 	print(self._titlebar.Name)
 	-- self._titlebar.ChildAdded:Connect(function()
 	-- 	local tabButtonWidth = 1 / (#self._titlebar:GetChildren() - 1)
