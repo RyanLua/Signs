@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this software's code or assets, please cite it as below."
+authors:
+- family-names: "Luu"
+  given-names: "Ryan"
+title: "Signs"
+version: 1.0.0
+doi: 10.5281/zenodo.1234
+date-released: 2023-01-12
+url: "https://github.com/RyanLua/Signs"
+preferred-citation:
+  type: software
+  authors:
+  - family-names: "Luu"
+    given-names: "Ryan"
