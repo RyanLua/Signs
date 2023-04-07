@@ -5,10 +5,9 @@
 -- Creates a frame containing a label and a radio button.
 --
 ----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
-LabeledButton = require(script.Parent.LabeledButton)
+local LabeledButton = require(script.Parent.LabeledButton)
 
-LabeledRadioButtonClass = {}
+local LabeledRadioButtonClass = {}
 LabeledRadioButtonClass.__index = LabeledRadioButtonClass
 setmetatable(LabeledRadioButtonClass, LabeledButton)
 
@@ -26,7 +25,7 @@ function LabeledRadioButtonClass.new(nameSuffix, labelText)
 	-- newButton._button.BackgroundTransparency = 1
 
 	-- local function updateImages()
-	-- 	if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then 
+	-- 	if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
 	-- 		newButton._checkImage.Image = kBulletImageDark
 	-- 		newButton._button.Image = kButtonImageDark
 	-- 	else
@@ -41,9 +40,9 @@ function LabeledRadioButtonClass.new(nameSuffix, labelText)
 end
 
 function LabeledRadioButtonClass:_MaybeToggleState()
-	-- A checkbox can never be toggled off. 
+	-- A checkbox can never be toggled off.
 	-- Only turns off because another one turns on.
-	if (not self._disabled and not self._value) then 
+	if not self._disabled and not self._value then
 		self:SetValue(not self._value)
 	end
 end

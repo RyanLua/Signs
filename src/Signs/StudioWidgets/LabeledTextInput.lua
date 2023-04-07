@@ -5,97 +5,106 @@
 -- Creates a frame containing a label and a text input control.
 --
 ----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
+local GuiUtilities = require(script.Parent.GuiUtilities)
+local CollapsibleItem = require(script.Parent.CollapsibleItem)
 
-local kTextInputWidth = 100
-local kTextInputHeight = 22
-local kTextBoxInternalPadding = 3
+local kTextBoxInternalPadding = 8
 
-LabeledTextInputClass = {}
+local kTextBoxBackgroundImage = "rbxasset://textures/StudioToolbox/RoundedBackground.png"
+local kTextBoxBorderImage = "rbxasset://textures/StudioToolbox/RoundedBorder.png"
+
+local LabeledTextInputClass = {}
 LabeledTextInputClass.__index = LabeledTextInputClass
 
-function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
+-- Creates a new LabeledTextInputClass
+function LabeledTextInputClass.new(nameSuffix: string, labelText: string, defaultValue: string, url: string)
 	local self = {}
 	setmetatable(self, LabeledTextInputClass)
 
 	-- Note: we are using "graphemes" instead of characters.
-	-- In modern text-manipulation-fu, what with internationalization, 
-	-- emojis, etc, it's not enough to count characters, particularly when 
+	-- In modern text-manipulation-fu, what with internationalization,
+	-- emojis, etc, it's not enough to count characters, particularly when
 	-- concerned with "how many <things> am I rendering?".
-	-- We are using the 
+	-- We are using the
 	self._MaxGraphemes = 10
-	
+
 	self._valueChangedFunction = nil
 
-	local defaultValue = defaultValue or ""
+	local value = defaultValue or ""
 
-	local frame = GuiUtilities.MakeDefaultFixedHeightFrame('TextInput ' .. nameSuffix)
-	frame.AutomaticSize = Enum.AutomaticSize.Y
-	self._frame = frame
+	local item = CollapsibleItem.new(nameSuffix, labelText, false, url)
+	item.AutomaticSize = Enum.AutomaticSize.Y
+	self._item = item
+	self._frame = item:GetFrame()
+	self._label = item:GetLabel()
 
-	local label = GuiUtilities.MakeDefaultPropertyLabel(labelText)
-	label.Parent = frame
-	self._label = label
-
-	self._value = defaultValue
+	self._value = value
 
 	local textBoxBorder = Instance.new("ImageLabel")
-	textBoxBorder.Name = "TextBox"
-	textBoxBorder.Size = UDim2.new(0, kTextInputWidth, 0, kTextInputHeight)
-	textBoxBorder.Position = UDim2.new(0, GuiUtilities.DefaultLineElementLeftMargin, 0, kTextBoxInternalPadding)
+	textBoxBorder.Name = "TextBoxBorder"
+	textBoxBorder.Size = UDim2.new(0.5, -GuiUtilities.kTextInputPadding * 2, 0, GuiUtilities.kTextInputHeight)
+	textBoxBorder.Position = UDim2.new(0.5, GuiUtilities.kTextInputPadding, 0, 4)
 	textBoxBorder.AnchorPoint = Vector2.new(0, 0)
 	textBoxBorder.BackgroundTransparency = 1
-	textBoxBorder.Image = "rbxasset://textures/StudioToolbox/RoundedBorder.png"
 	textBoxBorder.ScaleType = Enum.ScaleType.Slice
 	textBoxBorder.SliceCenter = Rect.new(3, 3, 13, 13)
-	textBoxBorder.ImageColor3 = GuiUtilities.kDefaultBorderColor
+	textBoxBorder.Image = kTextBoxBorderImage
 	textBoxBorder.AutomaticSize = Enum.AutomaticSize.Y
-	textBoxBorder.Parent = frame
 	textBoxBorder.ZIndex = 2
-	GuiUtilities.syncGuiImageBorderColor(textBoxBorder)
+	textBoxBorder.Parent = item:GetFrame()
+	GuiUtilities.syncGuiInputFieldBorderColor(textBoxBorder)
+	self._textBoxBorder = textBoxBorder
 
 	-- Dumb hack to add padding to text box,
-	local textBoxWrapperFrame = Instance.new("Frame")
-	textBoxWrapperFrame.Name = "TextBoxFrame"
-	textBoxWrapperFrame.Size = UDim2.new(1, 0, 0, kTextInputHeight)
-	textBoxWrapperFrame.BorderSizePixel = 0
-	textBoxWrapperFrame.AnchorPoint = Vector2.new(0, 0)
-	textBoxWrapperFrame.Position = UDim2.new(0, 0, 0, 1)
-	textBoxWrapperFrame.AutomaticSize = Enum.AutomaticSize.Y
-	textBoxWrapperFrame.Parent = textBoxBorder
-	GuiUtilities.syncGuiElementInputFieldColor(textBoxWrapperFrame)
+	local textBoxBackground = Instance.new("ImageLabel")
+	textBoxBackground.Name = "TextBoxFrame"
+	textBoxBackground.Size = UDim2.new(1, 0, 0, GuiUtilities.kTextInputHeight)
+	textBoxBackground.BorderSizePixel = 0
+	textBoxBackground.Image = kTextBoxBackgroundImage
+	textBoxBackground.AnchorPoint = Vector2.new(0, 0)
+	textBoxBackground.Position = UDim2.new(0, 0, 0, 0)
+	textBoxBackground.ScaleType = Enum.ScaleType.Slice
+	textBoxBackground.SliceCenter = Rect.new(3, 3, 13, 13)
+	textBoxBackground.AutomaticSize = Enum.AutomaticSize.Y
+	textBoxBackground.BackgroundTransparency = 1
+	textBoxBackground.Parent = textBoxBorder
+	GuiUtilities.syncGuiInputFieldBackgroundColor(textBoxBackground)
+	self._textBoxBackground = textBoxBackground
 
 	local textBox = Instance.new("TextBox")
-	textBox.Parent = textBoxWrapperFrame
+	textBox.Parent = textBoxBackground
 	textBox.Name = "TextBox"
 	textBox.ClearTextOnFocus = false
 	textBox.MultiLine = true
 	textBox.Text = ""
-	textBox.PlaceholderText = defaultValue
+	textBox.PlaceholderText = value
 	textBox.Font = GuiUtilities.kDefaultFontFace
 	textBox.TextSize = GuiUtilities.kDefaultFontSize
 	textBox.TextWrapped = true
 	textBox.BackgroundTransparency = 1
 	textBox.TextXAlignment = Enum.TextXAlignment.Left
 	textBox.TextYAlignment = Enum.TextYAlignment.Center
-	textBox.Size = UDim2.new(1, -kTextBoxInternalPadding, 0, GuiUtilities.kTextVerticalFudge)
-	textBox.Position = UDim2.new(0, kTextBoxInternalPadding, 0, kTextBoxInternalPadding)
+	textBox.AnchorPoint = Vector2.new(0.5, 0)
+	textBox.Size = UDim2.new(1, -kTextBoxInternalPadding, 0, GuiUtilities.kTextInputHeight)
+	textBox.Position = UDim2.new(0.5, 0, 0, 0)
 	textBox.AutomaticSize = Enum.AutomaticSize.Y
 	textBox.ClipsDescendants = true
+	GuiUtilities.syncGuiElementPlaceholderColor(textBox)
 	GuiUtilities.syncGuiElementFontColor(textBox)
-	
+	self._textBox = textBox
+
 	textBox:GetPropertyChangedSignal("Text"):Connect(function()
 		-- Never let the text be too long.
-		-- Careful here: we want to measure number of graphemes, not characters, 
+		-- Careful here: we want to measure number of graphemes, not characters,
 		-- in the text, and we want to clamp on graphemes as well.
-		if (utf8.len(self._textBox.Text) > self._MaxGraphemes) then 
+		if utf8.len(self._textBox.Text) > self._MaxGraphemes then
 			local count = 0
-			for start, stop in utf8.graphemes(self._textBox.Text) do
+			for start, _ in utf8.graphemes(self._textBox.Text) do
 				count = count + 1
-				if (count > self._MaxGraphemes) then 
+				if count > self._MaxGraphemes then
 					-- We have gone one too far.
 					-- clamp just before the beginning of this grapheme.
-					self._textBox.Text = string.sub(self._textBox.Text, 1, start-1)
+					self._textBox.Text = string.sub(self._textBox.Text, 1, start - 1)
 					break
 				end
 			end
@@ -106,36 +115,134 @@ function LabeledTextInputClass.new(nameSuffix, labelText, defaultValue)
 		end
 
 		self._value = self._textBox.Text
-		if (self._valueChangedFunction) then 
+		if self._valueChangedFunction then
 			self._valueChangedFunction(self._value)
 		end
 	end)
-	
-	self._textBox = textBox
+
+	self._selected = false
+
+	self:_SetupMouseClickHandling()
+	self:_UpdateVisualState()
 
 	return self
 end
 
+-- Setup mouse click handling for the text box
+function LabeledTextInputClass:_SetupMouseClickHandling()
+	self._frame.MouseButton1Click:Connect(function()
+		self._textBox:CaptureFocus()
+	end)
+
+	self._textBox.InputBegan:Connect(function()
+		self._hovered = true
+		self:_UpdateVisualState()
+	end)
+
+	self._textBox.Focused:Connect(function()
+		self._selected = true
+		self:_UpdateVisualState()
+	end)
+
+	self._textBox.FocusLost:Connect(function()
+		self._selected = false
+		self:_UpdateVisualState()
+	end)
+
+	self._textBox.InputEnded:Connect(function()
+		self._hovered = false
+		self:_UpdateVisualState()
+	end)
+
+	-- If textBox is focused, then select item.
+	self._textBox.Focused:Connect(function()
+		if self._textBox.Focused then
+			self._item:SetValue(true)
+			self:_UpdateVisualState()
+		else
+			self._item:SetValue(false)
+			self:_UpdateVisualState()
+		end
+	end)
+end
+
+-- Update the visual state of the input field
+function LabeledTextInputClass:_UpdateVisualState()
+	if self._selected then
+		self._textBoxBorder.ImageColor3 = settings().Studio.Theme:GetColor(
+			Enum.StudioStyleGuideColor.CheckedFieldBackground,
+			Enum.StudioStyleGuideModifier.Selected
+		)
+		self._textBoxBackground.ImageColor3 = settings().Studio.Theme:GetColor(
+			Enum.StudioStyleGuideColor.InputFieldBackground,
+			Enum.StudioStyleGuideModifier.Selected
+		)
+	elseif self._hovered then
+		self._textBoxBorder.ImageColor3 = settings().Studio.Theme:GetColor(
+			Enum.StudioStyleGuideColor.InputFieldBorder,
+			Enum.StudioStyleGuideModifier.Hover
+		)
+		self._textBoxBackground.ImageColor3 = settings().Studio.Theme:GetColor(
+			Enum.StudioStyleGuideColor.InputFieldBackground,
+			Enum.StudioStyleGuideModifier.Default
+		)
+	else
+		self._textBoxBorder.ImageColor3 = settings().Studio.Theme:GetColor(
+			Enum.StudioStyleGuideColor.InputFieldBorder,
+			Enum.StudioStyleGuideModifier.Default
+		)
+		self._textBoxBackground.ImageColor3 = settings().Studio.Theme:GetColor(
+			Enum.StudioStyleGuideColor.InputFieldBackground,
+			Enum.StudioStyleGuideModifier.Default
+		)
+	end
+end
+
+-- Use the small size for the text box
+function LabeledTextInputClass:UseSmallSize()
+	self._textBoxBorder.AutomaticSize = Enum.AutomaticSize.None
+	self._textBoxBorder.Size = UDim2.new(0, GuiUtilities.kTextInputWidth, 0, GuiUtilities.kTextInputHeight)
+	self._textBox.TextXAlignment = Enum.TextXAlignment.Center
+	self._textBox.TextYAlignment = Enum.TextYAlignment.Center
+	self._textBox.ClearTextOnFocus = true
+	self._textBox.MultiLine = false
+
+	self._textBox:GetPropertyChangedSignal("Text"):Connect(function()
+		for i = 1, #self._textBox.Text do
+			local char = string.sub(self._textBox.Text, i, i)
+			if not (char >= "0" and char <= "9") and char ~= "." then
+				self._textBox.Text = string.sub(self._textBox.Text, 1, i - 1) .. string.sub(self._textBox.Text, i + 1)
+			end
+		end
+	end)
+end
+
+-- Set the value changed function
 function LabeledTextInputClass:SetValueChangedFunction(vcf)
 	self._valueChangedFunction = vcf
 end
 
-function LabeledTextInputClass:GetFrame()
+-- Get the frame that contains the text box
+function LabeledTextInputClass:GetFrame(): Frame
 	return self._frame
 end
 
-function LabeledTextInputClass:GetValue()
+-- Get the value of the text box
+function LabeledTextInputClass:GetValue(): number
 	return self._value
 end
 
-function LabeledTextInputClass:GetMaxGraphemes()
+-- Get the maximum number of graphemes allowed in the text box
+function LabeledTextInputClass:GetMaxGraphemes(): number
 	return self._MaxGraphemes
 end
 
+-- Set the maximum number of graphemes allowed in the text box
 function LabeledTextInputClass:SetMaxGraphemes(newValue)
 	self._MaxGraphemes = newValue
 end
 
+-- Set the value of the text box
 function LabeledTextInputClass:SetValue(newValue)
 	if self._value ~= newValue then
 		self._textBox.Text = newValue

@@ -5,45 +5,76 @@
 -- Custom text button class which can be used in any gui.
 --
 ----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
+local GuiUtilities = require(script.Parent.GuiUtilities)
 
-CustomTextLabelClass = {}
+local CustomTextLabelClass = {}
 CustomTextLabelClass.__index = CustomTextLabelClass
 
+-- Creates a new CustomTextLabelClass
 function CustomTextLabelClass.new(nameSuffix, height)
 	local self = {}
 	setmetatable(self, CustomTextLabelClass)
 
-	local frame = GuiUtilities.MakeFixedHeightFrame('TextLabel ' .. nameSuffix, height)
-	frame.BorderSizePixel = 1
-	frame.Size = UDim2.new(1, 0, 0, height)
-	GuiUtilities.syncGuiElementShadowColor(frame)
+	local background = GuiUtilities.MakeFixedHeightFrame("TextLabel " .. nameSuffix, height)
+	background.Size = UDim2.new(1, 0, 0, height)
+	background.BackgroundTransparency = 1
+	self._background = background
 
-	local label = Instance.new('TextLabel')
+	local frame = Instance.new("Frame")
+	frame.BorderSizePixel = 1
+	frame.Size = UDim2.new(0, height, 0, height)
+	frame.AnchorPoint = Vector2.new(0.5, 0.5)
+	frame.Position = UDim2.new(0.5, 0, 0.5, 0)
+	frame.Parent = background
+	GuiUtilities.syncGuiElementShadowColor(frame)
+	GuiUtilities.syncGuiElementScrollBarBackgroundColor(frame)
+	self._frame = frame
+
+	local aspectRatio = Instance.new("UIAspectRatioConstraint")
+	aspectRatio.AspectRatio = 1
+	aspectRatio.AspectType = Enum.AspectType.ScaleWithParentSize
+	aspectRatio.DominantAxis = Enum.DominantAxis.Height
+	aspectRatio.Parent = frame
+	self._aspectRatio = aspectRatio
+
+	local label = Instance.new("TextLabel")
 	label.Text = "Preview"
 	label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
+	if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() then
+		label.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	end
+	if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() then
 		label.TextColor3 = Color3.fromRGB(255, 255, 255)
 	end
 	label.BackgroundTransparency = 1
 	label.Size = UDim2.new(1, 0, 1, 0)
 	label.Font = GuiUtilities.kDefaultFontFace
-	label.TextSize = GuiUtilities.kDefaultFontSize
+	label.TextSize = 15 or GuiUtilities.kDefaultFontSize
 	label.TextWrapped = true
 	label.Parent = frame
+	self._label = label
 
 	local stroke = Instance.new("UIStroke")
 	stroke.Enabled = false
+	stroke.Parent = label
 	stroke.Color = Color3.fromRGB(255, 255, 255)
-	if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
+	if GuiUtilities:ShouldUseIconsForDarkerBackgrounds() then
 		stroke.Color = Color3.fromRGB(0, 0, 0)
 	end
-	stroke.Parent = label
+	self._stroke = stroke
+
+	function CustomTextLabelClass:UpdateAspectRatio(newValue: number)
+		aspectRatio.AspectRatio = newValue
+	end
+
+	function CustomTextLabelClass:UpdateTextRotation(newValue: number)
+		label.Rotation = newValue
+	end
 
 	function CustomTextLabelClass:UpdateText(newValue: string)
 		label.Text = newValue
 	end
-	
+
 	function CustomTextLabelClass:UpdateTextTransparency(newValue: number)
 		label.TextTransparency = newValue
 	end
@@ -153,14 +184,12 @@ function CustomTextLabelClass.new(nameSuffix, height)
 	end
 
 	function CustomTextLabelClass:GetFrame()
-		return frame
+		return background
 	end
-
-	self._frame = frame
-	self._label = label
 
 	return self
 end
 
-
 return CustomTextLabelClass
+
+-- To fix the above you can

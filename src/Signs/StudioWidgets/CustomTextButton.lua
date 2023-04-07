@@ -5,22 +5,21 @@
 -- Creates text button with custom look & feel, hover/click effects.
 --
 ----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
+local GuiUtilities = require(script.Parent.GuiUtilities)
 
 local kButtonImageIdDefault = "rbxasset://textures/StudioToolbox/RoundedBackground.png"
-local kButtonImageIdHovered = "rbxasset://textures/TerrainTools/button_hover.png"
-local kButtonImageIdPressed = "rbxasset://textures/TerrainTools/button_pressed.png"
 
 local kButtonBorder = "rbxasset://textures/StudioToolbox/RoundedBorder.png"
 
-CustomTextButtonClass = {}
+local CustomTextButtonClass = {}
 CustomTextButtonClass.__index = CustomTextButtonClass
 
-function CustomTextButtonClass.new(buttonName, labelText)
+-- Creates a new CustomTextButtonClass
+function CustomTextButtonClass.new(buttonName: string, labelText: string)
 	local self = {}
 	setmetatable(self, CustomTextButtonClass)
 
-	local button = Instance.new('ImageButton')
+	local button = Instance.new("ImageButton")
 	button.Name = buttonName
 	button.Image = kButtonImageIdDefault
 	button.BackgroundTransparency = 1
@@ -29,7 +28,7 @@ function CustomTextButtonClass.new(buttonName, labelText)
 	button.AutoButtonColor = false
 	GuiUtilities.syncGuiButtonColor(button)
 
-	local border = Instance.new('ImageLabel')
+	local border = Instance.new("ImageLabel")
 	border.Size = UDim2.new(1, 0, 1, 0)
 	border.Name = "Border"
 	border.BackgroundTransparency = 1
@@ -39,10 +38,10 @@ function CustomTextButtonClass.new(buttonName, labelText)
 	border.Parent = button
 	GuiUtilities.syncGuiImageBorderColor(border)
 
-	local label = Instance.new('TextLabel')
+	local label = Instance.new("TextLabel")
 	label.Text = labelText
 	label.BackgroundTransparency = 1
-	label.Size = UDim2.new(1, 0, 1, 0) -- 1, 0, 1, GuiUtilities.kButtonVerticalFudge
+	label.Size = UDim2.new(1, 0, 1, 0)
 	label.Font = GuiUtilities.kDefaultFontFace
 	label.TextSize = GuiUtilities.kDefaultFontSize
 	label.Parent = button
@@ -55,19 +54,15 @@ function CustomTextButtonClass.new(buttonName, labelText)
 	self._clicked = false
 	self._hovered = false
 
-	button.InputBegan:Connect(function(input)
-		if (input.UserInputType == Enum.UserInputType.MouseMovement) then
-			self._hovered = true
-			self:_updateButtonVisual()
-		end
+	button.InputBegan:Connect(function()
+		self._hovered = true
+		self:_updateButtonVisual()
 	end)
 
-	button.InputEnded:Connect(function(input)
-		if (input.UserInputType == Enum.UserInputType.MouseMovement) then
-			self._hovered = false
-			self._clicked = false
-			self:_updateButtonVisual()
-		end
+	button.InputEnded:Connect(function()
+		self._hovered = false
+		self._clicked = false
+		self:_updateButtonVisual()
 	end)
 
 	button.MouseButton1Down:Connect(function()
@@ -83,21 +78,26 @@ function CustomTextButtonClass.new(buttonName, labelText)
 	return self
 end
 
+-- Updates the button visual based on the current state
 function CustomTextButtonClass:_updateButtonVisual()
-	local kButtonDefaultBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Default)
-	local kButtonPressedBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Pressed)
-	local kButtonHoverBackgroundColor = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Hover)
-	
+	local kButtonDefaultBackgroundColor =
+		settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Default)
+	local kButtonPressedBackgroundColor =
+		settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Pressed)
+	local kButtonHoverBackgroundColor =
+		settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.Button, Enum.StudioStyleGuideModifier.Hover)
+
 	if self._clicked then
 		self._button.ImageColor3 = kButtonPressedBackgroundColor
-	elseif self._hovered then 
+	elseif self._hovered then
 		self._button.ImageColor3 = kButtonHoverBackgroundColor
 	else
 		self._button.ImageColor3 = kButtonDefaultBackgroundColor
 	end
 end
 
-function CustomTextButtonClass:GetButton()
+-- Gets the button
+function CustomTextButtonClass:GetButton(): ImageButton
 	return self._button
 end
 

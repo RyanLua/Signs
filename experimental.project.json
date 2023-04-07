@@ -1,0 +1,13 @@
+{
+  "name": "SignsPlugin",
+  "tree": {
+    "$className": "DataModel",
+    "PluginDebugService": {
+      "$className": "PluginDebugService",
+      "Plugin": {
+        "$className": "Plugin",
+        "$path": "src"
+      }
+    }
+  }
+}

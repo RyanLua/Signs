@@ -2,124 +2,94 @@
 --
 -- LabeledSlider.lua
 --
--- Creates a frame containing a label and a slider control.
+-- Creates a frame containing a label, text input, and a slider control.
 --
 ----------------------------------------
-GuiUtilities = require(script.Parent.GuiUtilities)
-rbxGuiLibrary = require(script.Parent.RbxGui)
+local GuiUtilities = require(script.Parent.GuiUtilities)
+local CollapsibleItem = require(script.Parent.CollapsibleItem)
 
-local kSliderWidth = 100
+local rbxGuiLibrary = require(script.Parent.RbxGui)
+local LabeledTextInput = require(script.Parent.LabeledTextInput)
 
-local kSliderThumbImage = "rbxasset://textures/RoactStudioWidgets/slider_handle_light.png"
-local kPreThumbImage = "rbxasset://textures/RoactStudioWidgets/slider_bar_light.png"
-local kPostThumbImage = "rbxasset://textures/RoactStudioWidgets/slider_bar_background_light.png"
+local kInputOffset = GuiUtilities.kTextInputWidth + GuiUtilities.kTextInputPadding + GuiUtilities.kSliderPadding
+local kSliderOffset = -kInputOffset - GuiUtilities.kSliderPadding
 
-local kSliderThumbImageDark = "rbxasset://textures/RoactStudioWidgets/slider_handle_dark.png"
-local kPreThumbImageDark = "rbxasset://textures/RoactStudioWidgets/slider_bar_dark.png"
-local kPostThumbImageDark = "rbxasset://textures/RoactStudioWidgets/slider_bar_background_dark.png"
-
-local kThumbSize = 13
-
-local kSteps = 100
-
-LabeledSliderClass = {}
+local LabeledSliderClass = {}
 LabeledSliderClass.__index = LabeledSliderClass
 
-function LabeledSliderClass.new(nameSuffix, labelText, sliderIntervals, defaultValue)
+function LabeledSliderClass.new(
+	nameSuffix: string,
+	labelText: string,
+	sliderIntervals: number,
+	defaultValue: number,
+	multiplier: number,
+	url: string?
+)
 	local self = {}
 	setmetatable(self, LabeledSliderClass)
 
 	self._valueChangedFunction = nil
 
-	local sliderIntervals = sliderIntervals or 100
-	local defaultValue = defaultValue or 1
+	local value = defaultValue or 1
+	self._value = value
+	self._multiplier = multiplier or 1
 
-	local frame = GuiUtilities.MakeDefaultFixedHeightFrame('Slider' .. nameSuffix)
-	self._frame = frame
+	local item = CollapsibleItem.new(nameSuffix, labelText, false, url)
+	self._item = item
 
-	local label = GuiUtilities.MakeDefaultPropertyLabel(labelText)
-	label.Parent = frame
-	self._label = label
+	-- Creates the input
+	local input =
+		LabeledTextInput.new("SliderInput" .. nameSuffix, labelText, (self._value - 1) * self._multiplier, url)
+	input:UseSmallSize()
+	input:SetMaxGraphemes(5)
+	input:SetValue(tostring(self._value * self._multiplier))
+	input:GetFrame().Parent = item:GetFrame()
+	self._input = input
 
-	self._value = defaultValue
-
-	 --steps, width, position
-	local slider, sliderValue = rbxGuiLibrary.CreateSlider(sliderIntervals, 
-		kSteps, 
-		UDim2.new(0, 0, .5, -3))
+	-- Creates the slider.
+	local slider, sliderValue = rbxGuiLibrary.CreateSlider(
+		sliderIntervals,
+		UDim2.new(0.5, kSliderOffset, 1, 0),
+		UDim2.new(0.5, kInputOffset, 0.5, 0)
+	)
 	self._slider = slider
 	self._sliderValue = sliderValue
-	-- Some tweaks to make slider look nice.
-	-- Hide the existing bar.
-	slider.Bar.BackgroundTransparency = 1
-	-- Replace slider thumb image.
-	self._thumb = slider.Bar.Slider
-	self._thumb.Image = kSliderThumbImage
-	self._thumb.AnchorPoint = Vector2.new(0, 0.5)
-	self._thumb.Size = UDim2.new(0, kThumbSize, 0, kThumbSize)
-	
-	-- Add images on bar.
-	self._preThumbImage = Instance.new("ImageLabel")
-	self._preThumbImage.Name = "PreThumb"
-	self._preThumbImage.Parent = slider.Bar
-	self._preThumbImage.BackgroundTransparency = 1
-	self._preThumbImage.ScaleType = Enum.ScaleType.Slice
-	self._preThumbImage.SliceCenter = Rect.new(3, 0, 4, 3) -- 3, 0, 4, 6
-	self._preThumbImage.Size = UDim2.new(1, 0, 1, 0)
-	self._preThumbImage.Position = UDim2.new(0, 0, 0, 0)
-	self._preThumbImage.Image = kPreThumbImage
-	self._preThumbImage.BorderSizePixel = 0
+	slider.Parent = item:GetFrame()
 
-	self._postThumbImage = Instance.new("ImageLabel")
-	self._postThumbImage.Name = "PostThumb"
-	self._postThumbImage.Parent = slider.Bar
-	self._postThumbImage.BackgroundTransparency = 1
-	self._postThumbImage.ScaleType = Enum.ScaleType.Slice
-	self._postThumbImage.SliceCenter = Rect.new(3, 0, 4, 3) -- 3, 0, 4, 6
-	self._postThumbImage.Size = UDim2.new(1, 0, 1, 0)
-	self._postThumbImage.Position = UDim2.new(0, 0, 0, 0)
-	self._postThumbImage.Image = kPostThumbImage
-	self._postThumbImage.BorderSizePixel = 0
-
+	-- Sets the slider value to the input value when the slider is changed
 	sliderValue.Changed:Connect(function()
 		self._value = sliderValue.Value
 
-		-- Min value is 1.
-		-- Max value is sliderIntervals.
-		-- So scale is...
-		local scale = (self._value - 1)/(sliderIntervals-1)
+		if not input._textBox:IsFocused() then
+			input:SetValue((self._value - 1) * self._multiplier)
+		end
 
-		self._preThumbImage.Size = UDim2.new(scale, 0, 1, 0)
-		self._postThumbImage.Size = UDim2.new(1 - scale, 0, 1, 0)
-		self._postThumbImage.Position = UDim2.new(scale, 0, 0, 0)
-		
-		self._thumb.Position = UDim2.new(scale, 0, 
-			0.5, 0)
-
-		if self._valueChangedFunction then 
-			self._valueChangedFunction(self._value)
+		if self._valueChangedFunction then
+			self._valueChangedFunction((self._value - 1) * self._multiplier)
 		end
 	end)
-	
-	self:SetValue(defaultValue)
-	slider.AnchorPoint = Vector2.new(0, 0.5)
-	slider.Size = UDim2.new(0, kSliderWidth, 1, 0)
-	slider.Position = UDim2.new(0, GuiUtilities.DefaultLineElementLeftMargin, 0, GuiUtilities.kDefaultPropertyHeight/2)
-	slider.Parent = frame
-		
-	local function updateImages()
-		if (GuiUtilities:ShouldUseIconsForDarkerBackgrounds()) then
-			self._thumb.Image = kSliderThumbImageDark
-			self._preThumbImage.Image = kPreThumbImageDark
-			self._postThumbImage.Image = kPostThumbImageDark
+
+	-- Sets the input value to the slider value when the input is changed
+	input:SetValueChangedFunction(function(vcf)
+		if vcf == "" then
+			self:SetValue(value)
 		else
-			self._thumb.Image = kSliderThumbImage
-			self._preThumbImage.Image = kPreThumbImage
-			self._postThumbImage.Image = kPostThumbImage
+			if vcf ~= nil then
+				self:SetValue(tonumber(vcf) / self._multiplier + 1)
+			end
 		end
-	end
-	settings().Studio.ThemeChanged:Connect(updateImages)
-	updateImages()
+	end)
+
+	-- Sets the slider value to the input value when the input is unfocused
+	input._textBox.FocusLost:Connect(function()
+		if input._textBox.Text == "" then
+			input:SetValue((value - 1) * self._multiplier)
+		else
+			self:SetValue(tonumber(input._textBox.Text) / self._multiplier + 1)
+		end
+	end)
+
+	self:SetValue(value)
 
 	return self
 end
@@ -129,7 +99,7 @@ function LabeledSliderClass:SetValueChangedFunction(vcf)
 end
 
 function LabeledSliderClass:GetFrame()
-	return self._frame
+	return self._item:GetFrame()
 end
 
 function LabeledSliderClass:SetValue(newValue)
