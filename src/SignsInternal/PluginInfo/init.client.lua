@@ -17,27 +17,13 @@ pluginToolbar:SetPlugin(plugin)
 local toolbar = pluginToolbar:CreateToolbar("Text Tools")
 
 -- Add a toolbar button
-local button = toolbar:CreateButton("SignsInternal", "Hide/show the Signs Widget.", "rbxassetid://12168352133", "Signs Internal")
+local button = toolbar:CreateButton("Signs", "Hide/show the Signs Widget.", "rbxassetid://12135392705", "Signs Internal")
 button.ClickableWhenViewportHidden = true
 
 -- Create new widget GUI and name it
 local widget = plugin:CreateDockWidgetPluginGui("Signs", widgetInfo)
-widget.Title = "Signs Internal 2.1.0"
-widget.Name = "SignsInternal"
-
--- Set CreateButton.Icon to match Studio theme
-local function setIcon()
-	if settings().Studio.Theme == settings().Studio:GetAvailableThemes()[1] then -- Light theme
-		button.Icon = "rbxassetid://12168355722"
-	elseif settings().Studio.Theme == settings().Studio:GetAvailableThemes()[2] then -- Dark theme
-		button.Icon = "rbxassetid://12168354157"
-	else
-		button.Icon = "rbxassetid://12168352133"
-		warn("Failed to get Studio Theme. Button Icon may have low visibility.")
-	end
-end
-settings().Studio.ThemeChanged:Connect(setIcon)
-setIcon()
+widget.Title = "Signs 3.0.0"
+widget.Name = "Signs"
 
 -- Initialize PluginGui or DevelopmentGui
 local AddOns = require(script.Parent.PluginGui)
