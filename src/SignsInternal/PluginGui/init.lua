@@ -43,6 +43,7 @@ function PluginGui:newPluginGui(widgetGui)
 	createFrame:GetFrame().Parent = createScrollFrame:GetContentsFrame()
 
 	tabBar:AddTab("CreateScrollFrame", "Create")
+	createScalingFrame:GetFrame().Parent = tabBar:GetFrame() -- set the section parent
 
 	-- Top padding
 	local padding = Instance.new("Frame")
@@ -479,8 +480,6 @@ function PluginGui:newPluginGui(widgetGui)
 		local size = CustomTextLabel:GetLabel().AbsoluteSize
 		GuiObjectPart.new(label, localize, influence, top, size)
 	end)
-
-	-- TODO: Rewrite tab thingy so this doesn't error or smth.
 
 	-- -- Edit tab
 

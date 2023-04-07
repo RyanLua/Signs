@@ -27,7 +27,7 @@ function VerticalScrollingFrame.new(suffix: string)
 	section.Size = UDim2.new(1, 0, 1, 0)
 	section.Position = UDim2.new(0, 0, 0, 0)
 	section.BackgroundTransparency = 0
-	section.Name = "VerticalScrollFrame" .. suffix
+	section.Name = "VFrame" .. suffix
 	GuiUtilities.syncGuiElementBackgroundColor(section)
 	self._section = section
 

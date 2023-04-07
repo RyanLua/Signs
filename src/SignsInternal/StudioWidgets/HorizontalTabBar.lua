@@ -58,22 +58,22 @@ end
 
 function HorizontalTabClass:_SetupTabHandling(self)
 	print(self._titlebar.Name)
-	-- self._titlebar.ChildAdded:Connect(function()
-	-- 	local tabButtonWidth = 1 / (#self._titlebar:GetChildren() - 1)
-	-- 	for _, child in pairs(self._titlebar:GetChildren()) do
-	-- 		if child:IsA("TextButton") then
-	-- 			child.Size = UDim2.new(tabButtonWidth, 0, 0, 27)
-	-- 		end
-	-- 	end
-	-- end)
-	-- self._titlebar.ChildRemoved:Connect(function()
-	-- 	local tabButtonWidth = 1 / (#self._titlebar:GetChildren() - 1)
-	-- 	for _, child in pairs(self._titlebar:GetChildren()) do
-	-- 		if child:IsA("TextButton") then
-	-- 			child.Size = UDim2.new(tabButtonWidth, 0, 0, 27)
-	-- 		end
-	-- 	end
-	-- end)
+	self._titlebar.ChildAdded:Connect(function()
+		local tabButtonWidth = 1 / (#self._titlebar:GetChildren() - 1)
+		for _, child in pairs(self._titlebar:GetChildren()) do
+			if child:IsA("TextButton") then
+				child.Size = UDim2.new(tabButtonWidth, 0, 0, 27)
+			end
+		end
+	end)
+	self._titlebar.ChildRemoved:Connect(function()
+		local tabButtonWidth = 1 / (#self._titlebar:GetChildren() - 1)
+		for _, child in pairs(self._titlebar:GetChildren()) do
+			if child:IsA("TextButton") then
+				child.Size = UDim2.new(tabButtonWidth, 0, 0, 27)
+			end
+		end
+	end)
 end
 
 function HorizontalTabClass:_SetupMouseClickHandling()
@@ -121,12 +121,12 @@ function HorizontalTabClass:AddTab(suffix: string, name: string)
 	tabButton.TextSize = GuiUtilities.kDefaultFontSize
 	tabButton.Text = name
 	tabButton.Parent = self._titlebar
-	-- GuiUtilities.syncGuiElementFontColor(tabButton)
-	-- GuiUtilities.syncGuiElementTitlebarColor(tabButton)
-	-- GuiUtilities.syncGuiElementBorderColor(tabButton)
+	GuiUtilities.syncGuiElementFontColor(tabButton)
+	GuiUtilities.syncGuiElementTitlebarColor(tabButton)
+	GuiUtilities.syncGuiElementBorderColor(tabButton)
 
 	tabButton.MouseButton1Down:Connect(function()
-		-- self._uiPageLayout:JumpTo(self:GetContentsFrame(suffix))
+		self._uiPageLayout:JumpTo(self:GetContentsFrame(suffix))
 	end)
 end
 
@@ -135,7 +135,11 @@ function HorizontalTabClass:GetTitlebar(): Frame
 end
 
 function HorizontalTabClass:GetContentsFrame(suffix: string): Frame
-	return self._frame:FindFirstChild("VerticalScrollFrame" .. suffix)
+	for _, child in pairs(self._frame:GetChildren()) do
+		if child.Name == "VFrame" .. suffix then
+			return child
+		end
+	end
 end
 
 function HorizontalTabClass:GetFrame(): Frame
