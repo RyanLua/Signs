@@ -126,7 +126,7 @@ function HorizontalTabClass:AddTab(suffix: string, name: string)
 	GuiUtilities.syncGuiElementBorderColor(tabButton)
 
 	tabButton.MouseButton1Down:Connect(function()
-		self._uiPageLayout:JumpTo(self:GetContentsFrame(suffix))
+		-- self._uiPageLayout:JumpTo(self:GetContentsFrame(suffix))
 	end)
 end
 
