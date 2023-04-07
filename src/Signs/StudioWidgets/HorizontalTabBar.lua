@@ -57,7 +57,6 @@ function HorizontalTabClass.new(suffix: string)
 end
 
 function HorizontalTabClass:_SetupTabHandling(self)
-	print(self._titlebar.Name)
 	self._titlebar.ChildAdded:Connect(function()
 		local tabButtonWidth = 1 / (#self._titlebar:GetChildren() - 1)
 		for _, child in pairs(self._titlebar:GetChildren()) do
