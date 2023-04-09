@@ -1,12 +1,12 @@
 -- Create new "DockWidgetPluginGuiInfo" object for "PluginGuiService"
 local widgetInfo = DockWidgetPluginGuiInfo.new(
-	Enum.InitialDockState.Left,  -- Widget will be initialized in left panel
-	false,	-- Widget will be initially enabled
-	false,	-- Don't override the previous enabled state
-	275,	-- Default width of the floating window
-	655,	-- Default height of the floating window
-	165,	-- Minimum width of the floating window
-	415		-- Minimum height of the floating window
+	Enum.InitialDockState.Left, -- Widget will be initialized in left panel
+	false, -- Widget will be initially enabled
+	false, -- Don't override the previous enabled state
+	275, -- Default width of the floating window
+	655, -- Default height of the floating window
+	165, -- Minimum width of the floating window
+	415 -- Minimum height of the floating window
 )
 
 -- Require plugin toolbar so other plugins can share toolbar
@@ -17,7 +17,12 @@ pluginToolbar:SetPlugin(plugin)
 local toolbar = pluginToolbar:CreateToolbar("Text Tools")
 
 -- Add a toolbar button
-local button = toolbar:CreateButton("Signs", "Hide/show the Signs Widget.", "rbxassetid://12135392705", "Signs")
+local button = toolbar:CreateButton(
+	"Signs",
+	"Hide/show the Signs Widget.\n\nSigns is a Roblox Studio plugin that helps users create TextLabels for their projects quickly and safely. Simple to use UI and lots of options for customization.\n\nLearn more at https://github.com/RyanLua/Signs.",
+	"rbxassetid://12135392705",
+	"Signs"
+)
 button.ClickableWhenViewportHidden = true
 
 -- Create new widget GUI and name it
