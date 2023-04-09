@@ -84,7 +84,7 @@ function PluginGui:newPluginGui(widgetGui)
 		"Text", -- title text of the multi choice
 		"Text here" -- default value
 	)
-	textInput:SetMaxGraphemes(8192)
+	textInput:SetMaxGraphemes(16384)
 	textInput:GetFrame().Parent = textCollapse:GetContentsFrame()
 	textInput:SetValueChangedFunction(function(newValue)
 		CustomTextLabel:UpdateText(newValue)
