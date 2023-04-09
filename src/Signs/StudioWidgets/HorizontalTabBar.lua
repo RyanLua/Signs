@@ -118,6 +118,7 @@ function HorizontalTabClass:AddTab(suffix: string, name: string)
 	tabButton.Size = UDim2.new(1, 0, 0, 27)
 	tabButton.Font = GuiUtilities.kDefaultFontFace
 	tabButton.TextSize = GuiUtilities.kDefaultFontSize
+	tabButton.AutoButtonColor = false
 	tabButton.Text = name
 	tabButton.Parent = self._titlebar
 	GuiUtilities.syncGuiElementFontColor(tabButton)
