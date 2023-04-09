@@ -14,7 +14,7 @@ local pluginToolbar = require(script.PluginToolbar)
 pluginToolbar:SetPlugin(plugin)
 
 -- Create a new toolbar section titled
-local toolbar = pluginToolbar:CreateToolbar("Text Tools")
+local toolbar = pluginToolbar:CreateToolbar("Text Tool")
 
 -- Add a toolbar button
 local button = toolbar:CreateButton(
