@@ -17,7 +17,7 @@ pluginToolbar:SetPlugin(plugin)
 local toolbar = pluginToolbar:CreateToolbar("Text Tools")
 
 -- Add a toolbar button
-local button = toolbar:CreateButton("Signs", "Hide/show the Signs Widget.", "rbxassetid://12135392705", "Signs Internal")
+local button = toolbar:CreateButton("Signs", "Hide/show the Signs Widget.", "rbxassetid://12135392705", "Signs")
 button.ClickableWhenViewportHidden = true
 
 -- Create new widget GUI and name it
