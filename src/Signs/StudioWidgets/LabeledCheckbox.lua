@@ -69,7 +69,7 @@ function LabeledCheckboxClass.new(
 	button.AutoButtonColor = false
 	self._button = button
 
-	local checkImage = Instance.new("ImageLabel")
+	local checkImage = Instance.new("ImageButton")
 	checkImage.Name = "CheckImage"
 	checkImage.Parent = button
 	checkImage.Visible = false
@@ -78,6 +78,7 @@ function LabeledCheckboxClass.new(
 	checkImage.Position = UDim2.new(0, 0, 0.5, 0)
 	checkImage.BackgroundTransparency = 1
 	checkImage.BorderSizePixel = 0
+	checkImage.AutoButtonColor = false
 	self._checkImage = checkImage
 
 	self._clicked = false
@@ -138,6 +139,13 @@ function LabeledCheckboxClass:_SetupMouseClickHandling()
 	self._button.MouseButton1Down:Connect(function()
 		self._clicked = true
 		self:_UpdateCheckboxVisual()
+		self:_MaybeToggleState()
+	end)
+
+	self._button.CheckImage.MouseButton1Down:Connect(function()
+		self._clicked = true
+		self:_UpdateCheckboxVisual()
+		self:_MaybeToggleState()
 	end)
 
 	self._button.InputBegan:Connect(function()
