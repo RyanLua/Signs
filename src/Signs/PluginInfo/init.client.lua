@@ -4,9 +4,9 @@ local widgetInfo = DockWidgetPluginGuiInfo.new(
 	false, -- Widget will be initially enabled
 	false, -- Don't override the previous enabled state
 	275, -- Default width of the floating window
-	655, -- Default height of the floating window
+	660, -- Default height of the floating window
 	165, -- Minimum width of the floating window
-	415 -- Minimum height of the floating window
+	420 -- Minimum height of the floating window
 )
 
 -- Require plugin toolbar so other plugins can share toolbar
