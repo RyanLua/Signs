@@ -48,7 +48,33 @@ Signs offers **many features and benefits**. Not just over other plugins but Tex
 
 ### Open-Sourced
 
-<img align="left" src="assets/thumbnails/SignsThumbnailOpenSource.png" width="100" /> Signs is open source and free. Change and modify the plugin to meet what you want. Look out for some bugs and fix them, and we could even add your code to the official plugin. Know what you run on your computer.
+<img align="left" src="assets/SignsThumbnailOpenSource.png" height="150" />
+
+Signs is **open source and free**. Change and modify the plugin to meet what you want. Look out for some bugs and fix them, and we might even add your code to the official plugin. You should know what you're installing and running on your computer.
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+### High Customization
+
+<img align="left" src="assets/SignsThumbnailCustomization.png" height="150" />
+
+Edit the outline of your text, the background, and even the sign itself. Change the colors of each of these properties along with transparency. Manipulate how light interacts with your sign and if it is always rendered on top.
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+### Automatic Dark & Light Themes
+
+<img align="left" src="assets/SignsThumbnailTheme.png" height="150" />
+
+The plugin's theme will automatically update when using Signs to match Roblox Studio's. No restarting of Roblox Studio or Signs is needed due to Signs being able to detect and change its theme when Roblox Studio's theme changes.
+<br/>
+<br/>
 <br/>
 <br/>
 <br/>
@@ -56,14 +82,6 @@ Signs offers **many features and benefits**. Not just over other plugins but Tex
 ### Live Preview
 
 Edit signs and view changes in a preview showing exactly how your sign will look. Each and every change you make in the editor is updated to the preview. View signs before they are inserted.
-
-### High Customization
-
-Edit the outline of your text, the background, and even the sign itself. Change the colors of each of these properties along with transparency. Manipulate how light interacts with your sign and if it is always rendered on top.
-
-### Dark & Light Theme
-
-The plugin's theme will automatically update when using Signs to match Roblox Studio's. No restarting of Roblox Studio or Signs is needed due to Signs being able to detect and change its theme when Roblox Studio's theme changes.
 
 ### Rich Text Support
 
