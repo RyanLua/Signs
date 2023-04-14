@@ -180,6 +180,392 @@ local FontFace = {
 		Font = Font.fromName("Zekton"),
 		Text = [[<font family="rbxasset://fonts/families/Zekton.json">Zekton</font>]],
 	},
+	-- Marketplace fonts.
+	{
+		Id = "Akronim",
+		Font = Font.fromId(12187368317),
+		Text = [[<font family="12187368317">Akronim</font>]],
+	},
+	{
+		Id = "AreYouSerious",
+		Font = Font.fromId(12187363616),
+		Text = [[<font family="12187363616">Are You Serious</font>]],
+	},
+	{
+		Id = "Audiowide",
+		Font = Font.fromId(12187360881),
+		Text = [[<font family="12187360881">Audiowide</font>]],
+	},
+	{
+		Id = "Barlow",
+		Font = Font.fromId(12187372847),
+		Text = [[<font family="12187372847">Barlow</font>]],
+	},
+	{
+		Id = "Barrio",
+		Font = Font.fromId(12187371991),
+		Text = [[<font family="12187371991">Barrio</font>]],
+	},
+	{
+		Id = "Blaka",
+		Font = Font.fromId(12187365104),
+		Text = [[<font family="12187365104">Blaka</font>]],
+	},
+	{
+		Id = "Bungee Inline",
+		Font = Font.fromId(12187370000),
+		Text = [[<font family="12187370000">Bungee Inline</font>]],
+	},
+	{
+		Id = "Bungee Shade",
+		Font = Font.fromId(12187367666),
+		Text = [[<font family="12187367666">Bungee Shade</font>]],
+	},
+	{
+		Id = "Caesar Dressing",
+		Font = Font.fromId(12187368843),
+		Text = [[<font family="12187368843">Caesar Dressing</font>]],
+	},
+	{
+		Id = "Cairo",
+		Font = Font.fromId(12187377099),
+		Text = [[<font family="12187377099">Cairo</font>]],
+	},
+	{
+		Id = "Caveat",
+		Font = Font.fromId(12187369802),
+		Text = [[<font family="12187369802">Caveat</font>]],
+	},
+	{
+		Id = "Codystar",
+		Font = Font.fromId(12187363887),
+		Text = [[<font family="12187363887">Codystar</font>]],
+	},
+	{
+		Id = "Damion",
+		Font = Font.fromId(12187607722),
+		Text = [[<font family="12187607722">Damion</font>]],
+	},
+	{
+		Id = "DancingScript",
+		Font = Font.fromId(8764312106),
+		Text = [[<font family="8764312106">Dancing Script</font>]],
+	},
+	{
+		Id = "Eater",
+		Font = Font.fromId(12187372382),
+		Text = [[<font family="12187372382">Eater</font>]],
+	},
+	{
+		Id = "Faster One",
+		Font = Font.fromId(12187370928),
+		Text = [[<font family="12187370928">Faster One</font>]],
+	},
+	{
+		Id = "Finger Paint",
+		Font = Font.fromId(12187375716),
+		Text = [[<font family="12187375716">Finger Paint</font>]],
+	},
+	{
+		Id = "Fira Sans",
+		Font = Font.fromId(12187374954),
+		Text = [[<font family="12187374954">Fira Sans</font>]],
+	},
+	{
+		Id = "Frijole",
+		Font = Font.fromId(12187375194),
+		Text = [[<font family="12187375194">Frijole</font>]],
+	},
+	{
+		Id = "Fuzzy Bubbles",
+		Font = Font.fromId(11322590111),
+		Text = [[<font family="11322590111">Fuzzy Bubbles</font>]],
+	},
+	{
+		Id = "Great Vibes",
+		Font = Font.fromId(12187375958),
+		Text = [[<font family="12187375958">Great Vibes</font>]],
+	},
+	{
+		Id = "Hind Siliguri",
+		Font = Font.fromId(12187361378),
+		Text = [[<font family="12187361378">Hind Siliguri</font>]],
+	},
+	{
+		Id = "Hind",
+		Font = Font.fromId(12187361116),
+		Text = [[<font family="12187361116">Hind</font>]],
+	},
+	{
+		Id = "IBM Plex Sans JP",
+		Font = Font.fromId(12187364147),
+		Text = [[<font family="12187364147">IBM Plex Sans JP</font>]],
+	},
+	{
+		Id = "Inter",
+		Font = Font.fromId(12187365364),
+		Text = [[<font family="12187365364">Inter</font>]],
+	},
+	{
+		Id = "Irish Grover",
+		Font = Font.fromId(12187376910),
+		Text = [[<font family="12187376910">Irish Grover</font>]],
+	},
+	{
+		Id = "Italianno",
+		Font = Font.fromId(12187374273),
+		Text = [[<font family="12187374273">Italianno</font>]],
+	},
+	{
+		Id = "Kanit",
+		Font = Font.fromId(12187373592),
+		Text = [[<font family="12187373592">Kanit</font>]],
+	},
+	{
+		Id = "Kings",
+		Font = Font.fromId(12187371622),
+		Text = [[<font family="12187371622">Kings</font>]],
+	},
+	{
+		Id = "La Belle Aurore",
+		Font = Font.fromId(12187607116),
+		Text = [[<font family="12187607116">La Belle Aurore</font>]],
+	},
+	{
+		Id = "Lato",
+		Font = Font.fromId(11598289817),
+		Text = [[<font family="11598289817">Lato</font>]],
+	},
+	{
+		Id = "Libre Baskerville",
+		Font = Font.fromId(12187365769),
+		Text = [[<font family="12187365769">Libre Baskerville</font>]],
+	},
+	{
+		Id = "Lobster",
+		Font = Font.fromId(8836875837),
+		Text = [[<font family="8836875837">Lobster</font>]],
+	},
+	{
+		Id = "Lora",
+		Font = Font.fromId(12187366657),
+		Text = [[<font family="12187366657">Lora</font>]],
+	},
+	{
+		Id = "M PLUS Rounded 1c",
+		Font = Font.fromId(12188570269),
+		Text = [[<font family="12188570269">M PLUS Rounded 1c</font>]],
+	},
+	{
+		Id = "Marhey",
+		Font = Font.fromId(12187364648),
+		Text = [[<font family="12187364648">Marhey</font>]],
+	},
+	{
+		Id = "Monofett",
+		Font = Font.fromId(12187606783),
+		Text = [[<font family="12187606783">Monofett</font>]],
+	},
+	{
+		Id = "Monoton",
+		Font = Font.fromId(12187374098),
+		Text = [[<font family="12187374098">Monoton</font>]],
+	},
+	{
+		Id = "Montserrat",
+		Font = Font.fromId(11702779517),
+		Text = [[<font family="11702779517">Montserrat</font>]],
+	},
+	{
+		Id = "Mukta",
+		Font = Font.fromId(12187365559),
+		Text = [[<font family="12187365559">Mukta</font>]],
+	},
+	{
+		Id = "Mulish",
+		Font = Font.fromId(12187372629),
+		Text = [[<font family="12187372629">Mulish</font>]],
+	},
+	{
+		Id = "NanumGothic",
+		Font = Font.fromId(12187361718),
+		Text = [[<font family="12187361718">NanumGothic</font>]],
+	},
+	{
+		Id = "Nosifer",
+		Font = Font.fromId(12187377325),
+		Text = [[<font family="12187377325">Nosifer</font>]],
+	},
+	{
+		Id = "Nothing You Could Do",
+		Font = Font.fromId(12187367901),
+		Text = [[<font family="12187367901">Nothing You Could Do</font>]],
+	},
+	{
+		Id = "Noto Sans JP",
+		Font = Font.fromId(12187364401),
+		Text = [[<font family="12187364401">Noto Sans JP</font>]],
+	},
+	{
+		Id = "Noto Serif JP",
+		Font = Font.fromId(12187364913),
+		Text = [[<font family="12187364913">Noto Serif JP</font>]],
+	},
+	{
+		Id = "Nunito",
+		Font = Font.fromId(12187369046),
+		Text = [[<font family="12187369046">Nunito</font>]],
+	},
+	{
+		Id = "Orbitron",
+		Font = Font.fromId(12187375202),
+		Text = [[<font family="12187375202">Orbitron</font>]],
+	},
+	{
+		Id = "Oswald",
+		Font = Font.fromId(12187367939),
+		Text = [[<font family="12187367939">Oswald</font>]],
+	},
+	{
+		Id = "Pacifico",
+		Font = Font.fromId(12187375807),
+		Text = [[<font family="12187375807">Pacifico</font>]],
+	},
+	{
+		Id = "Pangolin",
+		Font = Font.fromId(12187374240),
+		Text = [[<font family="12187374240">Pangolin</font>]],
+	},
+	{
+		Id = "Pattaya",
+		Font = Font.fromId(12187376357),
+		Text = [[<font family="12187376357">Pattaya</font>]],
+	},
+	{
+		Id = "Playfair Display",
+		Font = Font.fromId(12187367066),
+		Text = [[<font family="12187367066">Playfair Display</font>]],
+	},
+	{
+		Id = "Poppins",
+		Font = Font.fromId(11702779409),
+		Text = [[<font family="11702779409">Poppins</font>]],
+	},
+	{
+		Id = "Prompt",
+		Font = Font.fromId(12187607287),
+		Text = [[<font family="12187607287">Prompt</font>]],
+	},
+	{
+		Id = "Quicksand",
+		Font = Font.fromId(12187371324),
+		Text = [[<font family="12187371324">Quicksand</font>]],
+	},
+	{
+		Id = "Rajdhani",
+		Font = Font.fromId(12187375422),
+		Text = [[<font family="12187375422">Rajdhani</font>]],
+	},
+	{
+		Id = "Raleway",
+		Font = Font.fromId(11702779240),
+		Text = [[<font family="11702779240">Raleway</font>]],
+	},
+	{
+		Id = "Roboto Slab",
+		Font = Font.fromId(12187368625),
+		Text = [[<font family="12187368625">Roboto Slab</font>]],
+	},
+	{
+		Id = "Rubik Burned",
+		Font = Font.fromId(12187363148),
+		Text = [[<font family="12187363148">Rubik Burned</font>]],
+	},
+	{
+		Id = "Rubik Iso",
+		Font = Font.fromId(12187362120),
+		Text = [[<font family="12187362120">Rubik Iso</font>]],
+	},
+	{
+		Id = "Rubik Marker Hatch",
+		Font = Font.fromId(12187367066),
+		Text = [[<font family="12187367066">Rubik Marker Hatch</font>]],
+	},
+	{
+		Id = "Rubik Maze",
+		Font = Font.fromId(12187366475),
+		Text = [[<font family="12187366475">Rubik Maze</font>]],
+	},
+	{
+		Id = "Rubik Wet Paint",
+		Font = Font.fromId(12187369046),
+		Text = [[<font family="12187369046">Rubik Wet Paint</font>]],
+	},
+	{
+		Id = "Rubik",
+		Font = Font.fromId(12187365977),
+		Text = [[<font family="12187365977">Rubik</font>]],
+	},
+	{
+		Id = "Rye",
+		Font = Font.fromId(12187372175),
+		Text = [[<font family="12187372175">Rye</font>]],
+	},
+	{
+		Id = "Sedgwick Ave Display",
+		Font = Font.fromId(12187376357),
+		Text = [[<font family="12187376357">Sedgwick Ave Display</font>]],
+	},
+	{
+		Id = "Shadows Into Light",
+		Font = Font.fromId(12187607493),
+		Text = [[<font family="12187607493">Shadows Into Light</font>]],
+	},
+	{
+		Id = "Silkscreen",
+		Font = Font.fromId(12187371840),
+		Text = [[<font family="12187371840">Silkscreen</font>]],
+	},
+	{
+		Id = "Sono Monospace",
+		Font = Font.fromId(12187362578),
+		Text = [[<font family="12187362578">Sono Monospace</font>]],
+	},
+	{
+		Id = "Sono",
+		Font = Font.fromId(12187374537),
+		Text = [[<font family="12187374537">Sono</font>]],
+	},
+	{
+		Id = "Tajawal",
+		Font = Font.fromId(12187377588),
+		Text = [[<font family="12187377588">Tajawal</font>]],
+	},
+	{
+		Id = "Tangerine",
+		Font = Font.fromId(12187376545),
+		Text = [[<font family="12187376545">Tangerine</font>]],
+	},
+	{
+		Id = "Teko",
+		Font = Font.fromId(12187376174),
+		Text = [[<font family="12187376174">Teko</font>]],
+	},
+	{
+		Id = "Unica One",
+		Font = Font.fromId(12187364842),
+		Text = [[<font family="12187364842">Unica One</font>]],
+	},
+	{
+		Id = "Work Sans",
+		Font = Font.fromId(12187373327),
+		Text = [[<font family="12187373327">Work Sans</font>]],
+	},
+	{
+		Id = "Yellowtail",
+		Font = Font.fromId(12187373881),
+		Text = [[<font family="12187373881">Yellowtail</font>]],
+	},
 }
 
 return FontFace
