@@ -68,6 +68,17 @@ Edit the outline of your text, the background, and even the sign itself. Change 
 <br/>
 <br/>
 
+### UI Stroke
+
+<img align="left" src="assets/SignsThumbnailUIStroke.png" height="150" />
+
+Change the stroke of the font in customize in ways that the text stroke property can't. Edit the outline join and thickness as well as normal text stroke properties like color and transparency.
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
 ### Automatic Dark & Light Themes
 
 <img align="left" src="assets/SignsThumbnailTheme.png" height="150" />
@@ -81,15 +92,45 @@ The plugin's theme will automatically update when using Signs to match Roblox St
 
 ### Live Preview
 
+<img align="left" src="assets/SignsThumbnailLivePreview.png" height="150" />
+
 Edit signs and view changes in a preview showing exactly how your sign will look. Each and every change you make in the editor is updated to the preview. View signs before they are inserted.
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 
-### Rich Text Support
+### Features List
 
-Rich Text allows you to bold, italicize, underline, change the size, increase stroke, and many more aspects of your text from each and every letter. Use simple markup tags to change any part of your text.
+Below is a list of features that are available in Signs and Signs Free. The list is split into two tables, one for Signs and one for Signs Free.
 
-### UI Stroke
+| Feature | Signs Free | Signs
+| :--- | :---: | :---: |
+| Live Preview | ☑️ | ☑️ |
+| Automatic Dark & Light Themes | ☑️ | ☑️ |
+| Text Size, Color, Transparency, Rotation | ☑️ | ☑️ |
+| Text Wrapped & Scaling | ☑️ | ☑️ |
+| Line Height |  ☑️ | ☑️ |
+| Bold & Italic Typefaces | ☑️ | ☑️ |
+| Background Color, Transparency | ☑️ | ☑️ |
+| Size & Aspect Ratio | ☑️ | ☑️ |
+| Character Limit | 1024 <small>(1 KiB)</small> | 16384 <small>(6 KiB)</small> |
+| Font Faces | 36 | 117 |
+| Stroke Color, Transparency, Thickness, Join<sup>1</sup> | Basic | All |
+| Horizontal & Vertical Alignment | 🔲 | ☑️ |
+| Always On Top | 🔲 | ☑️ |
+| Light Influence | 🔲 | ☑️ |
+| Auto Localize<sup>2</sup> | 🔲 | ☑️ |
+| Beta Updates<sup>3</sup> | 🔲 | ☑️ |
 
-Change the stroke of the font in customize in ways that the text stroke property can't. Edit the outline join and thickness as well as normal text stroke properties like color and transparency.
+<small>
+
+<sup>1</sup> Stroke customization is limited to only Color and Transparency for Basic.
+<sup>2</sup> Autolocalized is enabled by default and can't be disabled through the editor.
+<sup>3</sup> Early access to experiential updates. Signs Free version will still recieve updates.
+
+</small>
 
 ## Frequently Asked Questions
 
