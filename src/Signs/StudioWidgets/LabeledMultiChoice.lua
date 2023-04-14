@@ -90,7 +90,7 @@ function LabeledMultiChoiceClass:_MakeRadioButtons(choices)
 
 	-- Make a grid to put checkboxes in.
 	local uiGridLayout = Instance.new("UIGridLayout")
-	uiGridLayout.CellSize = UDim2.new(0, GuiUtilities.DefaultLineLabelWidth, 0, GuiUtilities.kTitleBarHeight)
+	uiGridLayout.CellSize = UDim2.new(1, 0, 0, GuiUtilities.kTitleBarHeight)
 	uiGridLayout.CellPadding = UDim2.new(0, 5, 0, 5)
 	uiGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 	uiGridLayout.VerticalAlignment = Enum.VerticalAlignment.Top
