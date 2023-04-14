@@ -1,12 +1,12 @@
 local FontFace = {
 	-- [[<font family="rbxasset://fonts/families/FAMILY.json">NAME</font>]]
 	{
-		Id = "AccanthisADFStd",
+		Id = "Accanthis ADF Std",
 		Font = Font.fromName("AccanthisADFStd"),
-		Text = [[<font family="rbxasset://fonts/families/AccanthisADFStd.json">Accanthis</font>]],
+		Text = [[<font family="rbxasset://fonts/families/AccanthisADFStd.json">Accanthis ADF Std</font>]],
 	},
 	{
-		Id = "AmaticSC",
+		Id = "Amatic SC",
 		Font = Font.fromName("AmaticSC"),
 		Text = [[<font family="rbxasset://fonts/families/AmaticSC.json">Amatic SC</font>]],
 	},
@@ -14,6 +14,11 @@ local FontFace = {
 		Id = "Arial",
 		Font = Font.fromName("Arial"),
 		Text = [[<font family="rbxasset://fonts/families/Arial.json">Arial</font>]],
+	},
+	{
+		Id = "Arial (Legacy)",
+		Font = Font.fromName("LegacyArial"),
+		Text = [[<font family="rbxasset://fonts/families/LegacyArial.json">Arial (Legacy)</font>]],
 	},
 	{
 		Id = "Balthazar",
@@ -26,9 +31,9 @@ local FontFace = {
 		Text = [[<font family="rbxasset://fonts/families/Bangers.json">Bangers</font>]],
 	},
 	{
-		Id = "ComicNeueAngular",
+		Id = "Comic Neue Angular",
 		Font = Font.fromName("ComicNeueAngular"),
-		Text = [[<font family="rbxasset://fonts/families/ComicNeueAngular.json">Comic Neue</font>]],
+		Text = [[<font family="rbxasset://fonts/families/ComicNeueAngular.json">Comic Neue Angular</font>]],
 	},
 	{
 		Id = "Creepster",
@@ -36,9 +41,9 @@ local FontFace = {
 		Text = [[<font family="rbxasset://fonts/families/Creepster.json">Creepster</font>]],
 	},
 	{
-		Id = "DenkOne",
+		Id = "Denk One",
 		Font = Font.fromName("DenkOne"),
-		Text = [[<font family="rbxasset://fonts/families/DenkOne.json">DenkOne</font>]],
+		Text = [[<font family="rbxasset://fonts/families/DenkOne.json">Denk One</font>]],
 	},
 	{
 		Id = "Fondamento",
@@ -46,17 +51,17 @@ local FontFace = {
 		Text = [[<font family="rbxasset://fonts/families/Fondamento.json">Fondamento</font>]],
 	},
 	{
-		Id = "FredokaOne",
+		Id = "Fredoka One",
 		Font = Font.fromName("FredokaOne"),
-		Text = [[<font family="rbxasset://fonts/families/FredokaOne.json">FredokaOne</font>]],
+		Text = [[<font family="rbxasset://fonts/families/FredokaOne.json">Fredoka One</font>]],
 	},
 	{
-		Id = "GothamSSm",
+		Id = "Gotham SSm",
 		Font = Font.fromName("GothamSSm"),
 		Text = [[<font family="rbxasset://fonts/families/GothamSSm.json">Gotham SSm</font>]],
 	},
 	{
-		Id = "GrenzeGotisch",
+		Id = "Grenze Gotisch",
 		Font = Font.fromName("GrenzeGotisch"),
 		Text = [[<font family="rbxasset://fonts/families/GrenzeGotisch.json">Grenze Gotisch	</font>]],
 	},
@@ -66,7 +71,7 @@ local FontFace = {
 		Text = [[<font family="rbxasset://fonts/families/Guru.json">Guru</font>]],
 	},
 	{
-		Id = "HighwayGothic",
+		Id = "Highway Gothic",
 		Font = Font.fromName("HighwayGothic"),
 		Text = [[<font family="rbxasset://fonts/families/HighwayGothic.json">Highway Gothic</font>]],
 	},
@@ -76,12 +81,12 @@ local FontFace = {
 		Text = [[<font family="rbxasset://fonts/families/Inconsolata.json">Inconsolata</font>]],
 	},
 	{
-		Id = "IndieFlower",
+		Id = "Indie Flower",
 		Font = Font.fromName("IndieFlower"),
 		Text = [[<font family="rbxasset://fonts/families/IndieFlower.json">Indie Flower</font>]],
 	},
 	{
-		Id = "JosefinSans",
+		Id = "Josefin Sans",
 		Font = Font.fromName("JosefinSans"),
 		Text = [[<font family="rbxasset://fonts/families/JosefinSans.json">Josefin Sans</font>]],
 	},
@@ -96,7 +101,7 @@ local FontFace = {
 		Text = [[<font family="rbxasset://fonts/families/Kalam.json">Kalam</font>]],
 	},
 	{
-		Id = "LuckiestGuy",
+		Id = "Luckiest Guy",
 		Font = Font.fromName("LuckiestGuy"),
 		Text = [[<font family="rbxasset://fonts/families/LuckiestGuy.json">Luckiest Guy</font>]],
 	},
@@ -121,19 +126,19 @@ local FontFace = {
 		Text = [[<font family="rbxasset://fonts/families/Oswald.json">Oswald</font>]],
 	},
 	{
-		Id = "PatrickHand",
+		Id = "Patrick Hand",
 		Font = Font.fromName("PatrickHand"),
 		Text = [[<font family="rbxasset://fonts/families/PatrickHand.json">Patrick Hand</font>]],
 	},
 	{
-		Id = "PermanentMarker",
+		Id = "Permanent Marker",
 		Font = Font.fromName("PermanentMarker"),
 		Text = [[<font family="rbxasset://fonts/families/PermanentMarker.json">Preduring Marker</font>]],
 	},
 	{
-		Id = "PressStart2P",
+		Id = "Press Start 2P",
 		Font = Font.fromName("PressStart2P"),
-		Text = [[<font family="rbxasset://fonts/families/PressStart2P.json">PressStart2P</font>]],
+		Text = [[<font family="rbxasset://fonts/families/PressStart2P.json">Press Start 2P</font>]],
 	},
 	{
 		Id = "Roboto",
@@ -141,12 +146,12 @@ local FontFace = {
 		Text = [[<font family="rbxasset://fonts/families/Roboto.json">Roboto</font>]],
 	},
 	{
-		Id = "RobotoCondensed",
+		Id = "Roboto Condensed",
 		Font = Font.fromName("RobotoCondensed"),
 		Text = [[<font family="rbxasset://fonts/families/RobotoCondensed.json">Roboto Condensed</font>]],
 	},
 	{
-		Id = "RobotoMono",
+		Id = "Roboto Mono",
 		Font = Font.fromName("RobotoMono"),
 		Text = [[<font family="rbxasset://fonts/families/RobotoMono.json">Roboto Mono</font>]],
 	},
@@ -156,17 +161,17 @@ local FontFace = {
 		Text = [[<font family="rbxasset://fonts/families/Sarpanch.json">Sarpanch</font>]],
 	},
 	{
-		Id = "SourceSansPro",
+		Id = "Source Sans Pro",
 		Font = Font.fromName("SourceSansPro"),
 		Text = [[<font family="rbxasset://fonts/families/SourceSansPro.json">Source Sans Pro</font>]],
 	},
 	{
-		Id = "SpecialElite",
+		Id = "Special Elite",
 		Font = Font.fromName("SpecialElite"),
 		Text = [[<font size="12" family="rbxasset://fonts/families/SpecialElite.json">Special Elite</font>]],
 	},
 	{
-		Id = "TitilliumWeb",
+		Id = "Titillium Web",
 		Font = Font.fromName("TitilliumWeb"),
 		Text = [[<font family="rbxasset://fonts/families/TitilliumWeb.json">Titillium Web</font>]],
 	},
@@ -187,7 +192,7 @@ local FontFace = {
 		Text = [[<font family="12187368317">Akronim</font>]],
 	},
 	{
-		Id = "AreYouSerious",
+		Id = "Are You Serious",
 		Font = Font.fromId(12187363616),
 		Text = [[<font family="12187363616">Are You Serious</font>]],
 	},
@@ -247,7 +252,7 @@ local FontFace = {
 		Text = [[<font family="12187607722">Damion</font>]],
 	},
 	{
-		Id = "DancingScript",
+		Id = "Dancing Script",
 		Font = Font.fromId(8764312106),
 		Text = [[<font family="8764312106">Dancing Script</font>]],
 	},
@@ -387,9 +392,9 @@ local FontFace = {
 		Text = [[<font family="12187372629">Mulish</font>]],
 	},
 	{
-		Id = "NanumGothic",
+		Id = "Nanum Gothic",
 		Font = Font.fromId(12187361718),
-		Text = [[<font family="12187361718">NanumGothic</font>]],
+		Text = [[<font family="12187361718">Nanum Gothic</font>]],
 	},
 	{
 		Id = "Nosifer",
@@ -402,44 +407,64 @@ local FontFace = {
 		Text = [[<font family="12187367901">Nothing You Could Do</font>]],
 	},
 	{
-		Id = "Noto Sans JP",
-		Font = Font.fromId(12187364401),
-		Text = [[<font family="12187364401">Noto Sans JP</font>]],
+		Id = "Noto Sans HK",
+		Font = Font.fromId(12187362892),
+		Text = [[<font family="12187362892">Noto Sans HK</font>]],
+	},
+	{
+		Id = "Noto Sans",
+		Font = Font.fromId(12187370747),
+		Text = [[<font family="12187370747">Noto Sans</font>]],
+	},
+	{
+		Id = "Noto Serif HK",
+		Font = Font.fromId(12187366846),
+		Text = [[<font family="12187366846">Noto Serif HK</font>]],
 	},
 	{
 		Id = "Noto Serif JP",
-		Font = Font.fromId(12187364913),
-		Text = [[<font family="12187364913">Noto Serif JP</font>]],
+		Font = Font.fromId(12187369639),
+		Text = [[<font family="12187369639">Noto Serif JP</font>]],
 	},
 	{
-		Id = "Nunito",
-		Font = Font.fromId(12187369046),
-		Text = [[<font family="12187369046">Nunito</font>]],
+		Id = "Noto Serif SC",
+		Font = Font.fromId(12187376739),
+		Text = [[<font family="12187376739">Noto Serif SC</font>]],
 	},
 	{
-		Id = "Orbitron",
-		Font = Font.fromId(12187375202),
-		Text = [[<font family="12187375202">Orbitron</font>]],
+		Id = "Noto Serif TC",
+		Font = Font.fromId(12187368093),
+		Text = [[<font family="12187368093">Noto Serif TC</font>]],
 	},
 	{
-		Id = "Oswald",
-		Font = Font.fromId(12187367939),
-		Text = [[<font family="12187367939">Oswald</font>]],
+		Id = "Nunito Sans",
+		Font = Font.fromId(12187363368),
+		Text = [[<font family="12187363368">Nunito Sans</font>]],
+	},
+	{
+		Id = "Open Sans",
+		Font = Font.fromId(11598121416),
+		Text = [[<font family="11598121416">Open Sans</font>]],
+	},
+	{
+		Id = "PT Sans",
+		Font = Font.fromId(12187606934),
+		Text = [[<font family="12187606934">PT Sans</font>]],
+	},
+	{
+		Id = "PT Serif",
+		Font = Font.fromId(12187606624),
+		Text = [[<font family="12187606624">PT Serif</font>]],
 	},
 	{
 		Id = "Pacifico",
-		Font = Font.fromId(12187375807),
-		Text = [[<font family="12187375807">Pacifico</font>]],
+		Font = Font.fromId(12187367362),
+		Text = [[<font family="12187367362">Pacifico</font>]],
 	},
 	{
-		Id = "Pangolin",
-		Font = Font.fromId(12187374240),
-		Text = [[<font family="12187374240">Pangolin</font>]],
-	},
-	{
-		Id = "Pattaya",
-		Font = Font.fromId(12187376357),
-		Text = [[<font family="12187376357">Pattaya</font>]],
+		Id = "Parisienne",
+		Font = Font.fromId(12187361943),
+		Text = [[<font family="12187361943">Parisienne</font>]],
 	},
 	{
 		Id = "Playfair Display",
