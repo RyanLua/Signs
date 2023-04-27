@@ -1,12 +1,12 @@
-name: Feature Request
+name: Feature/Enhancement Request
 description: Suggest an idea for this project
-title: "[FEATURE]: "
+title: "[Enhancement]: "
 labels: ["enhancement"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this feature request report!
+        Thanks for taking the time to fill out this request report!
   - type: input
     id: contact
     attributes:
