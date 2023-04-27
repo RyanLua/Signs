@@ -39,8 +39,8 @@ function GuiObjectPart.new(
 	CollectionService:AddTag(part, "_Sign")
 
 	local surfaceGui = Instance.new("SurfaceGui")
-	-- surfaceGui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
-	surfaceGui.CanvasSize = size or Vector2.new(200, 200)
+	surfaceGui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
+	surfaceGui.PixelsPerStud = 100
 	surfaceGui.LightInfluence = lightInfluence or 0
 	surfaceGui.AlwaysOnTop = alwaysOnTop or false
 	surfaceGui.AutoLocalize = autoLocalize or true
