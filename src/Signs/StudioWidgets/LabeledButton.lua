@@ -14,17 +14,6 @@ local kMinLabelWidth = GuiUtilities.kCheckboxMinLabelWidth
 local kMinMargin = GuiUtilities.kCheckboxMinMargin
 local kMinButtonWidth = kCheckboxWidth
 
-local kButtonDefaultBackgroundColor = settings().Studio.Theme:GetColor(
-	Enum.StudioStyleGuideColor.FilterButtonDefault,
-	Enum.StudioStyleGuideModifier.Default
-)
-local kButtonHoverBackgroundColor =
-	settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.FilterButtonHover, Enum.StudioStyleGuideModifier.Hover)
-local kButtonPressedBackgroundColor = settings().Studio.Theme:GetColor(
-	Enum.StudioStyleGuideColor.FilterButtonChecked,
-	Enum.StudioStyleGuideModifier.Pressed
-)
-
 local LabeledButtonClass = {}
 LabeledButtonClass.__index = LabeledButtonClass
 
@@ -127,6 +116,19 @@ end
 
 -- Internal function to update button visual state.
 function LabeledButtonClass:_updateCheckboxVisual()
+	local kButtonDefaultBackgroundColor = settings().Studio.Theme:GetColor(
+		Enum.StudioStyleGuideColor.FilterButtonDefault,
+		Enum.StudioStyleGuideModifier.Default
+	)
+	local kButtonHoverBackgroundColor = settings().Studio.Theme:GetColor(
+		Enum.StudioStyleGuideColor.FilterButtonHover,
+		Enum.StudioStyleGuideModifier.Hover
+	)
+	local kButtonPressedBackgroundColor = settings().Studio.Theme:GetColor(
+		Enum.StudioStyleGuideColor.FilterButtonChecked,
+		Enum.StudioStyleGuideModifier.Pressed
+	)
+
 	if self._value then
 		self._button.BackgroundColor3 = kButtonPressedBackgroundColor
 	elseif self._hovered then
@@ -138,6 +140,15 @@ end
 
 -- Internal function to update button visual state.
 function LabeledButtonClass:_HandleUpdatedValue()
+	local kButtonDefaultBackgroundColor = settings().Studio.Theme:GetColor(
+		Enum.StudioStyleGuideColor.FilterButtonDefault,
+		Enum.StudioStyleGuideModifier.Default
+	)
+	local kButtonPressedBackgroundColor = settings().Studio.Theme:GetColor(
+		Enum.StudioStyleGuideColor.FilterButtonChecked,
+		Enum.StudioStyleGuideModifier.Pressed
+	)
+
 	if self:GetValue() then
 		self._button.BackgroundColor3 = kButtonPressedBackgroundColor
 	else

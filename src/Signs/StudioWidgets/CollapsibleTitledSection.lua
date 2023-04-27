@@ -133,7 +133,7 @@ function CollapsibleTitledSectionClass:_ToggleCollapsedState()
 end
 
 -- Creates the title bar of the section
-function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
+function CollapsibleTitledSectionClass:_CreateTitleBar(titleText: string)
 	local titleTextOffset = self._titleBarHeight
 
 	local titleBar = Instance.new("ImageButton")
@@ -170,12 +170,6 @@ function CollapsibleTitledSectionClass:_CreateTitleBar(titleText)
 	self._minimizeButton.Parent = titleBar
 
 	self._titleBar = titleBar
-
-	local function _UpdateMinimizeButtonTheme()
-		self._minimizeButton.ImageColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText)
-	end
-	settings().Studio.ThemeChanged:Connect(_UpdateMinimizeButtonTheme)
-	_UpdateMinimizeButtonTheme()
 
 	titleBar.InputBegan:Connect(function()
 		self._hovered = true
