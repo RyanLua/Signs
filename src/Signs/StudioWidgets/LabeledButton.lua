@@ -49,10 +49,10 @@ function LabeledButtonClass.new(nameSuffix: string, labelText: string, value: nu
 	label.Font = GuiUtilities.kDefaultFontFace
 	label.TextSize = GuiUtilities.kDefaultFontSize
 	label.BackgroundTransparency = 1
-	label.TextXAlignment = Enum.TextXAlignment.Center
+	label.TextXAlignment = Enum.TextXAlignment.Left
 	label.AnchorPoint = Vector2.new(0.5, 0.5)
 	label.AutoButtonColor = false
-	label.Position = UDim2.new(0.5, 0, 0.5, GuiUtilities.kTextVerticalFudge)
+	label.Position = UDim2.new(0.5, GuiUtilities.DefaultLineLabelLeftMargin, 0.5, GuiUtilities.kTextVerticalFudge)
 	label.Size = UDim2.new(1, 0, 1, 0)
 	label.Parent = fullBackgroundButton
 
