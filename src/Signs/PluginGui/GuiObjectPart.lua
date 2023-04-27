@@ -48,6 +48,11 @@ function GuiObjectPart.new(
 
 	local guiObject = label:Clone()
 	guiObject.Parent = surfaceGui
+	if guiObject:WaitForChild("UIStroke") then
+		if guiObject.UIStroke.Thickness == 0 or guiObject.UIStroke.Enabled == false then
+			guiObject.UIStroke:Destroy()
+		end
+	end
 
 	Selection:Set({ part })
 
