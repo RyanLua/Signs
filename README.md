@@ -115,10 +115,10 @@ Below is a list of features that are available in Signs and Signs Free. The list
 | Bold & Italic Typefaces | ☑️ | ☑️ |
 | Background Color, Transparency | ☑️ | ☑️ |
 | Size & Aspect Ratio | ☑️ | ☑️ |
+| Horizontal & Vertical Alignment | ☑️ | ☑️ |
 | Character Limit | 1024 <small>(1 KiB)</small> | 16384 <small>(6 KiB)</small> |
 | Font Faces | 36 | 117 |
 | Stroke Color, Transparency, Thickness, Join<sup>1</sup> | Basic | All |
-| Horizontal & Vertical Alignment | 🔲 | ☑️ |
 | Always On Top | 🔲 | ☑️ |
 | Light Influence | 🔲 | ☑️ |
 | Auto Localize<sup>2</sup> | 🔲 | ☑️ |
