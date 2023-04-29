@@ -16,7 +16,6 @@ local VerticallyScalingListFrame = require(targetFolder.VerticallyScalingListFra
 local Color = require(script.Color)
 local FontFace = require(script.FontFace)
 local GuiObjectPart = require(script.GuiObjectPart)
-local LineJoinMode = require(script.LineJoinMode)
 local AspectRatio = require(script.AspectRatio)
 local TextXAlignment = require(script.TextXAlignment)
 local TextYAlignment = require(script.TextYAlignment)
