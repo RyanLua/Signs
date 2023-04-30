@@ -40,7 +40,7 @@ function GuiObjectPart.new(
 
 	local surfaceGui = Instance.new("SurfaceGui")
 	surfaceGui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
-	surfaceGui.PixelsPerStud = 100
+	surfaceGui.PixelsPerStud = 50
 	surfaceGui.LightInfluence = lightInfluence or 0
 	surfaceGui.AlwaysOnTop = alwaysOnTop or false
 	surfaceGui.AutoLocalize = autoLocalize or true
