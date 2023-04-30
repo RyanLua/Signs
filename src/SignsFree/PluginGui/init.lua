@@ -403,83 +403,15 @@ function PluginGui:newPluginGui(widgetGui)
 		CustomTextLabel:UpdateBackgroundColor3(newValue)
 	end)
 
-	-- Other collapse
-	local surfaceCollapse = CollapsibleTitledSection.new(
-		"SurfaceCollapse", -- name suffix of the gui object
-		"Other", -- the text displayed beside the collapsible arrow
-		true, -- have the content frame auto-update its size?
-		true, -- minimizable?
-		true -- minimized by default?
-	)
-	createFrame:AddChild(surfaceCollapse:GetSectionFrame())
-
-	-- Light influence slider
-	local influenceSlider = LabeledSlider.new(
-		"InfluenceSlider", -- name suffix of gui object
-		"Light Influence", -- title text of the multi choice
-		5, -- how many intervals to split the slider into
-		1, -- the starting value of the slider
-		0.1 -- the multiplier for the slider
-	)
-	influenceSlider:GetFrame().Parent = surfaceCollapse:GetContentsFrame()
-
-	-- Always on top checkbox
-	local topCheckbox = LabeledCheckbox.new(
-		"TopCheckbox", -- name suffix of gui object
-		"Always On Top", -- text beside the checkbox
-		false, -- initial value
-		false -- initially disabled?
-	)
-	topCheckbox:GetFrame().Parent = surfaceCollapse:GetContentsFrame()
-
-	-- Auto localize checkbox
-	local localizeCheckbox = LabeledCheckbox.new(
-		"LocalizeCheckbox", -- name suffix of gui object
-		"Auto Localize", -- text beside the checkbox
-		true, -- initial value
-		false -- initially disabled?
-	)
-	localizeCheckbox:GetFrame().Parent = surfaceCollapse:GetContentsFrame()
-
 	-- Insert sign button
 	insertButton:GetButton().MouseButton1Click:Connect(function()
 		local label = CustomTextLabel:GetLabel()
-		local influence = ((influenceSlider:GetValue() - 1) / 4)
-		local top = topCheckbox:GetValue()
-		local localize = localizeCheckbox:GetValue()
+		local influence = 1
+		local top = false
+		local localize = true
 		local size = CustomTextLabel:GetLabel().AbsoluteSize
 		GuiObjectPart.new(label, localize, influence, top, size)
 	end)
-
-	-- -- Edit tab
-
-	-- local editScrollFrame = VerticalScrollingFrameScrollingFrame.new("EditScrollFrame")
-
-	-- local editFrame = VerticallyScalingListFrame.new( -- Scrolling frame
-	-- 	"EditFrame" -- name suffix of gui object
-	-- )
-
-	-- local editButton = CustomTextButton.new(
-	-- 	"EditButton", -- name of the gui object
-	-- 	"Edit" -- the text displayed on the button
-	-- )
-	-- local editObject = editButton:GetButton()
-	-- editObject.Size = UDim2.new(1, -5, 0, 50)
-	-- editObject.Parent = editScrollFrame:GetContentsFrame()
-
-	-- local hint = GuiUtilities.MakeFrameWithSubSectionLabel("Hint", "Selected is not a SignsPart.")
-	-- editFrame:AddChild(hint)
-
-	-- tabBar:AddTab("EditScrollFrame", "Edit")
-	-- editFrame:GetFrame().Parent = editScrollFrame:GetContentsFrame() -- scroll content will be the VerticallyScalingListFrame
-	-- editScrollFrame:GetSectionFrame().Parent = tabBar:GetFrame() -- set the section parent
-
-	-- editButton:GetButton().MouseButton1Click:Connect(function()
-	-- 	local Selection = game:GetService("Selection")
-
-	-- 	Selection:Get()
-	-- 	HighlightEditable:highlight()
-	-- end)
 end
 
 -- Destorys the plugin gui so a new one can be created
