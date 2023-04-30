@@ -16,18 +16,21 @@ function CustomTextLabelClass.new(nameSuffix, height)
 	setmetatable(self, CustomTextLabelClass)
 
 	local background = GuiUtilities.MakeFixedHeightFrame("TextLabel " .. nameSuffix, height)
+	background.BorderMode = Enum.BorderMode.Inset
 	background.Size = UDim2.new(1, 0, 0, height)
 	background.BackgroundTransparency = 1
 	self._background = background
 
-	local frame = Instance.new("Frame")
+	local frame = Instance.new("ImageLabel")
 	frame.BorderSizePixel = 1
+	frame.Image = "rbxasset://textures/9SliceEditor/GridPattern.png"
+	frame.ScaleType = Enum.ScaleType.Tile
+	frame.TileSize = UDim2.new(0, 20, 0, 20)
 	frame.Size = UDim2.new(0, height, 0, height)
 	frame.AnchorPoint = Vector2.new(0.5, 0.5)
 	frame.Position = UDim2.new(0.5, 0, 0.5, 0)
 	frame.Parent = background
 	GuiUtilities.syncGuiElementShadowColor(frame)
-	GuiUtilities.syncGuiElementScrollBarBackgroundColor(frame)
 	self._frame = frame
 
 	local aspectRatio = Instance.new("UIAspectRatioConstraint")
