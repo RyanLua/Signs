@@ -8,4 +8,4 @@ If you have found a bug or have a feature request, please [open an issue](https:
 
 ## Contributing
 
-If you would like to contribute to Shime, please read [Contributing](/.github/CONTRIBUTING.md) for more information.
+If you would like to contribute, read [Contributing](/.github/CONTRIBUTING.md) for more information.
