@@ -1,8 +1,8 @@
 <div align="center">
     <a href="https://github.com/RyanLua/Signs/releases"><img src="../assets/SignsText.png" alt="Signs - A Roblox Studio Plugin" width="350"/></a>
+    
+    [Download from GitHub](https://github.com/RyanLua/Signs/releases){: .btn }
 </div>
-
-<a href="https://github.com/RyanLua/Signs/releases" class="btn">GitHub</a>
 
 ---
 
