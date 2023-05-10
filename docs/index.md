@@ -1,36 +1,12 @@
 <div align="center">
-    <a href="https://github.com/RyanLua/Signs/releases"><img src="assets/SignsText.png" alt="Signs - A Roblox Studio Plugin" width="350"/></a>
+    <a href="https://github.com/RyanLua/Signs/releases"><img src="../assets/SignsText.png" alt="Signs - A Roblox Studio Plugin" width="350"/></a>
 </div>
+
+<a href="https://github.com/RyanLua/Signs/releases" class="GitHub">Some</a>
 
 ---
 
 > Signs is an easy-to-use, intuitive text tool plugin for creating signs, text, and labels.
-
-## Installation
-
-[![github](https://img.shields.io/badge/github-download-blue?logo=github)](https://github.com/RyanLua/Signs/releases)
-[![marketplace](https://img.shields.io/badge/creator%20marketplace-paid-blue?logo=roblox)](https://create.roblox.com/marketplace/asset/6994955669)
-[![marketplace](https://img.shields.io/badge/creator%20marketplace-free-blue?logo=roblox)](https://create.roblox.com/marketplace/asset/13085904556)
-
-Signs is available on the **Creator Marketplace for 100 Robux** or from **GitHub for free**. Signs Free is available on the **Creator Marketplace for free**.
-
-### Creator Marketplace (Recommended)
-
-Installing from the [**Creator Marketplace**](https://create.roblox.com/docs/production/publishing/creator-marketplace) is recommended to install **Signs** or **Signs Free** and allows for **automatic updates** from Roblox and **easier installation**.
-
-To install from the **Creator Marketplace**, click the below link for the plugin version you want to install. Once at the page, click <kbd>**Get Plugin**</kbd    > to install the plugin into **Roblox Studio**.
-
-- [**Signs** (100 Robux)](https://create.roblox.com/marketplace/asset/6994955669)
-
-- [**Signs Free** (Free)](https://create.roblox.com/marketplace/asset/13085904556)
-
-### GitHub
-
-Installing from [**GitHub**](https://github.com/about) allows you to access the full paid version of Signs for free but **no automatic updates** due to limitations and a slightly more complex installation.
-
-To install from **GitHub**, first, download the latest `.rbxm` plugin file of Signs from the below link. Once you have the file, go to `%localappdata%\Roblox\Plugins` and insert `Signs.rbxm` into that folder.
-
-- [**Signs**](https://github.com/RyanLua/Signs/releases)
 
 ## Features
 
@@ -38,7 +14,7 @@ Signs offers **many features and benefits**. Not just over other plugins but Tex
 
 ### Open-Sourced
 
-<img align="left" src="assets/SignsThumbnailOpenSource.png" height="150" />
+<img align="left" src="../assets/SignsThumbnailOpenSource.png" height="150" />
 
 Signs is **open source and free**. Change and modify the plugin to meet what you want. Look out for some bugs and fix them, and we might even add your code to the official plugin. You should know what you're installing and running on your computer.
 <br/>
@@ -49,7 +25,7 @@ Signs is **open source and free**. Change and modify the plugin to meet what you
 
 ### High Customization
 
-<img align="left" src="assets/SignsThumbnailCustomization.png" height="150" />
+<img align="left" src="../assets/SignsThumbnailCustomization.png" height="150" />
 
 Edit the outline of your text, the background, and even the sign itself. Change the colors of each of these properties along with transparency. Manipulate how light interacts with your sign and if it is always rendered on top.
 <br/>
@@ -60,7 +36,7 @@ Edit the outline of your text, the background, and even the sign itself. Change 
 
 ### UI Stroke
 
-<img align="left" src="assets/SignsThumbnailUIStroke.png" height="150" />
+<img align="left" src="../assets/SignsThumbnailUIStroke.png" height="150" />
 
 Change the stroke of the font in customize in ways that the text stroke property can't. Edit the outline join and thickness as well as normal text stroke properties like color and transparency.
 <br/>
@@ -71,7 +47,7 @@ Change the stroke of the font in customize in ways that the text stroke property
 
 ### Automatic Dark & Light Themes
 
-<img align="left" src="assets/SignsThumbnailTheme.png" height="150" />
+<img align="left" src="../assets/SignsThumbnailTheme.png" height="150" />
 
 The plugin's theme will automatically update when using Signs to match Roblox Studio's. No restarting of Roblox Studio or Signs is needed due to Signs being able to detect and change its theme when Roblox Studio's theme changes.
 <br/>
@@ -82,7 +58,7 @@ The plugin's theme will automatically update when using Signs to match Roblox St
 
 ### Live Preview
 
-<img align="left" src="assets/SignsThumbnailLivePreview.png" height="150" />
+<img align="left" src="../assets/SignsThumbnailLivePreview.png" height="150" />
 
 Edit signs and view changes in a preview showing exactly how your sign will look. Each and every change you make in the editor is updated to the preview. View signs before they are inserted.
 <br/>
