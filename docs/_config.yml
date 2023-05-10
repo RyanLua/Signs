@@ -1,1 +1,6 @@
-theme: minima
+title: Signs
+logo: /../assets/SignsText.png
+description: Signs is an easy-to-use, intuitive text tool plugin for creating signs, text, and labels.
+show_downloads: true
+google_analytics:
+theme: jekyll-theme-minimal
