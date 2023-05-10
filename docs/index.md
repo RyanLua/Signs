@@ -2,7 +2,7 @@
     <a href="https://github.com/RyanLua/Signs/releases"><img src="../assets/SignsText.png" alt="Signs - A Roblox Studio Plugin" width="350"/></a>
 </div>
 
-<a href="https://github.com/RyanLua/Signs/releases" class="GitHub">Some</a>
+<a href="https://github.com/RyanLua/Signs/releases" class="btn">GitHub</a>
 
 ---
 
