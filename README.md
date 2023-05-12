@@ -8,7 +8,7 @@
     
 [![release](https://img.shields.io/github/v/release/RyanLua/Signs?logo=roblox)](https://github.com/RyanLua/Signs/releases)
 [![downloads](https://img.shields.io/github/downloads/RyanLua/Signs/total?logo=github)](https://create.roblox.com/marketplace/asset/6994955669)
-[![license](https://img.shields.io/github/license/RyanLua/Signs?logo=apache)](LICENSE.txt)
+[![license](https://img.shields.io/github/license/RyanLua/Signs?logo=gnu)](LICENSE.txt)
     
 </div>
 
