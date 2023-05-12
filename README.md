@@ -47,7 +47,7 @@ To install from **GitHub**, first, download the latest `.rbxm` plugin file of Si
 
 Installing from [**ToolBlocks**](https://toolblocks.gg/) allows you to access the full paid version of Signs for free but **no automatic updates** due to limitations and a slightly more complex installation.
 
-To install from **ToolBlocks**, first, download the latest `.zip` file and unzip to get `Signs.rbxmx` plugin file of Signs from the below link. Once you have the file, go to `%localappdata%\Roblox\Plugins` and insert `Signs.rbxm` into that folder.
+To install from **ToolBlocks**, first, download the latest `Signs.zip` file and extract to get the `Signs.rbxmx` file inside. Download from the below link. Once you have the file, go to `%localappdata%\Roblox\Plugins` and insert `Signs.rbxm` into that folder.
 
 - [**Signs**](https://toolblocks.gg/a/signs.5OcnvIkyvqpA3sdJoI6F)
 
