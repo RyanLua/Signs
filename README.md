@@ -16,13 +16,13 @@
 
 > Signs is an easy-to-use, intuitive text tool plugin for creating signs, text, and labels.
 
-## Support Signs and Indepentant Creators 💖
+## 💖 Support Signs and Indepentant Creators
 
 **Signs needs your support.** Help support this free and open-source plugin by purchasing Signs from the Creator Marketplace for 100 Robux, the price of $0.24. I'm not forcing you to buy Signs by paywalling features to the Creator Markeplace or bombarding you with notices to pay for Signs in the plugin. I'm just asking if you like Signs and enjoy Signs along with my other projects, please donate less an a quater towards the development Signs.
 
 *If you donate I would like to thank you for supporting my free and open-source software for others to analyze, learn from, and use. I'm make these as a hobby and knowing someone supports my work and loves using it really makes me happy.*
 
-###### [Support us with just the small amount of 24 cents.](https://create.roblox.com/marketplace/asset/6994955669) 
+###### [Support us with just the small amount of 24 cents.](https://create.roblox.com/marketplace/asset/6994955669)
 
 ## Installation
 
