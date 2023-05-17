@@ -16,7 +16,7 @@
 
 > Signs is an easy-to-use, intuitive text tool plugin for creating signs, text, and labels.
 
-## Support Signs and Indepentant Creators 💖
+## Support Signs 💖
 
 [![Donate to Support Us](https://shields.io/badge/❤_Donate_to_Support_Us-100_Robux-ff69b4)](https://create.roblox.com/marketplace/asset/6994955669)
 
