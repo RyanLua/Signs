@@ -44,6 +44,7 @@ function GuiObjectPart.new(
 	surfaceGui.LightInfluence = lightInfluence or 0
 	surfaceGui.AlwaysOnTop = alwaysOnTop or false
 	surfaceGui.AutoLocalize = autoLocalize or true
+	surfaceGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	surfaceGui.Parent = part
 
 	local guiObject = label:Clone()
@@ -52,6 +53,14 @@ function GuiObjectPart.new(
 		if guiObject.UIStroke.Thickness == 0 or guiObject.Transparency == 1 or guiObject.UIStroke.Enabled == false then
 			guiObject.UIStroke:Destroy()
 		end
+	end
+	if guiObject.Rotation % 90 ~= 0 then
+		local canvas = Instance.new("CanvasGroup")
+		canvas.BackgroundTransparency = 1
+		canvas.Size = UDim2.new(1, 0, 1, 0)
+		canvas.Parent = surfaceGui
+		guiObject.Parent = canvas
+
 	end
 
 	Selection:Set({ part })

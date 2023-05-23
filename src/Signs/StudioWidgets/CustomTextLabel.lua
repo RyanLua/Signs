@@ -21,6 +21,14 @@ function CustomTextLabelClass.new(nameSuffix, height)
 	background.BackgroundTransparency = 1
 	self._background = background
 
+	local canvas = Instance.new("CanvasGroup")
+	canvas.Name = "CanvasGroup"
+	canvas.Parent = background
+	canvas.Size = UDim2.new(0, height, 0, height)
+	canvas.AnchorPoint = Vector2.new(0.5, 0.5)
+	canvas.Position = UDim2.new(0.5, 0, 0.5, 0)
+	self._canvas = canvas
+
 	local frame = Instance.new("ImageLabel")
 	frame.BorderSizePixel = 1
 	frame.Image = "rbxasset://textures/9SliceEditor/GridPattern.png"
@@ -29,7 +37,7 @@ function CustomTextLabelClass.new(nameSuffix, height)
 	frame.Size = UDim2.new(0, height, 0, height)
 	frame.AnchorPoint = Vector2.new(0.5, 0.5)
 	frame.Position = UDim2.new(0.5, 0, 0.5, 0)
-	frame.Parent = background
+	frame.Parent = canvas
 	GuiUtilities.syncGuiElementShadowColor(frame)
 	self._frame = frame
 

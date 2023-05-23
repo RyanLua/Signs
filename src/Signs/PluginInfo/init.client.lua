@@ -29,6 +29,7 @@ button.ClickableWhenViewportHidden = true
 local widget = plugin:CreateDockWidgetPluginGui("Signs", widgetInfo)
 widget.Title = "Signs 3.1.0"
 widget.Name = "Signs"
+widget.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 -- Initialize PluginGui or DevelopmentGui
 local AddOns = require(script.Parent.PluginGui)
