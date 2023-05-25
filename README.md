@@ -6,9 +6,9 @@
 
 <div align="center">
     
-[![release](https://img.shields.io/github/v/release/RyanLua/Signs?logo=roblox)](https://github.com/RyanLua/Signs/releases)
-[![downloads](https://img.shields.io/github/downloads/RyanLua/Signs/total?logo=github)](https://create.roblox.com/marketplace/asset/6994955669)
-[![license](https://img.shields.io/github/license/RyanLua/Signs?logo=gnu)](LICENSE.txt)
+[![release](https://img.shields.io/github/v/release/RyanLua/Signs?logo=roblox&color=ffb800)](https://github.com/RyanLua/Signs/releases)
+[![downloads](https://img.shields.io/github/downloads/RyanLua/Signs/total?logo=github&color=ffb800)](https://create.roblox.com/marketplace/asset/6994955669)
+[![license](https://img.shields.io/github/license/RyanLua/Signs?logo=gnu&color=ffb800)](LICENSE.txt)
     
 </div>
 
