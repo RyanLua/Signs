@@ -192,7 +192,7 @@ I'm enjoying and **want to support Signs**. How can I **support Signs**?
 I have a **question that isn't answered** here. What do I do?
 > If you have a **question that isn't answered** here, you can **[start a discussion](https://github.com/RyanLua/Signs/discussions/new/choose)** and ask your question. If your question is **asked frequently enough** by different people, it will be added to this FAQ.
 
-## Contributing
+## Contributing 🙏
 
 We worked hard to make this **open-source plugin**, so please **contribute at your will**. Go ahead and [fork this repository](https://github.com/RyanLua/Signs/fork), and maybe we will merge to ours someday.
 
@@ -200,6 +200,6 @@ If you **have a contribution** you want to make, please [open a new pull request
 
 If you see a **bug or want a feature**, please [open an issue](https://github.com/RyanLua/Signs/issues/new/choose). Make sure to check our [Trello board](https://trello.com/b/OVQpLwYq/signs-plugin-roadmap) before you submit an issue.
 
-## License
+## License 📃
 
 Signs is **licensed under** the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html). See [LICENSE.txt](LICENSE.txt) for details.
