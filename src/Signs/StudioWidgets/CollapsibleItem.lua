@@ -163,9 +163,7 @@ function ItemClass:_UpdateVisualState()
 end
 
 -- Use the help icon. This will open the url in the wiki when clicked
-function ItemClass:UseHelp(url: string)
-	
-end
+function ItemClass:UseHelp(url: string) end
 
 -- Use the CollapsibleItem as a toggleable frame
 function ItemClass:UseCollapsible()

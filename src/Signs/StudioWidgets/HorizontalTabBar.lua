@@ -77,13 +77,13 @@ end
 
 function HorizontalTabClass:_SetupMouseClickHandling()
 	self._tabButton.InputBegan:Connect(function()
-			self._hovered = true
-			self:_updateCheckboxVisual()
+		self._hovered = true
+		self:_updateCheckboxVisual()
 	end)
 
 	self._tabButton.InputEnded:Connect(function()
-			self._hovered = false
-			self:_updateCheckboxVisual()
+		self._hovered = false
+		self:_updateCheckboxVisual()
 	end)
 
 	self._tabButton.MouseButton1Down:Connect(function()

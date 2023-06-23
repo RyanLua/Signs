@@ -60,7 +60,6 @@ function GuiObjectPart.new(
 		canvas.Size = UDim2.new(1, 0, 1, 0)
 		canvas.Parent = surfaceGui
 		guiObject.Parent = canvas
-
 	end
 
 	Selection:Set({ part })

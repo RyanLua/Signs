@@ -208,7 +208,6 @@ function PluginGui:newPluginGui(widgetGui)
 		CustomTextLabel:UpdateLineHeight(newValue)
 	end)
 
-
 	-- Horizontal alignment choice
 	local yChoice = LabeledMultiChoice.new(
 		"YChoice", -- name suffix of gui object
