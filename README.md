@@ -6,9 +6,9 @@
 
 <div align="center">
     
-[![release](https://img.shields.io/github/v/release/RyanLua/Signs?logo=roblox)](https://github.com/RyanLua/Signs/releases)
-[![downloads](https://img.shields.io/github/downloads/RyanLua/Signs/total?logo=github)](https://create.roblox.com/marketplace/asset/6994955669)
-[![license](https://img.shields.io/github/license/RyanLua/Signs?logo=gnu)](LICENSE.txt)
+[![release](https://img.shields.io/github/v/release/RyanLua/Signs?logo=roblox&color=ffb800)](https://github.com/RyanLua/Signs/releases)
+[![downloads](https://img.shields.io/github/downloads/RyanLua/Signs/total?logo=github&color=ffb800)](https://create.roblox.com/marketplace/asset/6994955669)
+[![license](https://img.shields.io/github/license/RyanLua/Signs?logo=gnu&color=ffb800)](LICENSE.txt)
     
 </div>
 
@@ -26,7 +26,7 @@
 
 ###### [Support us with just the small amount of 24 cents.](https://create.roblox.com/marketplace/asset/6994955669)
 
-## Installation
+## Installation 🧰
 
 [![github](https://img.shields.io/badge/github-download-blue?logo=github)](https://github.com/RyanLua/Signs/releases)
 [![toolblocks](https://img.shields.io/badge/toolblocks-download-blue?logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMTM0LjAwMDAwMHB0IiBoZWlnaHQ9IjEzNC4wMDAwMDBwdCIgdmlld0JveD0iMCAwIDEzNC4wMDAwMDAgMTM0LjAwMDAwMCIKIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIG1lZXQiPgoKPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMC4wMDAwMDAsMTM0LjAwMDAwMCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSIKZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSJub25lIj4KPHBhdGggZD0iTTEwOSAxMzE3IGMtMjQgLTEzIC01NyAtNDMgLTc0IC02NiBsLTMwIC00MyAtMyAtNTk5IC0yIC01OTkgNjY1IDAKNjY1IDAgMCA1OTAgYzAgNTYxIC0xIDU5MyAtMTkgNjI4IC0yNCA0NyAtNTYgNzcgLTEwMyA5NyAtMzAgMTIgLTc5IDE1IC0yMzgKMTUgbC0yMDAgMCAwIC0zNTYgMCAtMzU2IDQ0IC0zOSBjNzcgLTY4IDEwMCAtMTc5IDU2IC0yNzMgLTIxIC00MyAtNzAgLTk2Ci05MSAtOTYgLTUgMCAtOSA0MiAtOSA5MyBsMCA5MyAtNDkgMzcgYy0yNiAyMCAtNTEgMzcgLTU2IDM3IC00IDAgLTI5IC0xNwotNTYgLTM3IGwtNDggLTM4IC0xIC05MiBjMCAtNTEgLTQgLTkzIC04IC05MyAtMTYgMCAtODEgNzYgLTk3IDExMiAtMzYgODcgLTMKMjA2IDc0IDI2OCBsNDEgMzMgMCAzNTQgMCAzNTMgLTIwOCAwIGMtMTk5IDAgLTIxMSAtMSAtMjUzIC0yM3oiLz4KPC9nPgo8L3N2Zz4K)](https://create.roblox.com/marketplace/asset/13085904556)
@@ -61,7 +61,7 @@ To install from **ToolBlocks**, first, download the latest `Signs.zip` file and 
 
 - [**Signs**](https://toolblocks.gg/a/signs.5OcnvIkyvqpA3sdJoI6F)
 
-## Features
+## Features ⭐
 
 Signs offers **many features and benefits**. Not just over other plugins but TextLabels itself. Such features include:
 
@@ -151,7 +151,7 @@ Below is a list of features that are available in Signs and Signs Free. The list
 
 </small>
 
-## Frequently Asked Questions
+## Frequently Asked Questions 🤔
 
 Wasn't Signs formerly **closed-source**? Why is it **open-sourced** now?
 
@@ -192,7 +192,7 @@ I'm enjoying and **want to support Signs**. How can I **support Signs**?
 I have a **question that isn't answered** here. What do I do?
 > If you have a **question that isn't answered** here, you can **[start a discussion](https://github.com/RyanLua/Signs/discussions/new/choose)** and ask your question. If your question is **asked frequently enough** by different people, it will be added to this FAQ.
 
-## Contributing
+## Contributing 🙏
 
 We worked hard to make this **open-source plugin**, so please **contribute at your will**. Go ahead and [fork this repository](https://github.com/RyanLua/Signs/fork), and maybe we will merge to ours someday.
 
@@ -200,6 +200,6 @@ If you **have a contribution** you want to make, please [open a new pull request
 
 If you see a **bug or want a feature**, please [open an issue](https://github.com/RyanLua/Signs/issues/new/choose). Make sure to check our [Trello board](https://trello.com/b/OVQpLwYq/signs-plugin-roadmap) before you submit an issue.
 
-## License
+## License 📃
 
 Signs is **licensed under** the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html). See [LICENSE.txt](LICENSE.txt) for details.
