@@ -4,5 +4,5 @@
 # To add a new tool, add an entry to this table.
 [tools]
 rojo = "rojo-rbx/rojo@7.3.0"
-selene = "kampfkarren/selene@0.25.0"
-stylua = "johnnymorganz/stylua@0.17.1"
+selene = "Kampfkarren/selene@0.25.0"
+stylua = "JohnnyMorganz/StyLua@0.18.0"
