@@ -24,6 +24,12 @@ function GuiObjectPart.new(
 	local self = {}
 	setmetatable(self, GuiObjectPart)
 
+	local recording = ChangeHistoryService:TryBeginRecording("NewSignPart", "Create a new SignPart")
+
+	if not recording then
+		error("Could not begin recording data model changes")
+	end
+
 	local camera = workspace.CurrentCamera or Instance.new("Camera")
 
 	local partSizeX = label.AbsoluteSize.X / 50
@@ -44,6 +50,7 @@ function GuiObjectPart.new(
 	surfaceGui.LightInfluence = lightInfluence or 0
 	surfaceGui.AlwaysOnTop = alwaysOnTop or false
 	surfaceGui.AutoLocalize = autoLocalize or true
+	surfaceGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	surfaceGui.Parent = part
 
 	local guiObject = label:Clone()
@@ -53,14 +60,21 @@ function GuiObjectPart.new(
 			guiObject.UIStroke:Destroy()
 		end
 	end
+	if guiObject.Rotation % 90 ~= 0 then
+		local canvas = Instance.new("CanvasGroup")
+		canvas.BackgroundTransparency = 1
+		canvas.Size = UDim2.new(1, 0, 1, 0)
+		canvas.Parent = surfaceGui
+		guiObject.Parent = canvas
+	end
 
 	Selection:Set({ part })
-
-	ChangeHistoryService:SetWaypoint("Insert new SignPart")
 
 	self._part = part
 	self._surfaceGui = surfaceGui
 	self._guiObject = guiObject
+
+	ChangeHistoryService:FinishRecording(recording, Enum.FinishRecordingOperation.Commit)
 
 	return self
 end
