@@ -24,6 +24,12 @@ function GuiObjectPart.new(
 	local self = {}
 	setmetatable(self, GuiObjectPart)
 
+	local recording = ChangeHistoryService:TryBeginRecording("NewSignPart", "Create a new SignPart")
+
+	if not recording then
+		error("Could not begin recording data model changes")
+	end
+
 	local camera = workspace.CurrentCamera or Instance.new("Camera")
 
 	local partSizeX = label.AbsoluteSize.X / 50
@@ -64,11 +70,11 @@ function GuiObjectPart.new(
 
 	Selection:Set({ part })
 
-	ChangeHistoryService:SetWaypoint("Insert new SignPart")
-
 	self._part = part
 	self._surfaceGui = surfaceGui
 	self._guiObject = guiObject
+
+	ChangeHistoryService:FinishRecording(recording, Enum.FinishRecordingOperation.Commit)
 
 	return self
 end
