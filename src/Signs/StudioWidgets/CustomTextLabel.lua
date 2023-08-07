@@ -24,6 +24,7 @@ function CustomTextLabelClass.new(nameSuffix, height)
 	local canvas = Instance.new("CanvasGroup")
 	canvas.Name = "CanvasGroup"
 	canvas.Parent = background
+	canvas.BorderSizePixel = 0
 	canvas.Size = UDim2.new(0, height, 0, height)
 	canvas.AnchorPoint = Vector2.new(0.5, 0.5)
 	canvas.Position = UDim2.new(0.5, 0, 0.5, 0)
