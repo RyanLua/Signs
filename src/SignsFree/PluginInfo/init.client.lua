@@ -27,7 +27,7 @@ button.ClickableWhenViewportHidden = true
 
 -- Create new widget GUI and name it
 local widget = plugin:CreateDockWidgetPluginGui("Signs", widgetInfo)
-widget.Title = "Signs Free 3.1.0"
+widget.Title = "Signs Free 3.2.0"
 widget.Name = "SignsFree"
 
 -- Initialize PluginGui or DevelopmentGui
