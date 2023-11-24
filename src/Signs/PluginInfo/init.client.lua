@@ -1,5 +1,5 @@
 -- Create new "DockWidgetPluginGuiInfo" object for "PluginGuiService"
-local widgetInfo = DockWidgetPluginGuiInfo.new(
+local widgetInfo: DockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(
 	Enum.InitialDockState.Left, -- Widget will be initialized in left panel
 	false, -- Widget will be initially enabled
 	false, -- Don't override the previous enabled state
@@ -10,14 +10,14 @@ local widgetInfo = DockWidgetPluginGuiInfo.new(
 )
 
 -- Require plugin toolbar so other plugins can share toolbar
-local pluginToolbar = require(script.PluginToolbar)
+local pluginToolbar: any = require(script.PluginToolbar)
 pluginToolbar:SetPlugin(plugin)
 
 -- Create a new toolbar section titled
-local toolbar = pluginToolbar:CreateToolbar("Text Tool")
+local toolbar: PluginToolbar = pluginToolbar:CreateToolbar("Text Tool")
 
 -- Add a toolbar button
-local button = toolbar:CreateButton(
+local button: PluginToolbarButton = toolbar:CreateButton(
 	"Signs",
 	"Hide/show the Signs Widget.\n\nSigns is a Roblox Studio plugin that helps users create TextLabels for their projects quickly and safely. Simple to use UI and lots of options for customization.\n\nLearn more at https://github.com/RyanLua/Signs.",
 	"rbxassetid://12135392705",
@@ -26,13 +26,13 @@ local button = toolbar:CreateButton(
 button.ClickableWhenViewportHidden = true
 
 -- Create new widget GUI and name it
-local widget = plugin:CreateDockWidgetPluginGui("Signs", widgetInfo)
+local widget: DockWidgetPluginGui = plugin:CreateDockWidgetPluginGui("Signs", widgetInfo)
 widget.Title = "Signs 3.2.0"
 widget.Name = "Signs"
 widget.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 -- Initialize PluginGui or DevelopmentGui
-local AddOns = require(script.Parent.PluginGui)
+local AddOns: any = require(script.Parent.PluginGui)
 
 -- GuiObject logic
 local function openGui()
