@@ -91,8 +91,6 @@ function VerticalScrollingFrame:_updateScrollbarBackingVisibility()
 
 	if visible then
 		self._uiPadding.PaddingRight = UDim.new(0, 0)
-	else
-		self._uiPadding.PaddingRight = UDim.new(0, 0)
 	end
 end
 
