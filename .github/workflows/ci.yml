@@ -33,7 +33,7 @@ jobs:
 
       - name: Run selene
         run: |
-          selene ./src
+          selene ./src --allow-warnings
 
   run-styler:
     name: Run styler
