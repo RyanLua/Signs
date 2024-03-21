@@ -9,7 +9,8 @@
 [![release](https://img.shields.io/github/v/release/RyanLua/Signs?logo=roblox&color=ffb800)](https://github.com/RyanLua/Signs/releases)
 [![downloads](https://img.shields.io/github/downloads/RyanLua/Signs/total?logo=github&color=ffb800)](https://create.roblox.com/marketplace/asset/6994955669)
 [![license](https://img.shields.io/github/license/RyanLua/Signs?logo=gnu&color=ffb800)](LICENSE.txt)
-    
+[![discord](https://img.shields.io/discord/1162303282002272359?label=discord&logo=discord&color=ffb800&logoColor=white)](https://discord.gg/hYU4rvT7DK)
+
 </div>
 
 ---
