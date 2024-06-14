@@ -1,6 +1,6 @@
 ----------------------------------------
 --
--- LabeledButton.lua
+-- LabeledButton.luau
 --
 -- Creates a labeled square button.
 --

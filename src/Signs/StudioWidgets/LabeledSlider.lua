@@ -1,6 +1,6 @@
 ----------------------------------------
 --
--- LabeledSlider.lua
+-- LabeledSlider.luau
 --
 -- Creates a frame containing a label, text input, and a slider control.
 --

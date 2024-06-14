@@ -1,6 +1,6 @@
 ----------------------------------------
 --
--- InsertGuiObject.lua
+-- InsertGuiObject.luau
 --
 -- Creates a part from a GuiObject.
 --

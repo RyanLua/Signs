@@ -1,6 +1,6 @@
 ----------------------------------------
 --
--- HorizontalTabBar.lua
+-- HorizontalTabBar.luau
 --
 -- Creates a horizontal tab bar with a set amount of tabs.
 --

@@ -1,6 +1,6 @@
 ----------------------------------------
 --
--- CustomTextButton.lua
+-- CustomTextButton.luau
 --
 -- Creates text button with custom look & feel, hover/click effects.
 --

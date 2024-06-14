@@ -1,6 +1,6 @@
 ----------------------------------------
 --
--- LabeledRadioButton.lua
+-- LabeledRadioButton.luau
 --
 -- Creates a frame containing a label and a radio button.
 --

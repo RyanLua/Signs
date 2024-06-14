@@ -1,6 +1,6 @@
 ----------------------------------------
 --
--- VerticalScrollingFrame.lua
+-- VerticalScrollingFrame.luau
 --
 -- Creates a scrolling frame that automatically updates canvas size
 --
