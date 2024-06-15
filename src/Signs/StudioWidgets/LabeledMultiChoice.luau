@@ -1,6 +1,6 @@
 ----------------------------------------
 --
--- LabeledMultiChoice.lua
+-- LabeledMultiChoice.luau
 --
 -- Creates a frame containing a label and list of choices, of which exactly one
 -- is always selected.

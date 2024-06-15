@@ -1,6 +1,6 @@
 ----------------------------------------
 --
--- CustomTextButton.lua
+-- CustomTextButton.luau
 --
 -- Custom text button class which can be used in any gui.
 --

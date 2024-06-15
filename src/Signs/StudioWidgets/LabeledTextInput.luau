@@ -1,6 +1,6 @@
 ----------------------------------------
 --
--- LabeledTextInput.lua
+-- LabeledTextInput.luau
 --
 -- Creates a frame containing a label and a text input control.
 --
