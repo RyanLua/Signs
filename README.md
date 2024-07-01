@@ -11,6 +11,8 @@
 [![license](https://img.shields.io/github/license/RyanLua/Signs?logo=gnu&color=ffb800)](LICENSE.txt)
 [![discord](https://img.shields.io/discord/1162303282002272359?label=discord&logo=discord&color=ffb800&logoColor=white)](https://discord.gg/hYU4rvT7DK)
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/RyanLua/Signs?quickstart=1)
+
 </div>
 
 ---
