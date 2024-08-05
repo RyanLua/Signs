@@ -33,4 +33,4 @@ Please provide any additional information or notes that may be helpful in review
 
 ## Code of Conduct
 
-By submitting this issue, you agree to follow our [Code of Conduct](.github/CODE_OF_CONDUCT.md)
+By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/RyanLua/Signs?tab=coc-ov-file)
